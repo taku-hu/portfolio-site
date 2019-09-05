@@ -43,7 +43,7 @@ export default {
 footer {
   width: 100%;
   .footer-top {
-    background-color: rgb(71, 183, 204);
+    background-color: #47b7cc;
     height: 3rem;
     @include center-styling;
     nav {

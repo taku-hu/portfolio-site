@@ -139,7 +139,7 @@ export default {
           margin-bottom: 1rem;
         }
         a.show-all {
-          margin-bottom: 2rem;
+          margin-bottom: 1rem;
         }
       } //.show-box
     } //.skills-box

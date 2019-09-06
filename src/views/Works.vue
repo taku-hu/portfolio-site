@@ -1,13 +1,15 @@
-<!--v-bind:style="{ backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url('${publicPath}${work.image}')` }"-->
- <template>
+<template>
   <section>
     <div class="works-box">
       <h3>My Works</h3>
       <div class="works-wrapper">
-        <div class="card"
+        <div class="works-box"
          v-for="work in works"
-         v-bind:key="work.name">
-          <div class="face face1">
+         v-bind:key="work.name"
+         v-on:mouseenter="changeColor(work)"
+         v-on:mouseleave="returnColor(work)">
+          <div class="face face1"
+          v-bind:style="{ backgroundColor: work.color }">
             <span v-html="work.icon"></span>
             <h4>{{ work.name }}</h4>
             <a v-bind:href="work.link" target="_blank">
@@ -32,7 +34,6 @@ export default {
   name: 'works',
   data() {
     return {
-      publicPath: process.env.BASE_URL,
       works: [
         {name: 'ポートフォリオサイト', icon: '<i class="fas fa-address-card"></i>', color: '#3340cb', link: 'https://github.com/taku-hu/my-portfolio-site',
         description: `
@@ -61,6 +62,15 @@ export default {
       ], //works
       colorHolder: ''
     } //return
+  },
+  methods: {
+    changeColor: function(item) {
+      this.colorHolder = item.color
+      item.color = '#ff0057'
+    },
+    returnColor: function(item) {
+      item.color = this.colorHolder
+    }
   }
 }
 </script>
@@ -78,13 +88,12 @@ export default {
     @include center-styling;
     flex-direction: row;
     flex-wrap: wrap;
-    .card {
+    .works-box {
       position: relative;
       width: 350px;
       height: 230px;
       margin: 85px 10px;
       &:hover .face.face1 {
-        background-color: #ff0057;
         transform: translateY(-115px);
         span {
           margin-bottom: 10px;
@@ -109,7 +118,6 @@ export default {
         position: absolute;
         z-index: 1;
         color: #fff;
-        background-color: #333;
         span {
           font-size: 5rem;
         }

@@ -3,7 +3,7 @@
     <div class="works-box">
       <h3>My Works</h3>
       <div class="works-wrapper">
-        <div class="works-box"
+        <div class="work-box"
          v-for="work in works"
          v-bind:key="work.name"
          v-on:mouseenter="changeColor(work)"
@@ -88,7 +88,7 @@ export default {
     @include center-styling;
     flex-direction: row;
     flex-wrap: wrap;
-    .works-box {
+    .work-box {
       position: relative;
       width: 350px;
       height: 230px;

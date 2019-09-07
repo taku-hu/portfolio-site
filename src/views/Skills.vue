@@ -103,8 +103,7 @@ export default {
       @include section-heading;
     }
     .show-box {
-      @include center-styling;
-      flex-direction: row;
+      @include center-styling($direction: row);
       margin-bottom: 40px;
       p.subheading {
         font-family: 'Orbitron', sans-serif;

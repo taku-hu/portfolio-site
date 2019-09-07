@@ -85,9 +85,7 @@ export default {
     @include section-heading;
   }
   .works-wrapper {
-    @include center-styling;
-    flex-direction: row;
-    flex-wrap: wrap;
+    @include center-styling($wrap: wrap, $direction: row);
     .work-box {
       position: relative;
       width: 350px;

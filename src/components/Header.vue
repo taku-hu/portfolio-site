@@ -25,7 +25,7 @@
     v-on:click="toggleMenu"></div>
 
     <!-- navigation-drawer -->
-    <transition name="slide">
+     <transition name="slide">
       <div class="drawer-menu" v-show="active">
         <nav>
           <ul>
@@ -37,7 +37,7 @@
           </ul>
         </nav>
       </div>
-    </transition>
+     </transition>
     <!-- navigation-drawer -->
 
     <h1>Taku's</h1>
@@ -80,11 +80,12 @@ header {
   width: 100%;
   height: 100vh;
   font-family: 'Orbitron', sans-serif;
-  color: white;
+  color: #fff;
   text-shadow: 1px 2px 3px #1c1c1c;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(71, 183, 204, 0.6),rgba(10, 19, 255, 0.6)),url("~@/assets/images/header-image.jpg");
   background-size: cover;
+  margin-bottom: 3rem;
   .header-navi {
     position: fixed;
     top: 0;
@@ -159,7 +160,7 @@ header {
     nav {
       width: 100%;
       li {
-        padding: 1rem;
+        padding: 1.5rem;
         &:not(:last-child) {
           border-bottom: 1px solid #fff;
         }
@@ -167,7 +168,6 @@ header {
           @include button-sizing;
           color: #fff;
           font-size: 1.5rem;
-          line-height: 2rem;
         }
       } //li
     } //nav
@@ -213,7 +213,6 @@ header {
     }
   } //a.down-button
 } //header
-
 @media screen and (max-width: 896px) {
   header {
     .menu-button {
@@ -227,19 +226,15 @@ header {
 
 // 上下スライドトランジション
 .slide-enter-active {
-   transition-duration: 0.3s;
-   transition-timing-function: ease-in;
+  transitio: 0.3s;
 }
 .slide-leave-active {
-   transition-duration: 0.3s;
-   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  transition: 0.3s;
 }
 .slide-enter-to, .slide-leave {
-   max-height: 100px;
-   overflow: hidden;
+  max-height: 12rem;
 }
 .slide-enter, .slide-leave-to {
-   max-height: 0;
-   overflow: hidden;
+  max-height: 0;
 }
 </style>

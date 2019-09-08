@@ -7,7 +7,8 @@
          v-for="work in works"
          v-bind:key="work.name"
          v-on:mouseenter="changeColor(work)"
-         v-on:mouseleave="returnColor(work)">
+         v-on:mouseleave="returnColor(work)"
+         ontouchstart="">
           <div class="face face1"
           v-bind:style="{ backgroundColor: work.color }">
             <span v-html="work.icon"></span>
@@ -88,11 +89,11 @@ export default {
     @include center-styling($wrap: wrap, $direction: row);
     .work-box {
       position: relative;
-      width: 350px;
-      height: 230px;
-      margin: 85px 10px;
+      width: 20rem;
+      height: 15rem;
+      margin: 5rem 1rem;
       &:hover .face.face1 {
-        transform: translateY(-115px);
+        transform: translateY(-7.5rem);
         span {
           margin-bottom: 10px;
         }
@@ -104,7 +105,7 @@ export default {
         }
       }
       &:hover .face.face2 {
-        transform: translateY(115px);
+        transform: translateY(7.5rem);
       }
     } //.card
     .face {

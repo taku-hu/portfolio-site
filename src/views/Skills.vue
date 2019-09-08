@@ -2,9 +2,9 @@
   <section>
     <div class="skills-box">
       <h3>My Skills</h3>
-      <div class="show-box">
+      <div class="skill-box">
         <p class="subheading">Click the item <span>or</span></p>
-        <a class="show-all" v-on:click="toggleAll(); change()">
+        <a class="show-all" v-on:click="toggleAll">
           {{ toggleMessage }}
           <i class="fas fa-sort"></i>
         </a>
@@ -78,8 +78,9 @@ export default {
           skill.show = false
         }
       } // for of
+      this.changeMessage()
     },
-    change: function() {
+    changeMessage: function() {
       if(this.toggleMessage === 'Show all') {
         this.toggleMessage = 'Close all'
       } else {
@@ -102,7 +103,7 @@ export default {
     h3 {
       @include section-heading;
     }
-    .show-box {
+    .skill-box {
       @include center-styling($direction: row);
       margin-bottom: 40px;
       p.subheading {
@@ -132,7 +133,7 @@ export default {
 
   @media screen and (max-width: 480px) {
     .skills-box {
-      .show-box {
+      .skill-box {
         @include center-styling;
         p.subheading {
           margin-bottom: 1rem;

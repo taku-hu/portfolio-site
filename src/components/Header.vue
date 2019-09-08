@@ -26,7 +26,7 @@
 
     <!-- navigation-drawer -->
      <transition name="slide">
-      <div class="drawer-menu" v-show="active">
+      <div class="drawer-menu" v-show="active" v-on:click="toggleMenu">
         <nav>
           <ul>
             <li v-for="page in pages" v-bind:key="page.name">

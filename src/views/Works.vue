@@ -144,7 +144,7 @@ export default {
         box-sizing: border-box;
         text-align: left;
         padding: 5px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        box-shadow: 1px 1px 6px 0px #b2b2b2;
         p {
           word-break: break-all;
           line-height: 1.5;

@@ -68,7 +68,7 @@ body {
     @include center-styling;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(135deg, rgba(71, 183, 204, 0.6),rgba(10, 19, 255, 0.6)),url("~@/assets/images/header-image.jpg");
+    background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
     background-size: cover;
     h1 {
       font-family: 'Orbitron', sans-serif;

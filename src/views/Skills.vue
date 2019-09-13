@@ -26,7 +26,7 @@ export default {
       skills: [
         {name: 'HTML・CSS', bgColor: 'orangered', show: false,
         description: `
-        両方共に主要な機能は理解しています。
+        両方共に主要な機能は理解しています。<br>
         「flexbox」や「grid」を使いレスポンシブなウェブサイトを作ることが出来ます。
         `
         },
@@ -37,32 +37,32 @@ export default {
         },
         {name: 'JavaScript', bgColor: 'gold', show: false,
         description: `
-        私が現在メインで学習しており最も関心のある言語です。
-        基本的な仕様については理解しており、全てES6以降の型で学習いたしました。
+        私が現在メインで学習しており最も関心のある言語です。<br>
+        基本的な仕様については理解しており、全てES6以降の型で学習いたしました。<br>
         Vue.jsはもちろん、JavaScript自体の知見もより深めていきたいと思っているので、日々コードを動かしながら学習しています。
         `
         },
         {name: 'Vue.js', bgColor: 'mediumseagreen', show: false,
         description: `
-        主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。
+        主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。<br>
         WORKSに載せているポートフォリオは全てVue.jsで開発しました。
         `
         },
         {name: 'Firebase', bgColor: 'orange', show: false,
         description: `
-        本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。
+        本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
         概要は理解していますが、より使いこなせるように更なる学習を重ねています。
         `
         },
         {name: 'Git・Github', bgColor: 'black', show: false,
         description: `
-        Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。
+        Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。<br>
         機能や仕組みは理解しているので複数人での開発にも対応できます。
         `
         },
         {name: 'webpack', bgColor: 'skyblue', show: false,
         description: `
-        vue-cli等のカスタマイズや、1からJavaScriptの開発環境の構築をする事が出来ます。
+        1からJavaScriptの開発環境の構築をする事が出来ます。
         `
         }
       ],//skills

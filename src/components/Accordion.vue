@@ -15,7 +15,7 @@
       <transition name="slide">
         <div class="box" v-show="skill.show">
           <img v-bind:src="require(`@/assets/images/${skill.name}.png`)">
-          <p>{{ skill.description }}</p>
+          <p v-html="skill.description"></p>
         </div>
       </transition>
     </div> <!-- accordion -->

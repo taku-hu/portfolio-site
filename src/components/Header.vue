@@ -83,7 +83,7 @@ header {
   color: #fff;
   text-shadow: 1px 2px 3px #1c1c1c;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(71, 183, 204, 0.6),rgba(10, 19, 255, 0.6)),url("~@/assets/images/header-image.jpg");
+  background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)),url("~@/assets/images/header-image.jpg");
   background-size: cover;
   margin-bottom: 3rem;
   .header-navi {
@@ -245,41 +245,45 @@ header {
     content: attr(data-text);
     position: absolute;
     top: 0;
-    left: 2px;
+    left: -2px;
+    text-shadow: -2px 0 #ff00c1;
     width: 100%;
     height: 100%;
-    text-shadow: -2px 0 #ff00c1;
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
+    color:white;
+    background: rgba(30, 45, 201, 0.7);
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim-2 3s infinite linear alternate-reverse;
   }
   &:after {
     content: attr(data-text);
     position: absolute;
     top: 0;
-    left: -2px;
+    left: 2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
     width: 100%;
     height: 100%;
-    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-    animation: glitch-anim2 1s infinite linear alternate-reverse;
+    background: rgba(30, 45, 201, 0.7);
+    overflow: hidden;
+    clip: rect(0,900px,0,0);
+    animation: noise-anim 2s infinite linear alternate-reverse;
   }
 }
 
-@keyframes glitch-anim {
-  $steps: 20;
+@keyframes noise-anim {
+  $steps:20;
   @for $i from 0 through $steps {
     #{percentage($i*(1/$steps))} {
       clip: rect(random(100)+px, 9999px, random(100)+px, 0);
-      transform: skew((random(100) / 100) + deg);
     }
   }
 }
 
-@keyframes glitch-anim2 {
-  $steps: 20;
+@keyframes noise-anim-2 {
+  $steps:20;
   @for $i from 0 through $steps {
     #{percentage($i*(1/$steps))} {
       clip: rect(random(100)+px, 9999px, random(100)+px, 0);
-      transform: skew((random(100) / 100) + deg);
     }
   }
 }

@@ -83,7 +83,7 @@ header {
   color: #fff;
   text-shadow: 1px 2px 3px #1c1c1c;
   overflow: hidden;
-  background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)),url("~@/assets/images/header-image.jpg");
+  background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
   background-size: cover;
   margin-bottom: 3rem;
   .header-navi {

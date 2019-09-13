@@ -91,7 +91,7 @@ export default {
       position: relative;
       width: 20rem;
       height: 15rem;
-      margin: 5rem 1rem;
+      margin: 7.5rem 1rem;
       &:hover .face.face1 {
         transform: translateY(-7.5rem);
         span {

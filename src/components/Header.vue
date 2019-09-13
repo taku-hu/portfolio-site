@@ -40,9 +40,9 @@
      </transition>
     <!-- navigation-drawer -->
 
-    <h1>Taku's</h1>
-    <h2>portfolio site</h2>
-    <p>Welcome to my site!</p>
+    <h1 class="glitch" data-text="Taku's">Taku's</h1>
+    <h2 class="glitch" data-text="portfolio site">portfolio site</h2>
+    <p class="glitch" data-text="Welcome to my site!">Welcome to my site!</p>
     <a href="#landing" class="down-button">
       <i class="fas fa-angle-down"></i>
     </a>
@@ -236,5 +236,51 @@ header {
 }
 .slide-enter, .slide-leave-to {
   max-height: 0;
+}
+
+//グリッチアニメーション
+.glitch {
+  position: relative;
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 2px;
+    width: 100%;
+    height: 100%;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  &:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: -2px;
+    width: 100%;
+    height: 100%;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    animation: glitch-anim2 1s infinite linear alternate-reverse;
+  }
+}
+
+@keyframes glitch-anim {
+  $steps: 20;
+  @for $i from 0 through $steps {
+    #{percentage($i*(1/$steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+      transform: skew((random(100) / 100) + deg);
+    }
+  }
+}
+
+@keyframes glitch-anim2 {
+  $steps: 20;
+  @for $i from 0 through $steps {
+    #{percentage($i*(1/$steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+      transform: skew((random(100) / 100) + deg);
+    }
+  }
 }
 </style>

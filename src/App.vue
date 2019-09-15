@@ -11,7 +11,6 @@
         </transition>
         <footer-component></footer-component>
       </div>
-      <a class="move" href="#">MORE&nbsp;<i class="fas fa-angle-right"></i></a>
     </transition>
   </div>
 </template>
@@ -21,6 +20,9 @@ import HeaderComponent from '@/components/Header.vue'
 import FooterComponent from '@/components/Footer.vue'
 export default {
   name: 'App',
+  mounted: function() {
+    this.$nextTick(() => this.addTypingMovement('Welcome to my website!'))
+  },
   data() {
     return {
       title: '',
@@ -44,9 +46,6 @@ export default {
   components: {
     'header-component': HeaderComponent,
     'footer-component': FooterComponent
-  },
-  created: function() {
-    this.$nextTick(() => this.addTypingMovement('Welcome to my homepage!'))
   }
 }
 </script>
@@ -70,17 +69,11 @@ body {
     background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
     background-size: cover;
     h1 {
+      @include txt-neon-shadow;
       font-family: 'Orbitron', sans-serif;
       font-size: 5rem;
       font-weight: bold;
       color: #fff;
-      text-shadow:
-      0 0 15px rgba(255, 255, 255, .5),
-      0 0 30px rgba(255, 255, 255, .5),
-      0 0 40px rgba(52, 152, 219, 1),
-      0 0 50px rgba(52, 152, 219, 1),
-      0 0 60px rgba(52, 152, 219, 1),
-      0 0 70px rgba(52, 152, 219, 1);
     }
   }
   .after-title-call {

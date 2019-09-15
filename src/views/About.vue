@@ -26,8 +26,8 @@ export default {
         {th: 'Name', td: '竹内 琢人（Takeuchi Takuto）', link: null},
         {th: 'Occupation', td: '大学生', link: null},
         {th: 'University', td: '法政大学 経済学部 国際経済学科', link: null},
-        {th: 'Qiita', td: '▶ @yzli_taku', link: 'https://qiita.com/yzli_taku'},
-        {th: 'Github', td: '▶ taku-hu', link: 'https://github.com/taku-hu'},
+        {th: 'Qiita', td: '▶taku-hu', link: 'https://qiita.com/taku-hu'},
+        {th: 'Github', td: '▶taku-hu', link: 'https://github.com/taku-hu'},
         {th: 'Mail', td: 'hs.tm.ec.a.tt@gmail.com', link: null}
       ],
     }

@@ -82,7 +82,6 @@ export default {
 .works-box {
   @include section-box("WORKS");
   @include center-styling;
-  width: 80%;
   h3 {
     @include section-heading;
   }

@@ -19,28 +19,23 @@
     </div>
     <!--humburger-menu-button -->
 
-    <div
-    class="overlay"
-    v-show="active"
-    v-on:click="toggleMenu"></div>
+    <div class="overlay" v-show="active" v-on:click="toggleMenu"></div>
 
     <!-- navigation-drawer -->
-     <transition name="slide">
-      <div class="drawer-menu" v-show="active" v-on:click="toggleMenu">
-        <nav>
-          <ul>
-            <li v-for="page in pages" v-bind:key="page.name">
-              <router-link v-bind:to="page.path">
-                {{ page.name }}
-              </router-link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-     </transition>
+    <div class="drawer-menu" v-bind:class="{'menu-open' : active}" v-on:click="toggleMenu">
+      <nav>
+        <ul>
+          <li v-for="page in pages" v-bind:key="page.name">
+            <router-link v-bind:to="page.path">
+              {{ page.name }}
+            </router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <!-- navigation-drawer -->
 
-    <h1 class="glitch" data-text="Taku's">Taku's</h1>
+    <h1 class="glitch" data-text="Takuto's">Takuto's</h1>
     <h2 class="glitch" data-text="portfolio site">portfolio site</h2>
     <p class="glitch" data-text="Welcome to my site!">Welcome to my website!</p>
     <a href="#landing" class="down-button">
@@ -83,18 +78,17 @@ header {
   font-family: 'Orbitron', sans-serif;
   color: #fff;
   text-shadow: 1px 2px 3px #1c1c1c;
-  overflow: hidden;
-  background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
+  background: linear-gradient(rgba(28, 37, 255, 0.6), rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
   background-size: cover;
   margin-bottom: 3rem;
   .header-navi {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
     height: 3.5rem;
-    background-color: rgba(25, 25, 25, 0.9);
+    background-color: #000;
     nav {
       width: 100%;
       ul {
@@ -109,33 +103,30 @@ header {
         font-size: 1.5rem;
         font-weight: bold;
         text-shadow: none;
-        user-select: none;
         &:not(:last-child) {
           border-right: 1px solid #fff;
-        }
-        &:hover {
-          background-color: #fff;
         }
         a {
           @include button-sizing;
           color: #fff;
+          transition: 0.5s;
           &.router-link-exact-active {
             color: #000;
             background-color: #fff;
-            transition: 0.7s;
           }
           &:hover {
             color: #000;
-            transition: 0.7s;
+            background-color: #fff;
           }
         }
       }//li
     } //nav
   } //.header-navi
   .menu-button {
+    @include center-styling;
     display: none;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     top: 0;
     left: 3%;
     font-size: 2rem;
@@ -154,14 +145,20 @@ header {
   .drawer-menu {
     position: fixed;
     z-index: 2;
-    top: 3.5rem;
+    top: -12.5rem;
     left: 0;
     width: 100%;
     background-color: rgba(34, 34, 34, 0.9);
+    transition: 0.5s;
+    &.menu-open {
+      transform: translateY(16rem);
+    }
     nav {
       width: 100%;
       li {
-        padding: 1.5rem;
+        width: 100%;
+        height: 4rem;
+        box-sizing: border-box;
         &:not(:last-child) {
           border-bottom: 1px solid #fff;
         }
@@ -169,37 +166,41 @@ header {
           @include button-sizing;
           color: #fff;
           font-size: 1.5rem;
+          line-height: 4rem;
         }
       } //li
     } //nav
   } //menu
   h1 {
-    margin-bottom: 5rem;
     font-size: 6rem;
     letter-spacing: 0.2rem;
+    margin-bottom: 5rem;
+    user-select: none;
   }
   h2 {
     font-size: 3rem;
     letter-spacing: 0.3rem;
     margin-bottom: 10rem;
+    user-select: none;
   }
   p {
     font-size: 1.5rem;
+    user-select: none;
   }
-  a.down-button {
+  .down-button {
     display: block;
     position: absolute;
     bottom: 0;
     margin: 0 auto;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
     border: 1px solid #fff;
+    border-radius: 50%;
+    transition: 0.5s;
     &:hover {
       background-color: #fff;
       color: rgba(9, 63, 209, 0.9);
-      transform: scale(0.8);
-      transition: 0.8s;
+      transform: scale(0.5);
     }
     i {
       height:40px;
@@ -209,35 +210,11 @@ header {
       line-height: 40px;
       text-shadow: none;
       &:hover {
-         color: rgb(9, 63, 209);
+         color: #0000ff;
       }
     }
   } //a.down-button
 } //header
-@media screen and (max-width: 896px) {
-  header {
-    .menu-button {
-      display: block;
-    }
-    .header-navi nav {
-      display: none;
-    } //.header-navi
-  } //header
-} //@media
-
-// 上下スライドトランジション
-.slide-enter-active {
-  transitio: 0.3s;
-}
-.slide-leave-active {
-  transition: 0.3s;
-}
-.slide-enter-to, .slide-leave {
-  max-height: 12rem;
-}
-.slide-enter, .slide-leave-to {
-  max-height: 0;
-}
 
 //グリッチアニメーション
 .glitch {
@@ -288,4 +265,15 @@ header {
     }
   }
 }
+
+@media screen and (max-width: 896px) {
+  header {
+    .menu-button {
+      display: block;
+    }
+    .header-navi nav {
+      display: none;
+    } //.header-navi
+  } //header
+} //@media
 </style>

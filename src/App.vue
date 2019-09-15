@@ -62,6 +62,7 @@ body {
 #app {
   @include center-styling;
   text-align: center;
+  overflow: hidden;
   .before-title-call {
     @include center-styling;
     width: 100%;

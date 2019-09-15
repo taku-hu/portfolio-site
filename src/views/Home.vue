@@ -24,7 +24,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 section {
   @include center-styling;
   width: 100%;

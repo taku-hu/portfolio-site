@@ -36,7 +36,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 .about-box {
   @include section-box("ABOUT");
   @include center-styling;

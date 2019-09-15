@@ -39,7 +39,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 footer {
   width: 100%;
   .footer-top {

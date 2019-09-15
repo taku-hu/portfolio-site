@@ -95,7 +95,8 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/styles/_mixin.scss';
+  @import '@/assets/styles/_fragments.scss';
+
   .skills-box {
     @include section-box("SKILLS");
     @include center-styling;

@@ -56,7 +56,8 @@ export default {
 
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 .accordion-wrapper {
   margin: 0 auto;
   width: 100%;

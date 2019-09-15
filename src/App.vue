@@ -53,17 +53,17 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
   font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
 }
-
 #app {
-  text-align: center;
   @include center-styling;
+  text-align: center;
   .before-title-call {
     @include center-styling;
     width: 100%;

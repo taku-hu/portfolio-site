@@ -6,13 +6,12 @@
     <transition name="switch">
       <div v-show="afterTitleCall" class="after-title-call">
         <header-component></header-component>
-
         <transition name="switch">
           <router-view></router-view>
         </transition>
-
         <footer-component></footer-component>
       </div>
+      <a class="move" href="#">MORE&nbsp;<i class="fas fa-angle-right"></i></a>
     </transition>
   </div>
 </template>
@@ -85,7 +84,12 @@ body {
     }
   }
   .after-title-call {
+    @include center-styling;
     width: 100%;
+    section {
+      @include center-styling;
+      width: 100%;
+    }
     a {
       text-decoration: none;
     }

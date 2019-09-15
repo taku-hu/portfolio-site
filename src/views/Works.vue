@@ -146,8 +146,8 @@ export default {
         padding: 5px;
         box-shadow: 1px 1px 6px 0px #b2b2b2;
         p {
-          word-break: break-all;
           line-height: 1.5;
+          word-break: break-all;
         }
       } //.face2
     } //.face

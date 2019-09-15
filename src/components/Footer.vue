@@ -44,9 +44,9 @@ export default {
 footer {
   width: 100%;
   .footer-top {
-    background-color: #47b7cc;
-    height: 3rem;
     @include center-styling;
+    height: 3rem;
+    background-color: #47b7cc;
     nav {
       width: 100%;
       ul {
@@ -61,7 +61,6 @@ footer {
           }
           a {
             @include button-sizing;
-            font-size: 1rem;
             font-family: 'Orbitron', sans-serif;
             color: #000;
           }
@@ -70,16 +69,13 @@ footer {
     } //nav
   } //footer-top
   .footer-bottom {
-    background-color: #1a1a1a;
     height: 5rem;
+    background-color: $base-black;
     small {
-      color: white;
+      color: #fff;
       font-size: 1rem;
       line-height: 5rem;
     }
   } //footer-bottom
 } //footer
-
-@media screen and (max-width: 480px) {
-} //@media
 </style>

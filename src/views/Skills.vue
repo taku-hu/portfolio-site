@@ -95,17 +95,17 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '@/assets/styles/_mixin.scss';
+  @import '@/assets/styles/_fragments.scss';
+
   .skills-box {
     @include section-box("SKILLS");
     @include center-styling;
-    width: 80%;
     h3 {
       @include section-heading;
     }
     .skill-box {
       @include center-styling($direction: row);
-      margin-bottom: 40px;
+      margin-bottom: 3rem;
       p.subheading {
         font-family: 'Orbitron', sans-serif;
         font-size: 2rem;
@@ -116,16 +116,16 @@ export default {
       }
       a.show-all {
         display: block;
-        border: solid 1px;
+        border: 1px solid #000;
         width: 100px;
         height: 30px;
         line-height: 30px;
         font-weight: bold;
         cursor: pointer;
+        transition: 0.2s;
         &:hover {
-          background-color: #000;
           color: #fff;
-          transition: 0.2s;
+          background-color: #000;
         }
       }
     } //.show-box

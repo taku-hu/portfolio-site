@@ -6,8 +6,6 @@
         <div class="work-box"
          v-for="work in works"
          v-bind:key="work.name"
-         v-on:mouseenter="changeColor(work)"
-         v-on:mouseleave="returnColor(work)"
          ontouchstart="">
           <div class="face face1"
           v-bind:style="{ backgroundColor: work.color }">
@@ -61,27 +59,17 @@ export default {
         `
         }
       ], //works
-      colorHolder: ''
     } //return
-  },
-  methods: {
-    changeColor: function(item) {
-      this.colorHolder = item.color
-      item.color = '#ff0057'
-    },
-    returnColor: function(item) {
-      item.color = this.colorHolder
-    }
   }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 .works-box {
   @include section-box("WORKS");
   @include center-styling;
-  width: 80%;
   h3 {
     @include section-heading;
   }
@@ -95,10 +83,10 @@ export default {
       &:hover .face.face1 {
         transform: translateY(-7.5rem);
         span {
-          margin-bottom: 10px;
+          margin-bottom: 1rem;
         }
         h4 {
-          margin-bottom: 15px;
+          margin-bottom: 1.5rem;
         }
         a {
           display: block;
@@ -128,10 +116,10 @@ export default {
           display: none;
           width: 100px;
           height: 40px;
-          font-size: 0.9rem;
           line-height: 40px;
-          background-color: #fff;
+          border: 1px solid #000;
           color: #000;
+          background-color: #fff;
           &:hover {
             color: #fff;
             background-color: #000;
@@ -141,13 +129,13 @@ export default {
       &.face2 {
         @include center-styling;
         position: absolute;
-        box-sizing: border-box;
         text-align: left;
-        padding: 5px;
+        padding: 0.5rem;
+        box-sizing: border-box;
         box-shadow: 1px 1px 6px 0px #b2b2b2;
         p {
-          word-break: break-all;
           line-height: 1.5;
+          word-break: break-all;
         }
       } //.face2
     } //.face

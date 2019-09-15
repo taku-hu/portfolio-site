@@ -9,7 +9,7 @@
         v-bind:style="{ backgroundColor: skill.bgColor }">
         <h2>
           {{ skill.name }}&nbsp;
-        <i class="  fa fa-angle-down label-icon" v-bind:class="{ rotate : skill.show }"></i>
+        <i class="fa fa-angle-down label-icon" v-bind:class="{ rotate : skill.show }"></i>
         </h2>
       </div> <!-- label -->
       <transition name="slide">
@@ -44,9 +44,9 @@ export default {
   beforeUpdate: function() {
     const checkTrue = this.inheritedSkills.every(value => value.show === true )
     const checkFalse = this.inheritedSkills.every(value => value.show === false )
-    if(checkTrue === true) {
+    if(checkTrue) {
       this.inherited_message = 'Close all'
-    } else if(checkFalse === true) {
+    } else if(checkFalse) {
       this.inherited_message = 'Show all'
     }
     this.$emit('update:inheritedMessage', this.inherited_message)
@@ -56,20 +56,16 @@ export default {
 
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 .accordion-wrapper {
-  margin: 0 auto;
+  @include center-styling(wrap, row, space-around, flex-start);
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
   .accordion {
     width: 30rem;
-    height: auto;
-    margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 1px 1px 6px 0px #b2b2b2;
+    margin-bottom: 1rem;
     .label {
       width: 100%;
       height: 2rem;
@@ -84,24 +80,25 @@ export default {
         .label-icon {
           font-size: 1.5rem;
           transition: 0.3s;
+          &.rotate {
+            transform: rotateX(180deg);
+            transition: 0.3s;
+          } // 回転アニメーション
         }
       }
     } //.header
     .box {
-      padding: 5px;
+      @include center-styling($direction: row, $justify: space-around);
+      width: 100%;
       box-sizing: border-box;
       background-color: #fff;
       border-radius: 0 0 5px 5px;
-      width: 100%;
-      display: flex;
-      align-items: center;
       img {
         display: block;
-        width: 100px;
-        height: 100px;
-        margin-right: 5px;
+        width: 6rem;
       }
       p {
+        width: 22rem;
         line-height: 2;
         text-align-last: left;
         word-break: break-all;
@@ -110,13 +107,8 @@ export default {
   } //.accordion
 } // accordion-wrapper
 
-// 回転アニメーション
-.rotate {
-  transform: rotateX(180deg);
-  transition: 0.3s;
-}
 
-// 開閉アニメーショントランジション
+// 開閉アニメーション
 .slide-enter-active {
   transition-duration: 0.3s;
   transition-timing-function: ease-in;

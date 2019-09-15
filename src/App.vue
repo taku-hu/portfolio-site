@@ -6,11 +6,9 @@
     <transition name="switch">
       <div v-show="afterTitleCall" class="after-title-call">
         <header-component></header-component>
-
         <transition name="switch">
           <router-view></router-view>
         </transition>
-
         <footer-component></footer-component>
       </div>
     </transition>
@@ -22,6 +20,9 @@ import HeaderComponent from '@/components/Header.vue'
 import FooterComponent from '@/components/Footer.vue'
 export default {
   name: 'App',
+  mounted: function() {
+    this.$nextTick(() => this.addTypingMovement('Welcome to my website!'))
+  },
   data() {
     return {
       title: '',
@@ -45,25 +46,23 @@ export default {
   components: {
     'header-component': HeaderComponent,
     'footer-component': FooterComponent
-  },
-  created: function() {
-    this.$nextTick(() => this.addTypingMovement('Welcome to my homepage!'))
   }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_mixin.scss';
+@import '@/assets/styles/_fragments.scss';
+
 html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
   font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
 }
-
 #app {
-  text-align: center;
   @include center-styling;
+  text-align: center;
+  overflow: hidden;
   .before-title-call {
     @include center-styling;
     width: 100%;
@@ -71,21 +70,20 @@ body {
     background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
     background-size: cover;
     h1 {
+      @include txt-neon-shadow;
       font-family: 'Orbitron', sans-serif;
       font-size: 5rem;
       font-weight: bold;
       color: #fff;
-      text-shadow:
-      0 0 15px rgba(255, 255, 255, .5),
-      0 0 30px rgba(255, 255, 255, .5),
-      0 0 40px rgba(52, 152, 219, 1),
-      0 0 50px rgba(52, 152, 219, 1),
-      0 0 60px rgba(52, 152, 219, 1),
-      0 0 70px rgba(52, 152, 219, 1);
     }
   }
   .after-title-call {
+    @include center-styling;
     width: 100%;
+    section {
+      @include center-styling;
+      width: 100%;
+    }
     a {
       text-decoration: none;
     }

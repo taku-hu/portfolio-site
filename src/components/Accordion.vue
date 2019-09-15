@@ -95,10 +95,10 @@ export default {
       border-radius: 0 0 5px 5px;
       img {
         display: block;
-        width: 6rem;
+        width: 20%;
       }
       p {
-        width: 22rem;
+        width: 70%;
         line-height: 2;
         text-align-last: left;
         word-break: break-all;

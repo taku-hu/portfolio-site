@@ -37,7 +37,7 @@
 
     <h1 class="glitch" data-text="Takuto's">Takuto's</h1>
     <h2 class="glitch" data-text="portfolio site">portfolio site</h2>
-    <p class="glitch" data-text="Welcome to my site!">Welcome to my website!</p>
+    <p class="glitch" data-text="Welcome to my website!">Welcome to my website!</p>
     <a href="#landing" class="down-button">
       <i class="fas fa-angle-down"></i>
     </a>

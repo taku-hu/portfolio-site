@@ -2,14 +2,14 @@
   <section>
     <div class="home-box">
       <div class="title">
-          <h1>
-            Takuto Takeuchi's<br>
-            Portfolio Site
-          </h1>
+        <h1>
+          Takuto Takeuchi's<br />
+          Portfolio Site
+        </h1>
       </div>
       <p>
-        私のポートフォリオサイトにお越しいただき、ありがとうございます.<br>
-        独学でフロントエンドエンジニアを目指す大学生です.<br>
+        私のポートフォリオサイトにお越しいただき、ありがとうございます.<br />
+        独学でフロントエンドエンジニアを目指す大学生です.<br />
         どうぞ、よろしくお願いいたします。
       </p>
     </div>
@@ -19,12 +19,12 @@
 
 <script>
 export default {
-  name: 'home',
-}
+  name: "home"
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import "@/assets/styles/_fragments.scss";
 
 .home-box {
   @include section-box("HOME");
@@ -39,7 +39,7 @@ export default {
     &:before,
     &:after {
       position: absolute;
-      content: '';
+      content: "";
       width: 20px;
       height: 50px;
       box-sizing: border-box;
@@ -57,7 +57,7 @@ export default {
       border-right: 1px solid #555;
     }
     h1 {
-      font-family: 'Orbitron', sans-serif;
+      font-family: "Orbitron", sans-serif;
       font-size: 2.5rem;
       font-weight: bold;
       line-height: 2;

@@ -19,27 +19,27 @@
 
 <script>
 export default {
-  name: 'FooterComponent',
+  name: "FooterComponent",
   data() {
     return {
       pages: [
-        {name: 'HOME', path: '/'},
-        {name: 'ABOUT', path: '/about'},
-        {name: 'SKILLS', path: '/skills'},
-        {name: 'WORKS', path: '/works'},
-      ],
-    }
+        { name: "HOME", path: "/" },
+        { name: "ABOUT", path: "/about" },
+        { name: "SKILLS", path: "/skills" },
+        { name: "WORKS", path: "/works" }
+      ]
+    };
   },
   methods: {
     pageSwitching: function(page) {
-      this.$router.push({ path: page.path })
+      this.$router.push({ path: page.path });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import "@/assets/styles/_fragments.scss";
 
 footer {
   width: 100%;
@@ -61,7 +61,7 @@ footer {
           }
           a {
             @include button-sizing;
-            font-family: 'Orbitron', sans-serif;
+            font-family: "Orbitron", sans-serif;
             color: #000;
           }
         }

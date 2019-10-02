@@ -22,7 +22,11 @@
     <div class="overlay" v-show="active" v-on:click="toggleMenu"></div>
 
     <!-- navigation-drawer -->
-    <div class="drawer-menu" v-bind:class="{'menu-open' : active}" v-on:click="toggleMenu">
+    <div
+      class="drawer-menu"
+      v-bind:class="{ 'menu-open': active }"
+      v-on:click="toggleMenu"
+    >
       <nav>
         <ul>
           <li v-for="page in pages" v-bind:key="page.name">
@@ -37,7 +41,9 @@
 
     <h1 class="glitch" data-text="Takuto's">Takuto's</h1>
     <h2 class="glitch" data-text="portfolio site">portfolio site</h2>
-    <p class="glitch" data-text="Welcome to my website!">Welcome to my website!</p>
+    <p class="glitch" data-text="Welcome to my website!">
+      Welcome to my website!
+    </p>
     <a href="#landing" class="down-button">
       <i class="fas fa-angle-down"></i>
     </a>
@@ -45,40 +51,44 @@
 </template>
 
 <script>
+import { mobileBrowser } from "@/mobileBrowser.js";
+
 export default {
-  name: 'HeaderComponent',
+  name: "HeaderComponent",
+  mixins: [mobileBrowser],
   data() {
     return {
       pages: [
-        {name: 'HOME', path: '/'},
-        {name: 'ABOUT', path: '/about'},
-        {name: 'SKILLS', path: '/skills'},
-        {name: 'WORKS', path: '/works'},
+        { name: "HOME", path: "/" },
+        { name: "ABOUT", path: "/about" },
+        { name: "SKILLS", path: "/skills" },
+        { name: "WORKS", path: "/works" }
       ],
       active: false,
-      currentPage: null,
-    }
+      currentPage: null
+    };
   },
   methods: {
-    toggleMenu: function () {
-      this.active = !this.active
+    toggleMenu: function() {
+      this.active = !this.active;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import "@/assets/styles/_fragments.scss";
 
 header {
   @include center-styling;
   position: relative;
   width: 100%;
-  height: 100vh;
-  font-family: 'Orbitron', sans-serif;
+  height: calc(var(--vh, 1vh) * 100);
+  font-family: "Orbitron", sans-serif;
   color: #fff;
   text-shadow: 1px 2px 3px #1c1c1c;
-  background: linear-gradient(rgba(28, 37, 255, 0.6), rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
+  background: linear-gradient(rgba(28, 37, 255, 0.6), rgba(28, 37, 255, 0.6)),
+    url("~@/assets/images/header-image.jpg");
   background-size: cover;
   margin-bottom: 3rem;
   .header-navi {
@@ -119,7 +129,7 @@ header {
             background-color: #fff;
           }
         }
-      }//li
+      } //li
     } //nav
   } //.header-navi
   .menu-button {
@@ -203,14 +213,14 @@ header {
       transform: scale(0.5);
     }
     i {
-      height:40px;
+      height: 40px;
       width: 40px;
       color: #fff;
       font-size: 30px;
       line-height: 40px;
       text-shadow: none;
       &:hover {
-         color: #0000ff;
+        color: #0000ff;
       }
     }
   } //a.down-button
@@ -227,7 +237,7 @@ header {
     text-shadow: -2px 0 #ff00c1;
     width: 100%;
     height: 100%;
-    color:white;
+    color: white;
     background: rgba(30, 45, 201, 0.7);
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
@@ -243,25 +253,25 @@ header {
     height: 100%;
     background: rgba(30, 45, 201, 0.7);
     overflow: hidden;
-    clip: rect(0,900px,0,0);
+    clip: rect(0, 900px, 0, 0);
     animation: noise-anim 2s infinite linear alternate-reverse;
   }
 }
 
 @keyframes noise-anim {
-  $steps:20;
+  $steps: 20;
   @for $i from 0 through $steps {
     #{percentage($i*(1/$steps))} {
-      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+      clip: rect(random(100) + px, 9999px, random(100) + px, 0);
     }
   }
 }
 
 @keyframes noise-anim-2 {
-  $steps:20;
+  $steps: 20;
   @for $i from 0 through $steps {
     #{percentage($i*(1/$steps))} {
-      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+      clip: rect(random(100) + px, 9999px, random(100) + px, 0);
     }
   }
 }

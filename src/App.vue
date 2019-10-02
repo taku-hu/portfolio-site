@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div v-show="!afterTitleCall" class="before-title-call">
-      <h1>{{ title }}</h1>
-    </div>
-    <transition name="switch">
-      <div v-show="afterTitleCall" class="after-title-call">
+    <transition name="switch" mode="out-in">
+      <div v-if="!titleCall" key="titleCall" class="before-title-call">
+        <h1>{{ title }}</h1>
+      </div>
+      <div v-else key="contents" class="after-title-call">
         <header-component></header-component>
         <transition name="switch">
           <router-view></router-view>
@@ -16,48 +16,52 @@
 </template>
 
 <script>
-import HeaderComponent from '@/components/Header.vue'
-import FooterComponent from '@/components/Footer.vue'
+import HeaderComponent from "@/components/Header.vue";
+import FooterComponent from "@/components/Footer.vue";
+import { mobileBrowser } from "@/mobileBrowser.js";
+
 export default {
-  name: 'App',
+  name: "App",
+  mixins: [mobileBrowser],
   mounted: function() {
-    this.$nextTick(() => this.addTypingMovement('Welcome to my website!'))
+    window.onload = this.addTypingMovement("Welcome to my website!");
   },
   data() {
     return {
-      title: '',
-      afterTitleCall: false
-    }
+      title: "",
+      titleCall: false
+    };
   },
   methods: {
     addTypingMovement: function(word) {
-      for(let i = 0; i < word.length; i++) {
+      for (let i = 0; i < word.length; i++) {
         setTimeout(() => {
-          this.title = this.title + word.slice(i, i + 1)
-        }, 200 * i)
-        if(i === word.length - 1) {
+          this.title = this.title + word.slice(i, i + 1);
+        }, 200 * i);
+        if (i === word.length - 1) {
           setTimeout(() => {
-            this.afterTitleCall = true
-          }, 200 * (i + 2))
+            this.titleCall = true;
+          }, 200 * (i + 2));
         } //最終ループ時に実行する処理
       }
     } //addTypingMovement
   },
   components: {
-    'header-component': HeaderComponent,
-    'footer-component': FooterComponent
+    HeaderComponent,
+    FooterComponent
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import "@/assets/styles/_fragments.scss";
 
 html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
-  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", sans-serif;
 }
 #app {
   @include center-styling;
@@ -66,12 +70,13 @@ body {
   .before-title-call {
     @include center-styling;
     width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(28, 37, 255, 0.6),rgba(28, 37, 255, 0.6)), url("~@/assets/images/header-image.jpg");
+    height: calc(var(--vh, 1vh) * 100);
+    background: linear-gradient(rgba(28, 37, 255, 0.6), rgba(28, 37, 255, 0.6)),
+      url("~@/assets/images/header-image.jpg");
     background-size: cover;
     h1 {
       @include txt-neon-shadow;
-      font-family: 'Orbitron', sans-serif;
+      font-family: "Orbitron", sans-serif;
       font-size: 5rem;
       font-weight: bold;
       color: #fff;
@@ -94,10 +99,12 @@ body {
 .switch-enter-active {
   transition: 1.5s;
 }
-.switch-enter-to, .switch-leave {
+.switch-enter-to,
+.switch-leave {
   opacity: 1;
 }
-.switch-enter, .switch-leave-to {
+.switch-enter,
+.switch-leave-to {
   opacity: 0;
 }
 </style>

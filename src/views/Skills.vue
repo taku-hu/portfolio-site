@@ -9,139 +9,164 @@
           <i class="fas fa-sort"></i>
         </a>
       </div>
-      <accordion-component v-bind:inheritedSkills="skills" v-bind:inheritedMessage.sync="toggleMessage"></accordion-component> <!-- 子コンポーネント -->
-    </div> <!-- skills-box -->
-    <a class="move" href="#" v-on:click.prevent="$router.push({ path: '/' }) ">
+      <accordion-component
+        v-bind:inheritedSkills="skills"
+        v-bind:inheritedMessage.sync="toggleMessage"
+      ></accordion-component>
+    </div>
+    <a class="move" href="#" v-on:click.prevent="$router.push({ path: '/' })">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </a>
   </section>
 </template>
 
 <script>
-import AccordionComponent from '@/components/Accordion.vue'
+import AccordionComponent from "@/components/Accordion.vue";
+
 export default {
-  name: 'Skills',
+  name: "Skills",
   data() {
     return {
       skills: [
-        {name: 'HTML・CSS', bgColor: 'orangered', show: false,
-        description: `
+        {
+          name: "HTML・CSS",
+          bgColor: "orangered",
+          show: false,
+          description: `
         両方共に主要な機能は理解しています。<br>
         「flexbox」や「grid」を使いレスポンシブなウェブサイトを作ることが出来ます。
         `
         },
-        {name: 'Sass', bgColor: 'hotpink', show: false,
-        description: `
+        {
+          name: "Sass",
+          bgColor: "hotpink",
+          show: false,
+          description: `
         開発に必要な基本的な機能は理解しています。
         `
         },
-        {name: 'JavaScript', bgColor: 'gold', show: false,
-        description: `
+        {
+          name: "JavaScript",
+          bgColor: "gold",
+          show: false,
+          description: `
         私が現在メインで学習しており最も関心のある言語です。<br>
         基本的な仕様については理解しており、全てES6以降の型で学習いたしました。<br>
         Vue.jsはもちろん、JavaScript自体の知見もより深めていきたいと思っているので、日々コードを動かしながら学習しています。
         `
         },
-        {name: 'Vue.js', bgColor: 'mediumseagreen', show: false,
-        description: `
+        {
+          name: "Vue.js",
+          bgColor: "mediumseagreen",
+          show: false,
+          description: `
         主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。<br>
         WORKSに載せているポートフォリオは全てVue.jsで開発しました。
         `
         },
-        {name: 'Firebase', bgColor: 'orange', show: false,
-        description: `
+        {
+          name: "Firebase",
+          bgColor: "orange",
+          show: false,
+          description: `
         本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
         概要は理解していますが、より使いこなせるように更なる学習を重ねています。
         `
         },
-        {name: 'Git・Github', bgColor: 'black', show: false,
-        description: `
+        {
+          name: "Git・Github",
+          bgColor: "black",
+          show: false,
+          description: `
         Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。<br>
         機能や仕組みは理解しているので複数人での開発にも対応できます。
         `
         },
-        {name: 'webpack', bgColor: 'skyblue', show: false,
-        description: `
+        {
+          name: "webpack",
+          bgColor: "skyblue",
+          show: false,
+          description: `
         1からJavaScriptの開発環境の構築をする事が出来ます。
         `
         }
-      ],//skills
-      toggleMessage: 'Show all'
-    } //ruturn
+      ], //skills
+      toggleMessage: "Show all"
+    }; //ruturn
   },
   methods: {
     toggleAll: function() {
-      for(let skill of this.skills) {
-        if(this.toggleMessage === 'Show all') {
-          skill.show = true
+      for (let skill of this.skills) {
+        if (this.toggleMessage === "Show all") {
+          skill.show = true;
         } else {
-          skill.show = false
+          skill.show = false;
         }
       } // for of
-      this.changeMessage()
+      this.changeMessage();
     },
     changeMessage: function() {
-      if(this.toggleMessage === 'Show all') {
-        this.toggleMessage = 'Close all'
+      if (this.toggleMessage === "Show all") {
+        this.toggleMessage = "Close all";
       } else {
-        this.toggleMessage = 'Show all'
+        this.toggleMessage = "Show all";
       }
     } //change
   },
   components: {
-    'accordion-component': AccordionComponent
+    "accordion-component": AccordionComponent
   }
-}
+};
 </script>
 
 <style lang="scss">
-  @import '@/assets/styles/_fragments.scss';
+@import "@/assets/styles/_fragments.scss";
 
-  .skills-box {
-    @include section-box("SKILLS");
-    @include center-styling;
-    h3 {
-      @include section-heading;
+.skills-box {
+  @include section-box("SKILLS");
+  @include center-styling;
+  h3 {
+    @include section-heading;
+  }
+  .skill-box {
+    @include center-styling($direction: row);
+    margin-bottom: 3rem;
+    p.subheading {
+      font-family: "Orbitron", sans-serif;
+      font-size: 2rem;
+      margin-right: 1rem;
+      span {
+        font-weight: bold;
+      }
     }
+    a.show-all {
+      display: block;
+      border: 1px solid #000;
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        color: #fff;
+        background-color: #000;
+      }
+    }
+  } //.show-box
+} //skills-box
+
+@media screen and (max-width: 480px) {
+  .skills-box {
     .skill-box {
-      @include center-styling($direction: row);
-      margin-bottom: 3rem;
+      @include center-styling;
       p.subheading {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2rem;
-        margin-right: 1rem;
-        span {
-          font-weight: bold;
-        }
+        margin-bottom: 1rem;
       }
       a.show-all {
-        display: block;
-        border: 1px solid #000;
-        width: 100px;
-        height: 30px;
-        line-height: 30px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.2s;
-        &:hover {
-          color: #fff;
-          background-color: #000;
-        }
+        margin-bottom: 1rem;
       }
     } //.show-box
-  } //skills-box
-
-  @media screen and (max-width: 480px) {
-    .skills-box {
-      .skill-box {
-        @include center-styling;
-        p.subheading {
-          margin-bottom: 1rem;
-        }
-        a.show-all {
-          margin-bottom: 1rem;
-        }
-      } //.show-box
-    } //.skills-box
-  } //@media
+  } //.skills-box
+} //@media
 </style>

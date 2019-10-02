@@ -1,30 +1,43 @@
 <template>
   <div class="accordion-wrapper">
-    <div class="accordion"
+    <div
+      class="accordion"
       v-for="skill in inheritedSkills"
       v-bind:key="skill.name"
-      v-bind:style="{  border: '8px' + ' ' + 'solid' + ' ' + skill.bgColor, backgroundColor: skill.bgColor  }">
-      <div class="label"
+      v-bind:style="{
+        border: '8px' + ' ' + 'solid' + ' ' + skill.bgColor,
+        backgroundColor: skill.bgColor
+      }"
+    >
+      <div
+        class="label"
         v-on:click="toggleAccordion(skill)"
-        v-bind:style="{ backgroundColor: skill.bgColor }">
+        v-bind:style="{ backgroundColor: skill.bgColor }"
+      >
         <h2>
           {{ skill.name }}&nbsp;
-        <i class="fa fa-angle-down label-icon" v-bind:class="{ rotate : skill.show }"></i>
+          <i
+            class="fa fa-angle-down label-icon"
+            v-bind:class="{ rotate: skill.show }"
+          ></i>
         </h2>
-      </div> <!-- label -->
+      </div>
+      <!-- label -->
       <transition name="slide">
         <div class="box" v-show="skill.show">
-          <img v-bind:src="require(`@/assets/images/${skill.name}.png`)">
+          <img v-bind:src="require(`@/assets/images/${skill.name}.png`)" />
           <p v-html="skill.description"></p>
         </div>
       </transition>
-    </div> <!-- accordion -->
-  </div> <!-- accordion-wrapper -->
+    </div>
+    <!-- accordion -->
+  </div>
+  <!-- accordion-wrapper -->
 </template>
 
 <script>
 export default {
-  name: 'AccordionComponent',
+  name: "AccordionComponent",
   props: {
     inheritedSkills: Array,
     inheritedMessage: String
@@ -32,31 +45,34 @@ export default {
   data() {
     return {
       inherited_message: this.inheritedMessage
-    }
+    };
   },
   methods: {
     toggleAccordion: function(skill) {
-      this.inheritedSkills.find(inheritedSkills => inheritedSkills.name === skill.name).show
-      =
-      !this.inheritedSkills.find(inheritedSkills => inheritedSkills.name === skill.name).show
+      this.inheritedSkills.find(
+        inheritedSkills => inheritedSkills.name === skill.name
+      ).show = !this.inheritedSkills.find(
+        inheritedSkills => inheritedSkills.name === skill.name
+      ).show;
     }
   },
   beforeUpdate: function() {
-    const checkTrue = this.inheritedSkills.every(value => value.show === true )
-    const checkFalse = this.inheritedSkills.every(value => value.show === false )
-    if(checkTrue) {
-      this.inherited_message = 'Close all'
-    } else if(checkFalse) {
-      this.inherited_message = 'Show all'
+    const checkTrue = this.inheritedSkills.every(value => value.show === true);
+    const checkFalse = this.inheritedSkills.every(
+      value => value.show === false
+    );
+    if (checkTrue) {
+      this.inherited_message = "Close all";
+    } else if (checkFalse) {
+      this.inherited_message = "Show all";
     }
-    this.$emit('update:inheritedMessage', this.inherited_message)
+    this.$emit("update:inheritedMessage", this.inherited_message);
   }
-}
+};
 </script>
 
-
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import "@/assets/styles/_fragments.scss";
 
 .accordion-wrapper {
   @include center-styling(wrap, row, space-around, flex-start);
@@ -107,7 +123,6 @@ export default {
   } //.accordion
 } // accordion-wrapper
 
-
 // 開閉アニメーション
 .slide-enter-active {
   transition-duration: 0.3s;
@@ -116,11 +131,13 @@ export default {
 .slide-leave-active {
   transition-duration: 0.3s;
 }
-.slide-enter-to, .slide-leave {
+.slide-enter-to,
+.slide-leave {
   max-height: 100px;
   overflow: hidden;
 }
-.slide-enter, .slide-leave-to {
+.slide-enter,
+.slide-leave-to {
   max-height: 0;
   overflow: hidden;
 }

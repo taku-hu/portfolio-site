@@ -23,8 +23,13 @@ import { mobileBrowser } from "@/mobileBrowser.js";
 export default {
   name: "App",
   mixins: [mobileBrowser],
-  mounted: function() {
-    window.onload = this.addTypingMovement("Welcome to my website!");
+  mounted() {
+    window.onload = async () => {
+      await Promise.all(this.addTypingMovement("Welcome to my homepage!"));
+      setTimeout(() => {
+        this.titleCall = true;
+      }, 200);
+    }; //タイトル文字を一文字ずつ表示
   },
   data() {
     return {
@@ -33,18 +38,16 @@ export default {
     };
   },
   methods: {
-    addTypingMovement: function(word) {
-      for (let i = 0; i < word.length; i++) {
-        setTimeout(() => {
-          this.title = this.title + word.slice(i, i + 1);
-        }, 200 * i);
-        if (i === word.length - 1) {
+    addTypingMovement(word) {
+      return [...word].map((char, i) => {
+        return new Promise(resolve => {
           setTimeout(() => {
-            this.titleCall = true;
-          }, 200 * (i + 2));
-        } //最終ループ時に実行する処理
-      }
-    } //addTypingMovement
+            this.title += char;
+            resolve();
+          }, i * 200);
+        });
+      }); //Promiseオブジェクトを値に持つ配列をreturn
+    }
   },
   components: {
     HeaderComponent,
@@ -66,7 +69,6 @@ body {
 #app {
   @include center-styling;
   text-align: center;
-  overflow: hidden;
   .before-title-call {
     @include center-styling;
     width: 100%;

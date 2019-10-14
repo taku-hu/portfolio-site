@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <transition name="switch" mode="out-in">
-      <div v-if="!titleCall" key="titleCall" class="before-title-call">
+      <div v-if="!titleCall" key="title" class="title-call">
         <h1>{{ title }}</h1>
       </div>
-      <div v-else key="contents" class="after-title-call">
+      <div v-else key="contents" class="contents">
         <header-component></header-component>
         <transition name="switch">
           <router-view></router-view>
@@ -69,7 +69,8 @@ body {
 #app {
   @include center-styling;
   text-align: center;
-  .before-title-call {
+  overflow: hidden;
+  .title-call {
     @include center-styling;
     width: 100%;
     height: calc(var(--vh, 1vh) * 100);
@@ -84,7 +85,7 @@ body {
       color: #fff;
     }
   }
-  .after-title-call {
+  .contents {
     @include center-styling;
     width: 100%;
     section {

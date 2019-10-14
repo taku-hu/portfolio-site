@@ -71,7 +71,7 @@ export default {
     };
   },
   methods: {
-    toggleMenu: function() {
+    toggleMenu() {
       this.active = !this.active;
     }
   }
@@ -184,7 +184,7 @@ header {
     } //nav
   } //menu
   h1 {
-    font-size: 6rem;
+    font-size: 5rem;
     letter-spacing: 0.2rem;
     margin-bottom: 5rem;
     user-select: none;

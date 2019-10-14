@@ -19,7 +19,9 @@
     </div>
     <!--humburger-menu-button -->
 
-    <div class="overlay" v-show="active" v-on:click="toggleMenu"></div>
+    <div class="overlay" v-show="active" v-on:click="toggleMenu">
+      <!-- navigation-drawer's overlay -->
+    </div>
 
     <!-- navigation-drawer -->
     <div
@@ -69,7 +71,7 @@ export default {
     };
   },
   methods: {
-    toggleMenu: function() {
+    toggleMenu() {
       this.active = !this.active;
     }
   }
@@ -182,7 +184,7 @@ header {
     } //nav
   } //menu
   h1 {
-    font-size: 6rem;
+    font-size: 5rem;
     letter-spacing: 0.2rem;
     margin-bottom: 5rem;
     user-select: none;
@@ -198,10 +200,9 @@ header {
     user-select: none;
   }
   .down-button {
-    display: block;
+    @include center-styling;
     position: absolute;
     bottom: 0;
-    margin: 0 auto;
     width: 40px;
     height: 40px;
     border: 1px solid #fff;
@@ -209,19 +210,16 @@ header {
     transition: 0.5s;
     &:hover {
       background-color: #fff;
-      color: rgba(9, 63, 209, 0.9);
-      transform: scale(0.5);
+      color: transparent;
+      transform: scale(0.7);
+    }
+    &:hover i {
+      color: #0000ff;
     }
     i {
-      height: 40px;
-      width: 40px;
       color: #fff;
       font-size: 30px;
-      line-height: 40px;
       text-shadow: none;
-      &:hover {
-        color: #0000ff;
-      }
     }
   } //a.down-button
 } //header

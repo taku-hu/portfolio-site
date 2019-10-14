@@ -5,7 +5,7 @@
       v-for="skill in inheritedSkills"
       v-bind:key="skill.name"
       v-bind:style="{
-        border: '8px' + ' ' + 'solid' + ' ' + skill.bgColor,
+        border: `8px solid ${skill.bgColor}`,
         backgroundColor: skill.bgColor
       }"
     >
@@ -98,7 +98,6 @@ export default {
           transition: 0.3s;
           &.rotate {
             transform: rotateX(180deg);
-            transition: 0.3s;
           } // 回転アニメーション
         }
       }
@@ -116,7 +115,7 @@ export default {
       p {
         width: 70%;
         line-height: 2;
-        text-align-last: left;
+        text-align: left;
         word-break: break-all;
       }
     } //.box
@@ -125,15 +124,14 @@ export default {
 
 // 開閉アニメーション
 .slide-enter-active {
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in;
+  transition: 0.5s ease-in;
 }
 .slide-leave-active {
-  transition-duration: 0.3s;
+  transition: 0.5s;
 }
 .slide-enter-to,
 .slide-leave {
-  max-height: 100px;
+  max-height: 300px;
   overflow: hidden;
 }
 .slide-enter,

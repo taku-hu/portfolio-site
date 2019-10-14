@@ -76,7 +76,7 @@ export default {
 //全コンポーネント共通・セクション下ボタン
 .move {
   display: block;
-  width: 150px;
+  width: 130px;
   height: 50px;
   border: solid 1px #000;
   font-size: 16px;
@@ -84,7 +84,7 @@ export default {
   color: #000;
   background-color: #fff;
   margin: 40px;
-  transition: 0.2s;
+  transition: 0.3s;
   &:hover {
     background-color: #000;
     color: #fff;

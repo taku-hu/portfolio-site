@@ -35,49 +35,49 @@
 
 <script>
 export default {
-  name: "works",
+  name: 'works',
   data() {
     return {
       works: [
         {
-          name: "ポートフォリオサイト",
+          name: 'ポートフォリオサイト',
           icon: '<i class="fas fa-address-card"></i>',
-          color: "#3340cb",
-          link: "https://github.com/taku-hu/my-portfolio-site",
+          color: '#3340cb',
+          link: 'https://github.com/taku-hu/my-portfolio-site',
           description: `
-        私が初めにVue.jsで作ったもので、私のポートフォリオサイトです。<br>
-        コーディングに慣れたりVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。
-        `
+            私が初めにVue.jsで作ったもので、私のポートフォリオサイトです。<br>
+            コーディングに慣れたりVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。
+          `
         },
         {
-          name: "タイピングアプリ",
+          name: 'タイピングアプリ',
           icon: '<i class="far fa-keyboard"></i>',
-          color: "#2196f3",
-          link: "https://github.com/taku-hu/my-typing-app",
+          color: '#2196f3',
+          link: 'https://github.com/taku-hu/my-typing-app',
           description: `
-        私が2番目にVue.jsで作ったものです。<br>
-        以前の開発の経験を生かしてより多くの機能を盛り込みました。
-        `
+            私が2番目にVue.jsで作ったものです。<br>
+            以前の開発の経験を生かしてより多くの機能を盛り込みました。
+          `
         },
         {
-          name: "オンライン本棚",
+          name: 'オンライン本棚',
           icon: '<i class="fas fa-book"></i>',
-          color: "#21b1aa",
-          link: "https://github.com/taku-hu/my-book-manager",
+          color: '#21b1aa',
+          link: 'https://github.com/taku-hu/my-book-manager',
           description: `
-        私が3番目にVue.jsで作ったもので、Firebaseでログインとデータベースの機能を盛り込みました。<br>
-        そして状態管理に初めてVuexを使いました。まだまだではありますが、開発を通してVue.jsでのより実践的なコーディングが学べたと感じています。
-        `
+            私が3番目にVue.jsで作ったもので、Firebaseでログインとデータベースの機能を盛り込みました。<br>
+            そして状態管理に初めてVuexを使いました。まだまだではありますが、開発を通してVue.jsでのより実践的なコーディングが学べたと感じています。
+          `
         },
         {
-          name: "過去の残骸達",
+          name: '過去の残骸達',
           icon: '<i class="fas fa-pager"></i>',
-          color: "#333",
-          link: "https://github.com/taku-hu",
+          color: '#333',
+          link: 'https://github.com/taku-hu',
           description: `
-        学習し始めの時に作ったLPやサイトの模写、簡単なアプリ達です。<br>
-        成果物としては無価値ですが思い出として...
-        `
+            学習し始めの時に作ったLPやサイトの模写、簡単なアプリ達です。<br>
+            成果物としては無価値ですが思い出として...
+          `
         }
       ] //works
     }; //return
@@ -86,10 +86,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/_fragments.scss";
+@import '@/assets/styles/_fragments.scss';
 
 .works-box {
-  @include section-box("WORKS");
+  @include section-box('WORKS');
   @include center-styling;
   h3 {
     @include section-heading;

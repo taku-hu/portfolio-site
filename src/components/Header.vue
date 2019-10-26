@@ -53,18 +53,18 @@
 </template>
 
 <script>
-import { mobileBrowser } from "@/mobileBrowser.js";
+import { mobileBrowser } from '@/mobileBrowser.js';
 
 export default {
-  name: "HeaderComponent",
+  name: 'HeaderComponent',
   mixins: [mobileBrowser],
   data() {
     return {
       pages: [
-        { name: "HOME", path: "/" },
-        { name: "ABOUT", path: "/about" },
-        { name: "SKILLS", path: "/skills" },
-        { name: "WORKS", path: "/works" }
+        { name: 'HOME', path: '/' },
+        { name: 'ABOUT', path: '/about' },
+        { name: 'SKILLS', path: '/skills' },
+        { name: 'WORKS', path: '/works' }
       ],
       active: false,
       currentPage: null
@@ -79,18 +79,18 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/_fragments.scss";
+@import '@/assets/styles/_fragments.scss';
 
 header {
   @include center-styling;
   position: relative;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  font-family: "Orbitron", sans-serif;
+  font-family: 'Orbitron', sans-serif;
   color: #fff;
   text-shadow: 1px 2px 3px #1c1c1c;
   background: linear-gradient(rgba(28, 37, 255, 0.6), rgba(28, 37, 255, 0.6)),
-    url("~@/assets/images/header-image.jpg");
+    url('~@/assets/images/header-image.jpg');
   background-size: cover;
   margin-bottom: 3rem;
   .header-navi {
@@ -274,7 +274,7 @@ header {
   }
 }
 
-@media screen and (max-width: 896px) {
+@include media-query($bp-tablet) {
   header {
     .menu-button {
       display: block;
@@ -283,5 +283,5 @@ header {
       display: none;
     } //.header-navi
   } //header
-} //@media
+}
 </style>

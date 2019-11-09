@@ -3,7 +3,7 @@
     <div class="header-navi">
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="page.name">
+          <li v-for="page in pages" v-bind:key="`first-${page.name}`">
             <router-link v-bind:to="page.path">
               {{ page.name }}
             </router-link>
@@ -31,7 +31,7 @@
     >
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="page.name">
+          <li v-for="page in pages" v-bind:key="`second-${page.name}`">
             <router-link v-bind:to="page.path">
               {{ page.name }}
             </router-link>
@@ -41,14 +41,23 @@
     </div>
     <!-- navigation-drawer -->
 
-    <h1 class="glitch" data-text="Takuto's">Takuto's</h1>
-    <h2 class="glitch" data-text="portfolio site">portfolio site</h2>
-    <p class="glitch" data-text="Welcome to my website!">
-      Welcome to my website!
-    </p>
-    <a href="#landing" class="down-button">
-      <i class="fas fa-angle-down"></i>
-    </a>
+    <div class="background">
+      <p v-for="(sentence, index) in inheritedSentences" v-bind:key="index">
+        <span v-bind:data-text="sentence">{{ sentence }}</span>
+      </p>
+    </div>
+    <div class="front">
+      <h1>Takuto's</h1>
+      <h2>portfolio site</h2>
+      <p>
+        <span data-text="WELCOME TO MY WEBSITE!">
+          WELCOME TO MY WEBSITE!
+        </span>
+      </p>
+      <a href="#landing" class="down-button">
+        <i class="fas fa-angle-down"></i>
+      </a>
+    </div>
   </header>
 </template>
 
@@ -58,6 +67,9 @@ import { mobileBrowser } from '@/mobileBrowser.js';
 export default {
   name: 'HeaderComponent',
   mixins: [mobileBrowser],
+  props: {
+    inheritedSentences: Array
+  },
   data() {
     return {
       pages: [
@@ -66,8 +78,7 @@ export default {
         { name: 'SKILLS', path: '/skills' },
         { name: 'WORKS', path: '/works' }
       ],
-      active: false,
-      currentPage: null
+      active: false
     };
   },
   methods: {
@@ -86,20 +97,24 @@ header {
   position: relative;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  font-family: 'Orbitron', sans-serif;
   color: #fff;
-  text-shadow: 1px 2px 3px #1c1c1c;
-  background: linear-gradient(rgba(28, 37, 255, 0.6), rgba(28, 37, 255, 0.6)),
-    url('~@/assets/images/header-image.jpg');
-  background-size: cover;
+  background-color: rgb(15, 54, 167);
+  background-image: linear-gradient(
+    90deg,
+    rgba(15, 54, 167, 1) 40%,
+    rgba(0, 163, 254, 1) 100%
+  );
+  overflow: hidden;
   margin-bottom: 3rem;
+
   .header-navi {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 100;
     width: 100%;
     height: 3.5rem;
+    font-family: 'Orbitron', sans-serif;
     background-color: #000;
     nav {
       width: 100%;
@@ -111,6 +126,7 @@ header {
       }
       li {
         width: 25%;
+        height: 3.5rem;
         line-height: 3.5rem;
         font-size: 1.5rem;
         font-weight: bold;
@@ -138,7 +154,7 @@ header {
     @include center-styling;
     display: none;
     position: fixed;
-    z-index: 3;
+    z-index: 100;
     top: 0;
     left: 3%;
     font-size: 2rem;
@@ -149,17 +165,18 @@ header {
   }
   .overlay {
     position: fixed;
-    z-index: 1;
+    z-index: 98;
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
   }
   .drawer-menu {
     position: fixed;
-    z-index: 2;
-    top: -12.5rem;
+    z-index: 99;
+    top: -16 + 3.5rem;
     left: 0;
     width: 100%;
+    font-family: 'Orbitron', sans-serif;
     background-color: rgba(34, 34, 34, 0.9);
     transition: 0.5s;
     &.menu-open {
@@ -183,96 +200,113 @@ header {
       } //li
     } //nav
   } //menu
-  h1 {
-    font-size: 5rem;
-    letter-spacing: 0.2rem;
-    margin-bottom: 5rem;
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: inherit;
+    white-space: nowrap;
     user-select: none;
-  }
-  h2 {
-    font-size: 3rem;
-    letter-spacing: 0.3rem;
-    margin-bottom: 10rem;
-    user-select: none;
-  }
-  p {
-    font-size: 1.5rem;
-    user-select: none;
-  }
-  .down-button {
+    p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.3);
+      transition: 0.5s;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      user-select: none;
+      span {
+        position: relative;
+        display: inline-block;
+        padding: 5px 0 5px 5px;
+        letter-spacing: 1px;
+        animation: slide 20s linear infinite;
+        &:before {
+          content: attr(data-text);
+          position: absolute;
+          top: 0;
+          left: -100%;
+          padding: 5px 0 5px 5px;
+        }
+      }
+      &:nth-child(even) span {
+        animation: slide-reverse 20s linear infinite;
+      }
+    } //p
+  } //.background
+
+  .front {
     @include center-styling;
     position: absolute;
-    bottom: 0;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    transition: 0.5s;
-    &:hover {
-      background-color: #fff;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: inherit;
+    h1 {
+      -webkit-text-stroke: 2px #fff;
       color: transparent;
-      transform: scale(0.7);
+      font-weight: bold;
+      font-size: 5rem;
+      letter-spacing: 0.2rem;
+      margin-bottom: 5rem;
     }
-    &:hover i {
-      color: #0000ff;
+    h2 {
+      -webkit-text-stroke: 2px #fff;
+      color: transparent;
+      font-weight: bold;
+      font-size: 3rem;
+      letter-spacing: 0.3rem;
+      margin-bottom: 10rem;
     }
-    i {
-      color: #fff;
-      font-size: 30px;
-      text-shadow: none;
+    p {
+      position: relative;
+      font-size: 1.5rem;
+      text-shadow: 1px 2px 3px #1c1c1c;
+      font-weight: bold;
+      transition: 0.5s;
+      overflow: hidden;
+      span {
+        position: relative;
+        display: inline-block;
+        padding: 5px;
+        letter-spacing: 1px;
+        animation: slide 5s linear infinite;
+        &:before {
+          content: attr(data-text);
+          position: absolute;
+          top: 0;
+          left: -100%;
+          padding: 5px;
+        }
+      }
     }
-  } //a.down-button
+    a.down-button {
+      @include center-styling;
+      position: absolute;
+      bottom: 0;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      transition: 0.5s;
+      &:hover {
+        background-color: #fff;
+        color: transparent;
+        transform: scale(0.7);
+      }
+      &:hover i {
+        color: #0000ff;
+      }
+      i {
+        color: #fff;
+        font-size: 30px;
+        text-shadow: none;
+      }
+    } //a.down-button
+  } //.forward
 } //header
-
-//グリッチアニメーション
-.glitch {
-  position: relative;
-  &:before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: -2px;
-    text-shadow: -2px 0 #ff00c1;
-    width: 100%;
-    height: 100%;
-    color: white;
-    background: rgba(30, 45, 201, 0.7);
-    overflow: hidden;
-    clip: rect(0, 900px, 0, 0);
-    animation: noise-anim-2 3s infinite linear alternate-reverse;
-  }
-  &:after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 2px;
-    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-    width: 100%;
-    height: 100%;
-    background: rgba(30, 45, 201, 0.7);
-    overflow: hidden;
-    clip: rect(0, 900px, 0, 0);
-    animation: noise-anim 2s infinite linear alternate-reverse;
-  }
-}
-
-@keyframes noise-anim {
-  $steps: 20;
-  @for $i from 0 through $steps {
-    #{percentage($i*(1/$steps))} {
-      clip: rect(random(100) + px, 9999px, random(100) + px, 0);
-    }
-  }
-}
-
-@keyframes noise-anim-2 {
-  $steps: 20;
-  @for $i from 0 through $steps {
-    #{percentage($i*(1/$steps))} {
-      clip: rect(random(100) + px, 9999px, random(100) + px, 0);
-    }
-  }
-}
 
 @include media-query($bp-tablet) {
   header {
@@ -281,7 +315,7 @@ header {
     }
     .header-navi nav {
       display: none;
-    } //.header-navi
+    }
   } //header
 }
 </style>

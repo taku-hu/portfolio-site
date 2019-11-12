@@ -10,11 +10,11 @@
         <h1>{{ title }}</h1>
       </div>
       <div v-else key="contents" class="contents">
-        <header-component v-bind:inheritedSentences="bgSentences"/>
+        <header-component v-bind:inheritedSentences="bgSentences" />
         <transition name="switch">
-          <router-view/>
+          <router-view />
         </transition>
-        <footer-component/>
+        <footer-component />
       </div>
     </transition>
   </div>
@@ -23,7 +23,7 @@
 <script>
 import HeaderComponent from '@/components/Header.vue';
 import FooterComponent from '@/components/Footer.vue';
-import { mobileBrowser } from '@/mobileBrowser.js';
+import { mobileBrowser } from '@/mixins/mobileBrowser.js';
 
 export default {
   name: 'App',

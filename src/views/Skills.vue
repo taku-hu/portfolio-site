@@ -9,10 +9,7 @@
           <i class="fas fa-sort"></i>
         </a>
       </div>
-      <accordion-component
-        v-bind:inheritedSkills="skills"
-        v-bind:inheritedMessage.sync="toggleMessage"
-      ></accordion-component>
+      <accordion-component v-bind:inheritedSkills="skills" v-bind:inheritedMessage.sync="toggleMessage"/>
     </div>
     <a class="move" href="#" v-on:click.prevent="$router.push({ path: '/' })">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
@@ -95,7 +92,7 @@ export default {
     }; //ruturn
   },
   methods: {
-    toggleAll: function() {
+    toggleAlln() {
       for (let skill of this.skills) {
         if (this.toggleMessage === 'Show all') {
           skill.show = true;
@@ -105,7 +102,7 @@ export default {
       }
       this.changeMessage();
     },
-    changeMessage: function() {
+    changeMessage() {
       if (this.toggleMessage === 'Show all') {
         this.toggleMessage = 'Close all';
       } else {

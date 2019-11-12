@@ -3,7 +3,7 @@
     <div class="header-navi">
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="`first-${page.name}`">
+          <li v-for="page in pages" v-bind:key="page.name">
             <router-link v-bind:to="page.path">
               {{ page.name }}
             </router-link>
@@ -17,10 +17,7 @@
       <i class="fas fa-times" v-show="active"></i>
     </div>
 
-    <drawer-component
-      v-bind:inheritedActive="active"
-      v-on:toggle="toggleMenu"
-    ></drawer-component>
+    <drawer-component v-bind:inheritedActive="active" v-on:toggle="toggleMenu" />
 
     <div class="background">
       <p v-for="(sentence, index) in inheritedSentences" v-bind:key="index">
@@ -44,22 +41,17 @@
 
 <script>
 import DrawerComponent from './Drawer.vue';
-import { mobileBrowser } from '@/mobileBrowser.js';
+import { mobileBrowser } from '@/mixins/mobileBrowser.js';
+import { pageLinks } from '@/mixins/pageLinks.js';
 
 export default {
   name: 'HeaderComponent',
-  mixins: [mobileBrowser],
+  mixins: [mobileBrowser, pageLinks],
   props: {
     inheritedSentences: Array
   },
   data() {
     return {
-      pages: [
-        { name: 'HOME', path: '/' },
-        { name: 'ABOUT', path: '/about' },
-        { name: 'SKILLS', path: '/skills' },
-        { name: 'WORKS', path: '/works' }
-      ],
       active: false
     };
   },

@@ -48,7 +48,7 @@ export default {
     };
   },
   methods: {
-    toggleAccordion: function(skill) {
+    toggleAccordion(skill) {
       this.inheritedSkills.find(
         inheritedSkills => inheritedSkills.name === skill.name
       ).show = !this.inheritedSkills.find(
@@ -56,7 +56,7 @@ export default {
       ).show;
     }
   },
-  beforeUpdate: function() {
+  beforeUpdate() {
     const checkTrue = this.inheritedSkills.every(value => value.show === true);
     const checkFalse = this.inheritedSkills.every(
       value => value.show === false

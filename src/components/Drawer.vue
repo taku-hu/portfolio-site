@@ -4,7 +4,6 @@
       <!-- navigation-drawer's overlay -->
     </div>
 
-    <!-- navigation-drawer -->
     <div
       class="drawer-menu"
       v-bind:class="{ 'menu-open': inheritedActive }"
@@ -12,7 +11,7 @@
     >
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="`second-${page.name}`">
+          <li v-for="page in pages" v-bind:key="page.name">
             <router-link v-bind:to="page.path">
               {{ page.name }}
             </router-link>
@@ -24,20 +23,13 @@
 </template>
 
 <script>
+import { pageLinks } from '@/mixins/pageLinks.js';
+
 export default {
   name: 'DrawerComponent',
+  mixins: [pageLinks],
   props: {
     inheritedActive: Boolean
-  },
-  data() {
-    return {
-      pages: [
-        { name: 'HOME', path: '/' },
-        { name: 'ABOUT', path: '/about' },
-        { name: 'SKILLS', path: '/skills' },
-        { name: 'WORKS', path: '/works' }
-      ]
-    };
   },
   methods: {
     toggle() {

@@ -18,18 +18,11 @@
 </template>
 
 <script>
+import { pageLinks } from '@/mixins/pageLinks.js';
+
 export default {
   name: 'FooterComponent',
-  data() {
-    return {
-      pages: [
-        { name: 'HOME', path: '/' },
-        { name: 'ABOUT', path: '/about' },
-        { name: 'SKILLS', path: '/skills' },
-        { name: 'WORKS', path: '/works' }
-      ]
-    };
-  },
+  mixins: [pageLinks],
   methods: {
     pageSwitching: function(page) {
       this.$router.push({ path: page.path });

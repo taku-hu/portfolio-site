@@ -1,0 +1,94 @@
+<template>
+  <div class="navigation-drawer">
+    <div class="overlay" v-show="inheritedActive" v-on:click="toggle">
+      <!-- navigation-drawer's overlay -->
+    </div>
+
+    <!-- navigation-drawer -->
+    <div
+      class="drawer-menu"
+      v-bind:class="{ 'menu-open': inheritedActive }"
+      v-on:click="toggle"
+    >
+      <nav>
+        <ul>
+          <li v-for="page in pages" v-bind:key="`second-${page.name}`">
+            <router-link v-bind:to="page.path">
+              {{ page.name }}
+            </router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'DrawerComponent',
+  props: {
+    inheritedActive: Boolean
+  },
+  data() {
+    return {
+      pages: [
+        { name: 'HOME', path: '/' },
+        { name: 'ABOUT', path: '/about' },
+        { name: 'SKILLS', path: '/skills' },
+        { name: 'WORKS', path: '/works' }
+      ]
+    };
+  },
+  methods: {
+    toggle() {
+      this.$emit('toggle');
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+@import '@/assets/styles/_fragments.scss';
+
+.navigation-drawer {
+  width: 100%;
+  height: 100%;
+  .overlay {
+    position: fixed;
+    z-index: 98;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  .drawer-menu {
+    position: fixed;
+    z-index: 99;
+    top: -16 + 3.5rem;
+    left: 0;
+    width: 100%;
+    font-family: 'Orbitron', sans-serif;
+    background-color: rgba(34, 34, 34, 0.9);
+    transition: 0.5s;
+    &.menu-open {
+      transform: translateY(16rem);
+    }
+    nav {
+      width: 100%;
+      li {
+        width: 100%;
+        height: 4rem;
+        box-sizing: border-box;
+        &:not(:last-child) {
+          border-bottom: 1px solid #fff;
+        }
+        a {
+          @include button-sizing;
+          color: #fff;
+          font-size: 1.5rem;
+          line-height: 4rem;
+        }
+      } //li
+    } //nav
+  } //drawer-menu
+} //.navigation-drawer
+</style>

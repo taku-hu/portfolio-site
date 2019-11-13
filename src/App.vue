@@ -3,15 +3,15 @@
     <transition name="switch" mode="out-in">
       <div v-if="!titleCall" key="title" class="title-call">
         <div class="background">
-          <p v-for="(sentence, index) in bgSentences" v-bind:key="index">
-            <span v-bind:data-text="sentence">{{ sentence }}</span>
+          <p v-for="(sentence, index) in bgSentences" :key="index">
+            <span :data-text="sentence">{{ sentence }}</span>
           </p>
         </div>
         <h1>{{ title }}</h1>
       </div>
       <div v-else key="contents" class="contents">
-        <header-component v-bind:inheritedSentences="bgSentences" />
-        <transition name="switch">
+        <header-component />
+        <transition name="switch" mode="out-in">
           <router-view />
         </transition>
         <footer-component />
@@ -24,10 +24,11 @@
 import HeaderComponent from '@/components/Header.vue';
 import FooterComponent from '@/components/Footer.vue';
 import { mobileBrowser } from '@/mixins/mobileBrowser.js';
+import { background } from '@/mixins/background.js';
 
 export default {
   name: 'App',
-  mixins: [mobileBrowser],
+  mixins: [mobileBrowser, background],
   created() {
     window.onload = async () => {
       await Promise.all(this.addTypingMovement('Welcome to my website!'));
@@ -39,54 +40,7 @@ export default {
   data() {
     return {
       title: '',
-      titleCall: false,
-      bgSentences: [
-        "setLoginUser(state, user) { state.login_user = user; }, deleteLoginUser(state) { state.login_user = null; state.books = []; }, toggleDrawer(state) { state.active = !state.active; }",
-        "changeEditMessage(state, {target, type}) { state.editType = type; state.editOperation = operation; }, addNewBook(state, {id, newBook}) {	newBook.id = id state.book.push(newBook); }",
-        "import 'reset-css' import '@fortawesome/fontawesome-free/css/all.css' import Vue from 'vue'; import App from './App.vue'; import router from './router'; import store from './store'",
-        "setTitle: function(result) { this.changeRegistrationMethod() this.newBook.title = result.volumeInfo.title if (result.volumeInfo.authors) { this.newBook.authors = result.volumeInfo}",
-        "document.documentElement.style.setProperty('--vh', `${vh}px`) window.addEventListener('resize', () => { let vh = window.innerHeight * 0.1 document.documentElement.style.setProperty",
-        "if (e.key === this.word[this.location]) { this.locationNum++ if (this.location === this.word.length) { this.word = this.words[Math.floor(Math.random() * this.words.length)] return}",
-        "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });",
-        "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }",
-        "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)",
-        "setLoginUser(state, user) { state.login_user = user; }, deleteLoginUser(state) { state.login_user = null; state.books = []; }, toggleDrawer(state) { state.active = !state.active; }",
-        "changeEditMessage(state, {target, type}) { state.editType = type; state.editOperation = operation; }, addNewBook(state, {id, newBook}) {	newBook.id = id state.book.push(newBook); }",
-        "import 'reset-css' import '@fortawesome/fontawesome-free/css/all.css' import Vue from 'vue'; import App from './App.vue'; import router from './router'; import store from './store'",
-        "setTitle: function(result) { this.changeRegistrationMethod() this.newBook.title = result.volumeInfo.title if (result.volumeInfo.authors) { this.newBook.authors = result.volumeInfo}",
-        "document.documentElement.style.setProperty('--vh', `${vh}px`) window.addEventListener('resize', () => { let vh = window.innerHeight * 0.1 document.documentElement.style.setProperty",
-        "if (e.key === this.word[this.location]) { this.locationNum++ if (this.location === this.word.length) { this.word = this.words[Math.floor(Math.random() * this.words.length)] return}",
-        "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });",
-        "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }",
-        "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)",
-        "setLoginUser(state, user) { state.login_user = user; }, deleteLoginUser(state) { state.login_user = null; state.books = []; }, toggleDrawer(state) { state.active = !state.active; }",
-        "changeEditMessage(state, {target, type}) { state.editType = type; state.editOperation = operation; }, addNewBook(state, {id, newBook}) {	newBook.id = id state.book.push(newBook); }",
-        "import 'reset-css' import '@fortawesome/fontawesome-free/css/all.css' import Vue from 'vue'; import App from './App.vue'; import router from './router'; import store from './store'",
-        "setTitle: function(result) { this.changeRegistrationMethod() this.newBook.title = result.volumeInfo.title if (result.volumeInfo.authors) { this.newBook.authors = result.volumeInfo}",
-        "document.documentElement.style.setProperty('--vh', `${vh}px`) window.addEventListener('resize', () => { let vh = window.innerHeight * 0.1 document.documentElement.style.setProperty",
-        "if (e.key === this.word[this.location]) { this.locationNum++ if (this.location === this.word.length) { this.word = this.words[Math.floor(Math.random() * this.words.length)] return}",
-        "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });",
-        "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }",
-        "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)",
-        "setLoginUser(state, user) { state.login_user = user; }, deleteLoginUser(state) { state.login_user = null; state.books = []; }, toggleDrawer(state) { state.active = !state.active; }",
-        "changeEditMessage(state, {target, type}) { state.editType = type; state.editOperation = operation; }, addNewBook(state, {id, newBook}) {	newBook.id = id state.book.push(newBook); }",
-        "import 'reset-css' import '@fortawesome/fontawesome-free/css/all.css' import Vue from 'vue'; import App from './App.vue'; import router from './router'; import store from './store'",
-        "setTitle: function(result) { this.changeRegistrationMethod() this.newBook.title = result.volumeInfo.title if (result.volumeInfo.authors) { this.newBook.authors = result.volumeInfo}",
-        "document.documentElement.style.setProperty('--vh', `${vh}px`) window.addEventListener('resize', () => { let vh = window.innerHeight * 0.1 document.documentElement.style.setProperty",
-        "if (e.key === this.word[this.location]) { this.locationNum++ if (this.location === this.word.length) { this.word = this.words[Math.floor(Math.random() * this.words.length)] return}",
-        "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });",
-        "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }",
-        "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)",
-        "setLoginUser(state, user) { state.login_user = user; }, deleteLoginUser(state) { state.login_user = null; state.books = []; }, toggleDrawer(state) { state.active = !state.active; }",
-        "changeEditMessage(state, {target, type}) { state.editType = type; state.editOperation = operation; }, addNewBook(state, {id, newBook}) {	newBook.id = id state.book.push(newBook); }",
-        "import 'reset-css' import '@fortawesome/fontawesome-free/css/all.css' import Vue from 'vue'; import App from './App.vue'; import router from './router'; import store from './store'",
-        "setTitle: function(result) { this.changeRegistrationMethod() this.newBook.title = result.volumeInfo.title if (result.volumeInfo.authors) { this.newBook.authors = result.volumeInfo}",
-        "document.documentElement.style.setProperty('--vh', `${vh}px`) window.addEventListener('resize', () => { let vh = window.innerHeight * 0.1 document.documentElement.style.setProperty",
-        "if (e.key === this.word[this.location]) { this.locationNum++ if (this.location === this.word.length) { this.word = this.words[Math.floor(Math.random() * this.words.length)] return}",
-        "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });",
-        "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }",
-        "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)"
-      ],
+      titleCall: false
     };
   },
   methods: {
@@ -138,16 +92,15 @@ body {
       p {
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.3);
-        transition: 0.5s;
-        overflow: hidden;
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        overflow: hidden;
         user-select: none;
+        transition: 0.5s;
         span {
           position: relative;
           display: inline-block;
-          padding: 5px 0 5px 5px;
           letter-spacing: 1px;
-          animation: slide 20s linear infinite;
+          padding: 5px 0 5px 5px;
           &:before {
             content: attr(data-text);
             position: absolute;
@@ -155,6 +108,9 @@ body {
             left: -100%;
             padding: 5px 0 5px 5px;
           }
+        }
+        &:nth-child(odd) span {
+          animation: slide 20s linear infinite;
         }
         &:nth-child(even) span {
           animation: slide-reverse 20s linear infinite;

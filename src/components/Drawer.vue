@@ -1,18 +1,18 @@
 <template>
   <div class="navigation-drawer">
-    <div class="overlay" v-show="inheritedActive" v-on:click="toggle">
+    <div class="overlay" v-show="inheritedActive" @click="toggle">
       <!-- navigation-drawer's overlay -->
     </div>
 
     <div
       class="drawer-menu"
-      v-bind:class="{ 'menu-open': inheritedActive }"
-      v-on:click="toggle"
+      :class="{ 'menu-open': inheritedActive }"
+      @click="toggle"
     >
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="page.name">
-            <router-link v-bind:to="page.path">
+          <li v-for="page in pages" :key="page.name">
+            <router-link :to="page.path">
               {{ page.name }}
             </router-link>
           </li>

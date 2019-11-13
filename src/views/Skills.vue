@@ -4,16 +4,16 @@
       <h3>My Skills</h3>
       <div class="skill-box">
         <p class="subheading">Click the item <span>or</span></p>
-        <a class="show-all" v-on:click="toggleAll">
+        <a class="show-all" @click="toggleAll">
           {{ toggleMessage }}
           <i class="fas fa-sort"></i>
         </a>
       </div>
-      <accordion-component v-bind:inheritedSkills="skills" v-bind:inheritedMessage.sync="toggleMessage"/>
+      <accordion-component :inheritedSkills="skills" :inheritedMessage.sync="toggleMessage" />
     </div>
-    <a class="move" href="#" v-on:click.prevent="$router.push({ path: '/' })">
+    <router-link to="/" class="return">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
-    </a>
+    </router-link>
   </section>
 </template>
 
@@ -92,7 +92,7 @@ export default {
     }; //ruturn
   },
   methods: {
-    toggleAlln() {
+    toggleAll() {
       for (let skill of this.skills) {
         if (this.toggleMessage === 'Show all') {
           skill.show = true;

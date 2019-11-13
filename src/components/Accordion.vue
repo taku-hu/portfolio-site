@@ -3,29 +3,26 @@
     <div
       class="accordion"
       v-for="skill in inheritedSkills"
-      v-bind:key="skill.name"
-      v-bind:style="{
+      :key="skill.name"
+      :style="{
         border: `8px solid ${skill.bgColor}`,
         backgroundColor: skill.bgColor
       }"
     >
       <div
         class="label"
-        v-on:click="toggleAccordion(skill)"
-        v-bind:style="{ backgroundColor: skill.bgColor }"
+        @click="toggleAccordion(skill)"
+        :style="{ backgroundColor: skill.bgColor }"
       >
         <h2>
-          {{ skill.name }}&nbsp;
-          <i
-            class="fa fa-angle-down label-icon"
-            v-bind:class="{ rotate: skill.show }"
-          ></i>
+          {{ skill.name }}
+          <i class="fa fa-angle-down" :class="{ rotate: skill.show }" />
         </h2>
       </div>
       <!-- label -->
       <transition name="slide">
         <div class="box" v-show="skill.show">
-          <img v-bind:src="require(`@/assets/images/${skill.name}.png`)" />
+          <img :src="require(`@/assets/images/${skill.name}.png`)" />
           <p v-html="skill.description"></p>
         </div>
       </transition>
@@ -51,16 +48,15 @@ export default {
     toggleAccordion(skill) {
       this.inheritedSkills.find(
         inheritedSkills => inheritedSkills.name === skill.name
-      ).show = !this.inheritedSkills.find(
+      ).show = 
+      !this.inheritedSkills.find(
         inheritedSkills => inheritedSkills.name === skill.name
       ).show;
     }
   },
   beforeUpdate() {
     const checkTrue = this.inheritedSkills.every(value => value.show === true);
-    const checkFalse = this.inheritedSkills.every(
-      value => value.show === false
-    );
+    const checkFalse = this.inheritedSkills.every(value => value.show === false);
     if (checkTrue) {
       this.inherited_message = "Close all";
     } else if (checkFalse) {
@@ -93,7 +89,7 @@ export default {
         font-weight: bold;
         font-size: 1.5rem;
         box-sizing: border-box;
-        .label-icon {
+        .fa-angle-down {
           font-size: 1.5rem;
           transition: 0.3s;
           &.rotate {

@@ -6,14 +6,14 @@
         <tr v-for="data in dataSet" :key="data.th">
           <th>{{ data.th }}</th>
           <td>
-            <a v-bind:href="data.link" target="_blank" v-html="data.td"></a>
+            <a :href="data.link" target="_blank" v-html="data.td"></a>
           </td>
         </tr>
       </table>
     </div>
-    <a class="move" href="#" v-on:click.prevent="$router.push({ path: '/' })">
+    <router-link to="/" class="return">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
-    </a>
+    </router-link>
   </section>
 </template>
 
@@ -23,9 +23,21 @@ export default {
   data() {
     return {
       dataSet: [
-        { th: 'Name', td: '竹内 琢人（Takeuchi Takuto）', link: null },
-        { th: 'Occupation', td: '大学生', link: null },
-        { th: 'University', td: '法政大学 経済学部 国際経済学科', link: null },
+        { 
+          th: 'Name',
+          td: '竹内 琢人（Takeuchi Takuto）',
+          link: null
+        },
+        { 
+          th: 'Occupation',
+          td: '大学生',
+          link: null
+        },
+        { 
+          th: 'University',
+          td: '法政大学 経済学部 国際経済学科',
+          link: null
+        },
         {
           th: 'Qiita',
           td: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
@@ -36,7 +48,11 @@ export default {
           td: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
           link: 'https://github.com/taku-hu'
         },
-        { th: 'Mail', td: 'hs.tm.ec.a.tt@gmail.com', link: null }
+        { 
+          th: 'Mail',
+          td: 'hs.tm.ec.a.tt@gmail.com', 
+          link: null 
+        }
       ]
     };
   }

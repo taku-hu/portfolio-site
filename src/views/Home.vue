@@ -13,7 +13,9 @@
         どうぞ、よろしくお願いいたします。
       </p>
     </div>
-    <a class="move" href="#">MORE&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="#" class="return">
+      MORE&nbsp;<i class="fas fa-angle-right"></i>
+    </a>
   </section>
 </template>
 
@@ -74,7 +76,7 @@ export default {
 } //top-box
 
 //全コンポーネント共通・セクション下ボタン
-.move {
+.return {
   display: block;
   width: 130px;
   height: 50px;

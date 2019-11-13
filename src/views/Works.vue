@@ -6,18 +6,17 @@
         <div
           class="work-box"
           v-for="work in works"
-          v-bind:key="work.name"
+          :key="work.name"
           ontouchstart=""
         >
           <div
             class="face face1"
-            v-bind:style="{ backgroundColor: work.color }"
+            :style="{ backgroundColor: work.color }"
           >
             <span v-html="work.icon"></span>
             <h4>{{ work.name }}</h4>
-            <a v-bind:href="work.link" target="_blank">
-              <i class="fas fa-angle-right"></i>
-              Details
+            <a :href="work.link" target="_blank">
+              <i class="fas fa-angle-right"></i>&nbsp;Details
             </a>
           </div>
           <div class="face face2">
@@ -27,9 +26,9 @@
       </div>
       <!-- works-wrapper -->
     </div>
-    <a class="move" href="#" v-on:click.prevent="$router.push({ path: '/' })">
+    <router-link to="/" class="return">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
-    </a>
+    </router-link>
   </section>
 </template>
 

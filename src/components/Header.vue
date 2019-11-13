@@ -20,7 +20,7 @@
     <drawer-component v-bind:inheritedActive="active" v-on:toggle="toggleMenu" />
 
     <div class="background">
-      <p v-for="(sentence, index) in inheritedSentences" v-bind:key="index">
+      <p v-for="(sentence, index) in bgSentences" v-bind:key="index">
         <span v-bind:data-text="sentence">{{ sentence }}</span>
       </p>
     </div>
@@ -43,13 +43,11 @@
 import DrawerComponent from './Drawer.vue';
 import { mobileBrowser } from '@/mixins/mobileBrowser.js';
 import { pageLinks } from '@/mixins/pageLinks.js';
+import { background } from '@/mixins/background.js';
 
 export default {
   name: 'HeaderComponent',
-  mixins: [mobileBrowser, pageLinks],
-  props: {
-    inheritedSentences: Array
-  },
+  mixins: [mobileBrowser, pageLinks, background],
   data() {
     return {
       active: false

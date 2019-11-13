@@ -4,9 +4,9 @@
       <nav>
         <ul>
           <li v-for="page in pages" v-bind:key="page.name">
-            <a href="#" v-on:click.prevent="pageSwitching(page)">
+            <router-link v-bind:to="page.path">
               {{ page.name }}
-            </a>
+            </router-link>
           </li>
         </ul>
       </nav>
@@ -23,11 +23,6 @@ import { pageLinks } from '@/mixins/pageLinks.js';
 export default {
   name: 'FooterComponent',
   mixins: [pageLinks],
-  methods: {
-    pageSwitching: function(page) {
-      this.$router.push({ path: page.path });
-    }
-  }
 };
 </script>
 

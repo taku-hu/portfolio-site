@@ -9,28 +9,28 @@ import Works from '@/views/Works.vue';
 Vue.use(Router);
 
 export default new Router({
-	mode: 'history',
-	base: process.env.BASE_URL,
-	routes: [
-		{
-			path: '/',
-			name: 'home',
-			component: Home
-		},
-		{
-			path: '/about',
-			name: 'about',
-			component: About
-		},
-		{
-			path: '/skills',
-			name: 'skills',
-			component: Skills
-		},
-		{
-			path: '/works',
-			name: 'works',
-			component: Works
-		}
-	]
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
+    },
+    {
+      path: '/skills',
+      name: 'skills',
+      component: Skills
+    },
+    {
+      path: '/works',
+      name: 'works',
+      component: Works
+    }
+  ]
 });

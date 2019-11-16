@@ -1,8 +1,6 @@
 <template>
   <div class="navigation-drawer">
-    <div class="overlay" v-show="inheritedActive" @click="toggle">
-      <!-- navigation-drawer's overlay -->
-    </div>
+    <div class="overlay" v-show="inheritedActive" @click="toggle"></div>
 
     <div
       class="drawer-menu"

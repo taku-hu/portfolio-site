@@ -3,8 +3,8 @@
     <div class="footer-top">
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="page.name">
-            <router-link v-bind:to="page.path">
+          <li v-for="page in pages" :key="page.name">
+            <router-link :to="page.path">
               {{ page.name }}
             </router-link>
           </li>

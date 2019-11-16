@@ -3,8 +3,8 @@
     <div class="header-navi">
       <nav>
         <ul>
-          <li v-for="page in pages" v-bind:key="page.name">
-            <router-link v-bind:to="page.path">
+          <li v-for="page in pages" :key="page.name">
+            <router-link :to="page.path">
               {{ page.name }}
             </router-link>
           </li>
@@ -12,16 +12,16 @@
       </nav>
     </div>
 
-    <div class="menu-button" v-on:click="toggleMenu">
+    <div class="menu-button" @click="toggleMenu">
       <i class="fas fa-bars" v-show="!active"></i>
       <i class="fas fa-times" v-show="active"></i>
     </div>
 
-    <drawer-component v-bind:inheritedActive="active" v-on:toggle="toggleMenu" />
+    <drawer-component :inheritedActive="active" @toggle="toggleMenu" />
 
     <div class="background">
-      <p v-for="(sentence, index) in bgSentences" v-bind:key="index">
-        <span v-bind:data-text="sentence">{{ sentence }}</span>
+      <p v-for="(sentence, index) in bgSentences" :key="index">
+        <span :data-text="sentence">{{ sentence }}</span>
       </p>
     </div>
     <div class="front">
@@ -160,7 +160,6 @@ header {
         display: inline-block;
         padding: 5px 0 5px 5px;
         letter-spacing: 1px;
-        animation: slide 20s linear infinite;
         &:before {
           content: attr(data-text);
           position: absolute;
@@ -168,6 +167,9 @@ header {
           left: -100%;
           padding: 5px 0 5px 5px;
         }
+      }
+      &:nth-child(odd) span {
+        animation: slide 20s linear infinite;
       }
       &:nth-child(even) span {
         animation: slide-reverse 20s linear infinite;

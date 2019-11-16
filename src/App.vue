@@ -156,7 +156,7 @@ body {
   }
 }
 
-//ページ遷移アニメーション
+//ページ遷移トランジション
 .switch-enter-active {
   transition: 1.5s;
 }

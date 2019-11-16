@@ -45,12 +45,12 @@ export default {
   },
   methods: {
     addTypingMovement(word) {
-      return [...word].map((char, i) => {
+      return [...word].map((character, index) => {
         return new Promise(resolve => {
           setTimeout(() => {
-            this.title += char;
+            this.title += character;
             resolve();
-          }, i * 200);
+          }, 200 * ++index);
         });
       }); //Promiseオブジェクトを値に持つ配列をreturn
     }
@@ -123,6 +123,12 @@ body {
       font-size: 5rem;
       font-weight: bold;
       color: #fff;
+      &:after {
+        width: 4px;
+        content: '';
+        border-right: 4px solid #fff;
+        animation: flashing 0.4s linear infinite;
+      }
     }
   } //.title-call
   .contents {
@@ -136,6 +142,13 @@ body {
       text-decoration: none;
     }
   } //.contents
+}
+
+//カーソルの点滅アニメーション
+@keyframes flashing {
+  0% {
+    opacity: 0;
+  }
 }
 
 //背景用文字スライドアニメーション

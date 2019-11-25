@@ -1,17 +1,17 @@
 <template>
   <section>
-    <div class="skills-box">
+    <div class="skills">
       <h3>My Skills</h3>
-      <div class="skill-box">
-        <p class="subheading">Click the item <span>or</span></p>
-        <a class="show-all" @click="toggleAll">
+      <div class="skill">
+        <p class="skill__subheading">Click the item&nbsp;<span>or</span></p>
+        <a class="skill__show-button" @click="toggleAll">
           {{ toggleMessage }}
           <i class="fas fa-sort"></i>
         </a>
       </div>
       <accordion-component :inheritedSkills="skills" :inheritedMessage.sync="toggleMessage" />
     </div>
-    <router-link to="/" class="return">
+    <router-link to="/" class="move-button">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </router-link>
   </section>
@@ -119,16 +119,16 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
-.skills-box {
+.skills {
   @include section-box('SKILLS');
   @include center-styling;
   h3 {
     @include section-heading;
   }
-  .skill-box {
+  .skill {
     @include center-styling($direction: row);
     margin-bottom: 3rem;
-    p.subheading {
+    &__subheading {
       font-family: 'Orbitron', sans-serif;
       font-size: 2rem;
       margin-right: 1rem;
@@ -136,7 +136,7 @@ export default {
         font-weight: bold;
       }
     }
-    a.show-all {
+    &__show-button {
       display: block;
       border: 1px solid #000;
       width: 100px;
@@ -150,20 +150,21 @@ export default {
         background-color: #000;
       }
     }
-  } //.skill-box
-} //skills-box
+  } //.skill
+} //skills
 
+//メディアクエリ
 @include media-query($bp-mobile) {
-  .skills-box {
-    .skill-box {
+  .skills {
+    .skill {
       @include center-styling;
-      p.subheading {
+      &__subheading {
         margin-bottom: 1rem;
       }
-      a.show-all {
+      &__show-all {
         margin-bottom: 1rem;
       }
-    } //.skill-box
-  } //.skills-box
+    } //.skill
+  } //.skills
 }
 </style>

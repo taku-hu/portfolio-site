@@ -1,6 +1,6 @@
 <template>
-  <footer id="landing">
-    <div class="footer-top">
+  <footer class="footer" id="landing">
+    <div class="footer__top">
       <nav>
         <ul>
           <li v-for="page in pages" :key="page.name">
@@ -11,7 +11,7 @@
         </ul>
       </nav>
     </div>
-    <div class="footer-bottom">
+    <div class="footer__bottom">
       <small>copyright&copy; 2019 All rights reserved. Takuto Takeuchi</small>
     </div>
   </footer>
@@ -29,9 +29,9 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
-footer {
+.footer {
   width: 100%;
-  .footer-top {
+  &__top {
     @include center-styling;
     height: 3rem;
     background-color: #47b7cc;
@@ -53,10 +53,10 @@ footer {
             color: #000;
           }
         }
-      } //ul
+      }
     } //nav
-  } //footer-top
-  .footer-bottom {
+  } //__top
+  &__bottom {
     height: 5rem;
     background-color: $base-black;
     small {
@@ -64,6 +64,6 @@ footer {
       font-size: 1rem;
       line-height: 5rem;
     }
-  } //footer-bottom
+  } //__bottom
 } //footer
 </style>

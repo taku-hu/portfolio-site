@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="about-box">
+    <div class="about">
       <h3>My Profile</h3>
       <table>
         <tr v-for="data in dataSet" :key="data.th">
@@ -11,7 +11,7 @@
         </tr>
       </table>
     </div>
-    <router-link to="/" class="return">
+    <router-link to="/" class="move-button">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </router-link>
   </section>
@@ -62,7 +62,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
-.about-box {
+.about {
   @include section-box('ABOUT');
   @include center-styling;
   h3 {
@@ -82,10 +82,11 @@ export default {
     padding: 1rem;
     border-bottom: 2px solid #000;
   }
-} //about-box;
+} //about
 
+//メディアクエリ
 @include media-query($bp-tablet) {
-  .about-box {
+  .about {
     table {
       tr {
         @include center-styling($align: stretch);
@@ -95,8 +96,8 @@ export default {
         td {
           border: 1px solid #000;
         }
-      } //tr
-    }
+      }
+    } //table
   }
 }
 </style>

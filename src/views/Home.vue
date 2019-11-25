@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="home-box">
-      <div class="title">
+    <div class="home">
+      <div class="home__title">
         <h1>
           Takuto Takeuchi's<br />
           Portfolio Site
@@ -13,7 +13,7 @@
         どうぞ、よろしくお願いいたします。
       </p>
     </div>
-    <a href="#" class="return">
+    <a href="#" class="move-button">
       MORE&nbsp;<i class="fas fa-angle-right"></i>
     </a>
   </section>
@@ -28,10 +28,10 @@ export default {
 <style lang="scss">
 @import "@/assets/styles/_fragments.scss";
 
-.home-box {
+.home {
   @include section-box("HOME");
   @include center-styling;
-  .title {
+  &__title {
     @include center-styling;
     position: relative;
     width: 50%;
@@ -65,7 +65,7 @@ export default {
       line-height: 2;
       text-shadow: 1px 2px 2px #1d1d1d;
     }
-  } //.title
+  } //__title
   p {
     width: 50%;
     line-height: 4;
@@ -73,10 +73,10 @@ export default {
     color: $base-black;
     text-align: left;
   }
-} //top-box
+} //home
 
 //全コンポーネント共通・セクション下ボタン
-.return {
+.move-button {
   display: block;
   width: 130px;
   height: 50px;

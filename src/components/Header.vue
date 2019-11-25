@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <div class="header-navi">
+  <header class="header">
+    <div class="header__navi">
       <nav>
         <ul>
           <li v-for="page in pages" :key="page.name">
@@ -12,19 +12,19 @@
       </nav>
     </div>
 
-    <div class="menu-button" @click="toggleMenu">
+    <div class="header__menu-button" @click="toggleMenu">
       <i class="fas fa-bars" v-show="!active"></i>
       <i class="fas fa-times" v-show="active"></i>
     </div>
 
     <drawer-component :inheritedActive="active" @toggle="toggleMenu" />
 
-    <div class="background">
-      <p v-for="sentence in bgSentences" :key="sentence">
-        <span :data-text="sentence">{{ sentence }}</span>
+    <div class="header__background">
+      <p v-for="sentence in bgSentences" :key="sentence.id">
+        <span :data-text="sentence.item">{{ sentence.item }}</span>
       </p>
     </div>
-    <div class="front">
+    <div class="header__front">
       <h1>Takuto's</h1>
       <h2>portfolio site</h2>
       <p>
@@ -67,7 +67,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
-header {
+.header {
   @include center-styling;
   position: relative;
   width: 100%;
@@ -82,7 +82,7 @@ header {
   overflow: hidden;
   margin-bottom: 3rem;
 
-  .header-navi {
+  &__navi {
     position: fixed;
     top: 0;
     left: 0;
@@ -124,9 +124,9 @@ header {
         }
       } //li
     } //nav
-  } //.header-navi
+  } //__navi
 
-  .menu-button {
+  &__menu-button {
     @include center-styling;
     display: none;
     position: fixed;
@@ -140,50 +140,13 @@ header {
     }
   }
 
-  .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: inherit;
-    white-space: nowrap;
-    user-select: none;
-    p {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.3);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-      transition: 0.5s;
-      span {
-        position: relative;
-        display: inline-block;
-        padding: 5px 0 5px 5px;
-        letter-spacing: 1px;
-        &:before {
-          content: attr(data-text);
-          position: absolute;
-          top: 0;
-          left: -100%;
-          padding: 5px 0 5px 5px;
-        }
-      }
-      &:nth-child(odd) span {
-        animation: slide 20s linear infinite;
-      }
-      &:nth-child(even) span {
-        animation: slide-reverse 20s linear infinite;
-      }
-    } //p
+  &__background {
+    @include bg-animation-back;
   } //.background
 
-  .front {
+  &__front {
     @include center-styling;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: inherit;
+    @include bg-animation-front;
     h1 {
       -webkit-text-stroke: 2px #fff;
       color: transparent;
@@ -222,7 +185,7 @@ header {
         }
       }
     }
-    a.down-button {
+    .down-button {
       @include center-styling;
       position: absolute;
       bottom: 0;
@@ -244,16 +207,18 @@ header {
         font-size: 30px;
         text-shadow: none;
       }
-    } //a.down-button
-  } //.front
+    } //.down-button
+  } //__front
 } //header
 
+
+//メディアクエリ
 @include media-query($bp-tablet) {
-  header {
-    .menu-button {
+  .header {
+    &__menu-button {
       display: block;
     }
-    .header-navi nav {
+    &__navi nav {
       display: none;
     }
   } //header

@@ -1,32 +1,28 @@
 <template>
   <section>
-    <div class="works-box">
+    <div class="works">
       <h3>My Works</h3>
-      <div class="works-wrapper">
+      <div class="works__wrapper">
         <div
           class="work-box"
           v-for="work in works"
           :key="work.name"
           ontouchstart=""
         >
-          <div
-            class="face face1"
-            :style="{ backgroundColor: work.color }"
-          >
+          <div class="work-box__face1" :style="{ backgroundColor: work.color }">
             <span v-html="work.icon"></span>
             <h4>{{ work.name }}</h4>
             <a :href="work.link" target="_blank">
               <i class="fas fa-angle-right"></i>&nbsp;Details
             </a>
           </div>
-          <div class="face face2">
+          <div class="work-box__face2">
             <p v-html="work.description"></p>
           </div>
         </div>
       </div>
-      <!-- works-wrapper -->
     </div>
-    <router-link to="/" class="return">
+    <router-link to="/" class="move-button">
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </router-link>
   </section>
@@ -87,50 +83,44 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
-.works-box {
+.works {
   @include section-box('WORKS');
   @include center-styling;
   h3 {
     @include section-heading;
   }
-  .works-wrapper {
+  &__wrapper {
     @include center-styling($wrap: wrap, $direction: row);
     .work-box {
       position: relative;
       width: 20rem;
       height: 15rem;
       margin: 7.5rem 1rem;
-      &:hover .face.face1 {
+      &:hover .work-box__face1 {
         transform: translateY(-7.5rem);
-        span {
-          margin-bottom: 1rem;
-        }
-        h4 {
-          margin-bottom: 1.5rem;
-        }
         a {
           display: block;
         }
       }
-      &:hover .face.face2 {
+      &:hover .work-box__face2 {
         transform: translateY(7.5rem);
       }
-    } //.card
-    .face {
-      width: 100%;
-      height: 100%;
-      transition: 0.5s;
-      &.face1 {
+      &__face1 {
         @include center-styling;
         position: absolute;
         z-index: 1;
+        width: 100%;
+        height: 100%;
         color: #fff;
+        transition: 0.5s;
         span {
           font-size: 5rem;
+          margin-bottom: 1rem;
         }
         h4 {
           font-weight: bold;
           text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+          margin-bottom: 1rem;
         }
         a {
           display: none;
@@ -145,20 +135,23 @@ export default {
             background-color: #000;
           }
         }
-      } //.face1
-      &.face2 {
+      } //__face1
+      &__face2 {
         @include center-styling;
         position: absolute;
-        text-align: left;
-        padding: 0.5rem;
+        width: 100%;
+        height: 100%;
         box-sizing: border-box;
         box-shadow: 1px 1px 6px 0px #b2b2b2;
+        text-align: left;
+        transition: 0.5s;
+        padding: 0.5rem;
         p {
           line-height: 1.5;
           word-break: break-all;
         }
-      } //.face2
-    } //.face
+      } //__face2
+    } //.work-box
   } //.works-wrapper
-} //.works-box
+} //.works
 </style>

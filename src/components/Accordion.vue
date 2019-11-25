@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion-wrapper">
+  <div class="accordions">
     <div
       class="accordion"
       v-for="skill in inheritedSkills"
@@ -10,26 +10,23 @@
       }"
     >
       <div
-        class="label"
-        @click="toggleAccordion(skill)"
+        class="accordion__label"
         :style="{ backgroundColor: skill.bgColor }"
+        @click="toggleAccordion(skill)"
       >
         <h2>
           {{ skill.name }}
           <i class="fa fa-angle-down" :class="{ rotate: skill.show }" />
         </h2>
       </div>
-      <!-- label -->
       <transition name="slide">
-        <div class="box" v-show="skill.show">
+        <div v-show="skill.show" class="accordion__contents">
           <img :src="require(`@/assets/images/${skill.name}.png`)" />
           <p v-html="skill.description"></p>
         </div>
       </transition>
     </div>
-    <!-- accordion -->
   </div>
-  <!-- accordion-wrapper -->
 </template>
 
 <script>
@@ -55,8 +52,8 @@ export default {
     }
   },
   beforeUpdate() {
-    const checkTrue = this.inheritedSkills.every(value => value.show === true);
-    const checkFalse = this.inheritedSkills.every(value => value.show === false);
+    const checkTrue = this.inheritedSkills.every(value => value.show);
+    const checkFalse = this.inheritedSkills.every(value => !value.show);
     if (checkTrue) {
       this.inherited_message = "Close all";
     } else if (checkFalse) {
@@ -70,7 +67,7 @@ export default {
 <style lang="scss">
 @import "@/assets/styles/_fragments.scss";
 
-.accordion-wrapper {
+.accordions {
   @include center-styling(wrap, row, space-around, flex-start);
   width: 100%;
   .accordion {
@@ -78,7 +75,7 @@ export default {
     border-radius: 10px;
     box-shadow: 1px 1px 6px 0px #b2b2b2;
     margin-bottom: 1rem;
-    .label {
+    &__label {
       width: 100%;
       height: 2rem;
       line-height: 2rem;
@@ -97,8 +94,8 @@ export default {
           } // 回転アニメーション
         }
       }
-    } //.header
-    .box {
+    } //__label
+    &__contents {
       @include center-styling($direction: row, $justify: space-around);
       width: 100%;
       box-sizing: border-box;
@@ -114,9 +111,9 @@ export default {
         text-align: left;
         word-break: break-all;
       }
-    } //.box
+    } //__contents
   } //.accordion
-} // accordion-wrapper
+} // accordions
 
 // 開閉アニメーション
 .slide-enter-active {

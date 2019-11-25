@@ -1,10 +1,10 @@
 <template>
   <div class="navigation-drawer">
-    <div class="overlay" v-show="inheritedActive" @click="toggle"></div>
+    <div class="navigation-drawer__overlay" v-show="inheritedActive" @click="toggle"></div>
 
     <div
-      class="drawer-menu"
-      :class="{ 'menu-open': inheritedActive }"
+      class="navigation-drawer__menu"
+      :class="{ 'open': inheritedActive }"
       @click="toggle"
     >
       <nav>
@@ -43,14 +43,14 @@ export default {
 .navigation-drawer {
   width: 100%;
   height: 100%;
-  .overlay {
+  &__overlay {
     position: fixed;
     z-index: 98;
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
   }
-  .drawer-menu {
+  &__menu {
     position: fixed;
     z-index: 99;
     top: -16 + 3.5rem;
@@ -59,7 +59,7 @@ export default {
     font-family: 'Orbitron', sans-serif;
     background-color: rgba(34, 34, 34, 0.9);
     transition: 0.5s;
-    &.menu-open {
+    &.open {
       transform: translateY(16rem);
     }
     nav {
@@ -79,6 +79,6 @@ export default {
         }
       } //li
     } //nav
-  } //drawer-menu
+  } //__menu
 } //.navigation-drawer
 </style>

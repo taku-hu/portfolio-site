@@ -151,10 +151,9 @@ header {
     p {
       font-size: 1rem;
       color: rgba(255, 255, 255, 0.3);
-      transition: 0.5s;
-      overflow: hidden;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      user-select: none;
+      overflow: hidden;
+      transition: 0.5s;
       span {
         position: relative;
         display: inline-block;

@@ -7,7 +7,9 @@
             <span :data-text="sentence">{{ sentence }}</span>
           </p>
         </div>
-        <h1>{{ title }}</h1>
+        <div class="front">
+          <h1>{{ title }}</h1>
+        </div>
       </div>
       <div v-else key="contents" class="contents">
         <header-component />
@@ -88,13 +90,15 @@ body {
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: inherit;
       white-space: nowrap;
+      user-select: none;
       p {
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.3);
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         overflow: hidden;
-        user-select: none;
         transition: 0.5s;
         span {
           position: relative;
@@ -117,19 +121,28 @@ body {
         }
       } //p
     } //.background
-    h1 {
-      @include txt-neon-shadow;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 5rem;
-      font-weight: bold;
-      color: #fff;
-      &:after {
-        width: 4px;
-        content: '';
-        border-right: 4px solid #fff;
-        animation: flashing 0.4s linear infinite;
+    .front {
+      @include center-styling;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: inherit;
+      h1 {
+        @include txt-neon-shadow;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 5rem;
+        font-weight: bold;
+        color: #fff;
+        &:after {
+          width: 4px;
+          content: '';
+          border-right: 4px solid #fff;
+          animation: flashing 0.4s linear infinite;
+        }
       }
-    }
+    } //.front
   } //.title-call
   .contents {
     @include center-styling;

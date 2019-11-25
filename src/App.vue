@@ -2,12 +2,12 @@
   <div id="app">
     <transition name="switch" mode="out-in">
       <div v-if="!titleCall" key="title" class="title-call">
-        <div class="background">
-          <p v-for="sentence in bgSentences" :key="sentence">
-            <span :data-text="sentence">{{ sentence }}</span>
+        <div class="title-call__background">
+          <p v-for="sentence in bgSentences" :key="sentence.id">
+            <span :data-text="sentence.item">{{ sentence.item }}</span>
           </p>
         </div>
-        <div class="front">
+        <div class="title-call__front">
           <h1>{{ title }}</h1>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default {
   mixins: [mobileBrowser, background],
   created() {
     window.onload = async () => {
-      await Promise.all(this.addTypingMovement('Welcome to my website!'));
+      await Promise.all(this.typing('Welcome to my website!'));
       setTimeout(() => {
         this.titleCall = true;
       }, 200);
@@ -46,7 +46,7 @@ export default {
     };
   },
   methods: {
-    addTypingMovement(word) {
+    typing(word) {
       return [...word].map((character, index) => {
         return new Promise(resolve => {
           setTimeout(() => {
@@ -86,49 +86,12 @@ body {
     background-color: rgb(15, 54, 167);
     background-image: linear-gradient(90deg, rgba(15, 54, 167, 1) 40%, rgba(0, 163, 254, 1) 100%);
     overflow: hidden;
-    .background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: inherit;
-      white-space: nowrap;
-      user-select: none;
-      p {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.3);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        overflow: hidden;
-        transition: 0.5s;
-        span {
-          position: relative;
-          display: inline-block;
-          letter-spacing: 1px;
-          padding: 5px 0 5px 5px;
-          &:before {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: -100%;
-            padding: 5px 0 5px 5px;
-          }
-        }
-        &:nth-child(odd) span {
-          animation: slide 20s linear infinite;
-        }
-        &:nth-child(even) span {
-          animation: slide-reverse 20s linear infinite;
-        }
-      } //p
-    } //.background
-    .front {
+    &__background {
+      @include bg-animation-back;
+    } //__background
+    &__front {
       @include center-styling;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      height: inherit;
+      @include bg-animation-front;
       h1 {
         @include txt-neon-shadow;
         font-family: 'Orbitron', sans-serif;
@@ -142,7 +105,7 @@ body {
           animation: flashing 0.4s linear infinite;
         }
       }
-    } //.front
+    } //__front
   } //.title-call
   .contents {
     @include center-styling;

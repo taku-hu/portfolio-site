@@ -63,6 +63,52 @@ $bp-mobile: 480px;
     0 0 70px rgba(52, 152, 219, 1);
 }
 
+@mixin bg-animation-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: inherit;
+  white-space: nowrap;
+  user-select: none;
+  p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: 0.5s;
+    span {
+      position: relative;
+      display: inline-block;
+      padding: 5px 0 5px 5px;
+      letter-spacing: 1px;
+      &:before {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: -100%;
+        padding: 5px 0 5px 5px;
+      }
+    }
+    &:nth-child(odd) span {
+      animation: slide 20s linear infinite;
+    }
+    &:nth-child(even) span {
+      animation: slide-reverse 20s linear infinite;
+    }
+  }
+}
+
+@mixin bg-animation-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: inherit;
+  @content;
+}
+
 @mixin media-query($breake-point) {
   @media (max-width: $breake-point) {
     @content;

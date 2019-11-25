@@ -20,7 +20,7 @@
     <drawer-component :inheritedActive="active" @toggle="toggleMenu" />
 
     <div class="background">
-      <p v-for="(sentence, index) in bgSentences" :key="index">
+      <p v-for="sentence in bgSentences" :key="sentence">
         <span :data-text="sentence">{{ sentence }}</span>
       </p>
     </div>

@@ -3,7 +3,7 @@
     <transition name="switch" mode="out-in">
       <div v-if="!titleCall" key="title" class="title-call">
         <div class="background">
-          <p v-for="(sentence, index) in bgSentences" :key="index">
+          <p v-for="sentence in bgSentences" :key="sentence">
             <span :data-text="sentence">{{ sentence }}</span>
           </p>
         </div>

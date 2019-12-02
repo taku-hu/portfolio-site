@@ -19,7 +19,7 @@
         </div>
       </div>
       <transition name="slide">
-        <div class="skill-accordion__contents" v-show="skill.show">
+        <div class="skill-accordion__contents" @click.stop v-show="skill.show">
           <img :src="require(`@/assets/images/${skill.name}.png`)" />
           <p v-html="skill.description"></p>
         </div>
@@ -82,7 +82,7 @@ export default {
       position: absolute;
       top: 0;
       left: 0;
-      z-index: 100;
+      z-index: 1;
       width: 100%;
       height: 1.5rem;
       background-color: rgba(255, 255, 255, 0.1);

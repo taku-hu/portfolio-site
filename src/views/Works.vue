@@ -58,7 +58,7 @@ export default {
           name: 'オンライン本棚',
           icon: '<i class="fas fa-book"></i>',
           color: '#21b1aa',
-          link: 'https://github.com/taku-hu/my-book-manager',
+          link: 'https://github.com/taku-hu/my-online-bookshelf',
           description: `
             私が3番目にVue.jsで作ったもので、Firebaseでログインとデータベースの機能を盛り込みました。<br>
             そして状態管理に初めてVuexを使いました。まだまだではありますが、開発を通してVue.jsでのより実践的なコーディングが学べたと感じています。

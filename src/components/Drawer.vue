@@ -4,7 +4,7 @@
 
     <div
       class="navigation-drawer__menu"
-      :class="{ 'open': inheritedActive }"
+      :class="{ 'navigation-drawer__menu--opened': inheritedActive }"
       @click="toggle"
     >
       <nav>
@@ -59,7 +59,7 @@ export default {
     font-family: 'Orbitron', sans-serif;
     background-color: rgba(34, 34, 34, 0.9);
     transition: 0.5s;
-    &.open {
+    &--opened {
       transform: translateY(16rem);
     }
     nav {

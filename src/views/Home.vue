@@ -7,13 +7,13 @@
           Portfolio Site
         </h1>
       </div>
-      <p>
+      <p class="home__discription">
         私のポートフォリオサイトにお越しいただき、ありがとうございます.<br />
         独学でフロントエンドエンジニアを目指す大学生です.<br />
         どうぞ、よろしくお願いいたします。
       </p>
     </div>
-    <a href="#" class="move-button">
+    <a class="move-button" href="#" >
       MORE&nbsp;<i class="fas fa-angle-right"></i>
     </a>
   </section>
@@ -40,8 +40,8 @@ export default {
     box-sizing: border-box;
     &:before,
     &:after {
-      position: absolute;
       content: "";
+      position: absolute;
       width: 20px;
       height: 50px;
       box-sizing: border-box;
@@ -66,7 +66,7 @@ export default {
       text-shadow: 1px 2px 2px #1d1d1d;
     }
   } //__title
-  p {
+  &__discription {
     width: 50%;
     line-height: 4;
     letter-spacing: 0.3rem;

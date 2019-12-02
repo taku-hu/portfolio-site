@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="switch" mode="out-in">
-      <div v-if="!titleCall" key="title" class="title-call">
+      <div class="title-call" v-if="!titleCall" key="title" >
         <div class="title-call__background">
           <p v-for="sentence in bgSentences" :key="sentence.id">
             <span :data-text="sentence.item">{{ sentence.item }}</span>
@@ -11,7 +11,7 @@
           <h1>{{ title }}</h1>
         </div>
       </div>
-      <div v-else key="contents" class="contents">
+      <div class="contents" v-else key="contents" >
         <header-component />
         <transition name="switch" mode="out-in">
           <router-view />

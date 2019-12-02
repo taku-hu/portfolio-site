@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="works">
-      <h3>My Works</h3>
+      <h3 class="works__heading">My Works</h3>
       <div class="works__wrapper">
         <div
           class="work-box"
@@ -11,7 +11,7 @@
         >
           <div class="work-box__face1" :style="{ backgroundColor: work.color }">
             <span v-html="work.icon"></span>
-            <h4>{{ work.name }}</h4>
+            <h3>{{ work.name }}</h3>
             <a :href="work.link" target="_blank">
               <i class="fas fa-angle-right"></i>&nbsp;Details
             </a>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <router-link to="/" class="move-button">
+    <router-link class="move-button" to="/" >
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </router-link>
   </section>
@@ -86,7 +86,7 @@ export default {
 .works {
   @include section-box('WORKS');
   @include center-styling;
-  h3 {
+  &__heading {
     @include section-heading;
   }
   &__wrapper {
@@ -117,7 +117,7 @@ export default {
           font-size: 5rem;
           margin-bottom: 1rem;
         }
-        h4 {
+        h3 {
           font-weight: bold;
           text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
           margin-bottom: 1rem;

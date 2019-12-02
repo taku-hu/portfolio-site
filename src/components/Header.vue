@@ -32,7 +32,7 @@
           WELCOME TO MY WEBSITE!
         </span>
       </p>
-      <a href="#landing" class="down-button">
+      <a class="down-button" href="#landing" >
         <i class="fas fa-angle-down"></i>
       </a>
     </div>

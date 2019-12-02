@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="about">
-      <h3>My Profile</h3>
-      <table>
+      <h3 class="about__heading">My Profile</h3>
+      <table class="about__list">
         <tr v-for="data in dataSet" :key="data.th">
           <th>{{ data.th }}</th>
           <td>
@@ -11,7 +11,7 @@
         </tr>
       </table>
     </div>
-    <router-link to="/" class="move-button">
+    <router-link class="move-button" to="/" >
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </router-link>
   </section>
@@ -65,29 +65,29 @@ export default {
 .about {
   @include section-box('ABOUT');
   @include center-styling;
-  h3 {
+  &__heading {
     @include section-heading;
   }
-  table {
+  &__list {
     border-spacing: 2rem 4rem;
     border-collapse: separate;
-  }
-  th {
-    padding: 1rem 0.5rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #000;
-  }
-  td {
-    padding: 1rem;
-    border-bottom: 2px solid #000;
+    th {
+      padding: 1rem 0.5rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: #000;
+    }
+    td {
+      padding: 1rem;
+      border-bottom: 2px solid #000;
+    }
   }
 } //about
 
 //メディアクエリ
 @include media-query($bp-tablet) {
   .about {
-    table {
+    &__list {
       tr {
         @include center-styling($align: stretch);
         &:not(:last-child) {
@@ -97,7 +97,7 @@ export default {
           border: 1px solid #000;
         }
       }
-    } //table
+    } //__list
   }
 }
 </style>

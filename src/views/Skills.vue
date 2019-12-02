@@ -1,17 +1,17 @@
 <template>
   <section>
     <div class="skills">
-      <h3>My Skills</h3>
-      <div class="skill">
-        <p class="skill__subheading">Click the item&nbsp;<span>or</span></p>
-        <a class="skill__show-button" @click="toggleAll">
+      <h3 class="skills__heading">My Skills</h3>
+      <div class="accordion-heading">
+        <p class="accordion-heading__sentence">Click the item&nbsp;or</p>
+        <a class="accordion-heading__show-button" @click="toggleAll">
           {{ toggleMessage }}
           <i class="fas fa-sort"></i>
         </a>
       </div>
       <accordion-component :inheritedSkills="skills" :inheritedMessage.sync="toggleMessage" />
     </div>
-    <router-link to="/" class="move-button">
+    <router-link class="move-button" to="/" >
       <i class="fas fa-angle-left"></i>&nbsp;BACK
     </router-link>
   </section>
@@ -28,6 +28,7 @@ export default {
       skills: [
         {
           name: 'HTML・CSS',
+          value: 90,
           bgColor: 'orangered',
           show: false,
           description: `
@@ -37,6 +38,7 @@ export default {
         },
         {
           name: 'Sass',
+          value: 80,
           bgColor: 'hotpink',
           show: false,
           description: `
@@ -45,6 +47,7 @@ export default {
         },
         {
           name: 'JavaScript',
+          value: 65,
           bgColor: 'gold',
           show: false,
           description: `
@@ -55,6 +58,7 @@ export default {
         },
         {
           name: 'Vue.js',
+          value: 70,
           bgColor: 'mediumseagreen',
           show: false,
           description: `
@@ -64,6 +68,7 @@ export default {
         },
         {
           name: 'Firebase',
+          value: 30,
           bgColor: 'orange',
           show: false,
           description: `
@@ -73,6 +78,7 @@ export default {
         },
         {
           name: 'Git・Github',
+          value: 60,
           bgColor: 'black',
           show: false,
           description: `
@@ -82,6 +88,7 @@ export default {
         },
         {
           name: 'webpack',
+          value: 40,
           bgColor: 'skyblue',
           show: false,
           description: `
@@ -122,19 +129,16 @@ export default {
 .skills {
   @include section-box('SKILLS');
   @include center-styling;
-  h3 {
+  &__heading {
     @include section-heading;
   }
-  .skill {
+  .accordion-heading {
     @include center-styling($direction: row);
     margin-bottom: 3rem;
-    &__subheading {
+    &__sentence {
       font-family: 'Orbitron', sans-serif;
       font-size: 2rem;
       margin-right: 1rem;
-      span {
-        font-weight: bold;
-      }
     }
     &__show-button {
       display: block;
@@ -150,21 +154,19 @@ export default {
         background-color: #000;
       }
     }
-  } //.skill
+  } //.accordion-heading
 } //skills
 
 //メディアクエリ
 @include media-query($bp-mobile) {
   .skills {
-    .skill {
+    .accordion-heading {
       @include center-styling;
-      &__subheading {
+      margin-bottom: 1rem;
+      &__sentence {
         margin-bottom: 1rem;
       }
-      &__show-all {
-        margin-bottom: 1rem;
-      }
-    } //.skill
+    } //.accordion-heading
   } //.skills
 }
 </style>

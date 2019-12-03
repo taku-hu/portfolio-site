@@ -8,8 +8,8 @@
         </h1>
       </div>
       <p class="home__discription">
-        私のポートフォリオサイトにお越しいただき、ありがとうございます.<br />
-        独学でフロントエンドエンジニアを目指す大学生です.<br />
+        私のポートフォリオサイトにお越しいただき、ありがとうございます。<br>
+        独学でフロントエンドエンジニアを目指す大学生です。<br>
         どうぞ、よろしくお願いいたします。
       </p>
     </div>
@@ -67,7 +67,7 @@ export default {
     }
   } //__title
   &__discription {
-    width: 50%;
+    display: inline-block;
     line-height: 4;
     letter-spacing: 0.3rem;
     color: $base-black;
@@ -90,6 +90,15 @@ export default {
   &:hover {
     background-color: #000;
     color: #fff;
+  }
+}
+
+//メディアクエリ
+@include media-query($bp-mobile) {
+  .home {
+    &__discription {
+      width: 80%;
+    }
   }
 }
 </style>

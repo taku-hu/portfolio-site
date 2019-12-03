@@ -47,6 +47,15 @@ export const background = {
         {id: 43, item: "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });"},
         {id: 44, item: "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }"},
         {id: 45, item: "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)"},
+        {id: 46, item: "setLoginUser(state, user) { state.login_user = user; }, deleteLoginUser(state) { state.login_user = null; state.books = []; }, toggleDrawer(state) { state.active = !state.active; }"},
+        {id: 47, item: "changeEditMessage(state, {target, type}) { state.editType = type; state.editOperation = operation; }, addNewBook(state, {id, newBook}) {	newBook.id = id state.book.push(newBook); }"},
+        {id: 48, item: "import 'reset-css' import '@fortawesome/fontawesome-free/css/all.css' import Vue from 'vue'; import App from './App.vue'; import router from './router'; import store from './store'"},
+        {id: 49, item: "setTitle: function(result) { this.changeRegistrationMethod() this.newBook.title = result.volumeInfo.title if (result.volumeInfo.authors) { this.newBook.authors = result.volumeInfo}"},
+        {id: 50, item: "document.documentElement.style.setProperty('--vh', `${vh}px`) window.addEventListener('resize', () => { let vh = window.innerHeight * 0.1 document.documentElement.style.setProperty"},
+        {id: 51, item: "if (e.key === this.word[this.location]) { this.locationNum++ if (this.location === this.word.length) { this.word = this.words[Math.floor(Math.random() * this.words.length)] return}"},
+        {id: 52, item: "firebase.auth().onAuthStateChanged(user => { if (user) { this.setLoginUser(user); this.fetchBooks(); this.$swal({ type: 'success', title: 'Complete!', showCloseButton: true,}); });"},
+        {id: 53, item: "axios.get(`https://www.googleapis.com/`, { params: { q: `intitle:${this.keywords}`} }).then(response => { if (!this.keyword) { return; } else { this.results = response.data.items }"},
+        {id: 54, item: "startTimer() { const timeLimit = this.startTimer + this.time - Date.now(); this.time = (timeLimit / 1000).toFixed(2); this.timerLabel = setTimeout(() => { this.startTimer(); }, 10)"},
       ],
     };
   }

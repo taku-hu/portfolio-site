@@ -1,19 +1,14 @@
 <template>
-  <section>
-    <div class="about">
-      <h3 class="about__heading">My Profile</h3>
-      <table class="about__list">
-        <tr v-for="data in dataSet" :key="data.th">
-          <th>{{ data.th }}</th>
-          <td>
-            <a :href="data.link" target="_blank" v-html="data.td"></a>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <router-link class="move-button" to="/" >
-      <i class="fas fa-angle-left"></i>&nbsp;BACK
-    </router-link>
+  <section class="about">
+    <h3 class="about__heading">My Profile</h3>
+    <table class="about__list">
+      <tr v-for="data in dataSet" :key="data.th">
+        <th>{{ data.th }}</th>
+        <td>
+          <a :href="data.link" target="_blank" v-html="data.td"></a>
+        </td>
+      </tr>
+    </table>
   </section>
 </template>
 

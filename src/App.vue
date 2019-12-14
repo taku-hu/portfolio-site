@@ -13,9 +13,16 @@
       </div>
       <div class="contents" v-else key="contents" >
         <header-component />
-        <transition name="switch" mode="out-in">
-          <router-view />
-        </transition>
+        <main>
+          <transition name="switch" mode="out-in">
+            <router-view />
+          </transition>
+          <a class="contents__move-button" @click="move">
+            <i class="fas fa-angle-left" v-show="moveAction === 'BACK'"></i>
+            {{ moveAction }}
+            <i class="fas fa-angle-right" v-show="moveAction === 'MORE'"></i>
+          </a>
+        </main>
         <footer-component />
       </div>
     </transition>
@@ -45,6 +52,11 @@ export default {
       titleCall: false
     };
   },
+  computed: {
+    moveAction() {
+      return this.$route.path === '/' ? 'MORE' : 'BACK';
+    }
+  },
   methods: {
     typing(word) {
       return [...word].map((character, index) => {
@@ -55,6 +67,13 @@ export default {
           }, 200 * ++index);
         });
       }); //Promiseオブジェクトを値に持つ配列をreturn
+    },
+    move() {
+      if(this.moveAction === 'MORE') {
+        location.href = '#';
+      } else {
+        this.$router.push({path: '/'});
+      }
     }
   },
   components: {
@@ -71,9 +90,12 @@ html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
-  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ',
-    Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
 }
+a {
+  text-decoration: none;
+}
+
 #app {
   @include center-styling;
   text-align: center;
@@ -108,15 +130,28 @@ body {
     } //__front
   } //.title-call
   .contents {
-    @include center-styling;
     width: 100%;
-    section {
+    main {
       @include center-styling;
       width: 100%;
     }
-    a {
-      text-decoration: none;
-    }
+    &__move-button {
+      display: block;
+      width: 130px;
+      height: 50px;
+      border: solid 1px #000;
+      font-size: 16px;
+      line-height: 50px;
+      color: #000;
+      background-color: #fff;
+      margin: 40px;
+      transition: 0.3s;
+      cursor: pointer;
+      &:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    } //__move-button
   } //.contents
 }
 

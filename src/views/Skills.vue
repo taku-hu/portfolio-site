@@ -1,19 +1,14 @@
 <template>
-  <section>
-    <div class="skills">
-      <h3 class="skills__heading">My Skills</h3>
-      <div class="accordion-heading">
-        <p class="accordion-heading__sentence">Click the item&nbsp;or</p>
-        <a class="accordion-heading__show-button" @click="toggleAll">
-          {{ toggleMessage }}
-          <i class="fas fa-sort"></i>
-        </a>
-      </div>
-      <accordion-component :inheritedSkills="skills" :inheritedMessage.sync="toggleMessage" />
+  <section class="skills">
+    <h3 class="skills__heading">My Skills</h3>
+    <div class="accordion-heading">
+      <p class="accordion-heading__sentence">Click the item&nbsp;or</p>
+      <a class="accordion-heading__show-button" @click="toggleAll">
+        {{ toggleMessage }}
+        <i class="fas fa-sort"></i>
+      </a>
     </div>
-    <router-link class="move-button" to="/" >
-      <i class="fas fa-angle-left"></i>&nbsp;BACK
-    </router-link>
+    <accordion-component :inheritedSkills="skills" :inheritedMessage.sync="toggleMessage" />
   </section>
 </template>
 

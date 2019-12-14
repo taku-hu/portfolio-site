@@ -1,30 +1,25 @@
 <template>
-  <section>
-    <div class="works">
-      <h3 class="works__heading">My Works</h3>
-      <div class="works__wrapper">
-        <div
-          class="work-box"
-          v-for="work in works"
-          :key="work.name"
-          ontouchstart=""
-        >
-          <div class="work-box__face1" :style="{ backgroundColor: work.color }">
-            <span v-html="work.icon"></span>
-            <h3>{{ work.name }}</h3>
-            <a :href="work.link" target="_blank">
-              <i class="fas fa-angle-right"></i>&nbsp;Details
-            </a>
-          </div>
-          <div class="work-box__face2">
-            <p v-html="work.description"></p>
-          </div>
+  <section class="works">
+    <h3 class="works__heading">My Works</h3>
+    <div class="works__wrapper">
+      <div
+        class="work-box"
+        v-for="work in works"
+        :key="work.name"
+        ontouchstart=""
+      >
+        <div class="work-box__face1" :style="{ backgroundColor: work.color }">
+          <span v-html="work.icon"></span>
+          <h3>{{ work.name }}</h3>
+          <a :href="work.link" target="_blank">
+            <i class="fas fa-angle-right"></i>&nbsp;Details
+          </a>
+        </div>
+        <div class="work-box__face2">
+          <p v-html="work.description"></p>
         </div>
       </div>
     </div>
-    <router-link class="move-button" to="/" >
-      <i class="fas fa-angle-left"></i>&nbsp;BACK
-    </router-link>
   </section>
 </template>
 
@@ -152,6 +147,6 @@ export default {
         }
       } //__face2
     } //.work-box
-  } //.works-wrapper
+  } //__wrapper
 } //.works
 </style>

@@ -1,21 +1,16 @@
 <template>
-  <section>
-    <div class="home">
-      <div class="home__title">
-        <h1>
-          Takuto Takeuchi's<br />
-          Portfolio Site
-        </h1>
-      </div>
-      <p class="home__discription">
-        私のポートフォリオサイトにお越しいただき、ありがとうございます。<br>
-        独学でフロントエンドエンジニアを目指す大学生です。<br>
-        どうぞ、よろしくお願いいたします。
-      </p>
+  <section class="home">
+    <div class="home__title">
+      <h1>
+        Takuto Takeuchi's<br />
+        Portfolio Site
+      </h1>
     </div>
-    <a class="move-button" href="#" >
-      MORE&nbsp;<i class="fas fa-angle-right"></i>
-    </a>
+    <p class="home__discription">
+      私のポートフォリオサイトにお越しいただき、ありがとうございます。<br>
+      独学でフロントエンドエンジニアを目指す大学生です。<br>
+      どうぞ、よろしくお願いいたします。
+    </p>
   </section>
 </template>
 
@@ -74,24 +69,6 @@ export default {
     text-align: left;
   }
 } //home
-
-//全コンポーネント共通・セクション下ボタン
-.move-button {
-  display: block;
-  width: 130px;
-  height: 50px;
-  border: solid 1px #000;
-  font-size: 16px;
-  line-height: 50px;
-  color: #000;
-  background-color: #fff;
-  margin: 40px;
-  transition: 0.3s;
-  &:hover {
-    background-color: #000;
-    color: #fff;
-  }
-}
 
 //メディアクエリ
 @include media-query($bp-mobile) {

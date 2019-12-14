@@ -9,7 +9,7 @@
       <div class="skill-accordion__label">
         <div class="skill-lebel">
           <h2 class="skill-lebel__name">
-            <i class="fa fa-angle-down" :class="{ rotate: skill.show }" />
+            <i class="fa fa-angle-down" :class="{ 'fa-angle-down--rotate': skill.show }" />
             {{ skill.name }}
           </h2>
           <span class="skill-lebel__percent">
@@ -106,7 +106,7 @@ export default {
           text-align: right;
           .fa-angle-down {
             transition: 0.3s;
-            &.rotate {
+            &--rotate {
               transform: rotateX(180deg);
             } // 回転アニメーション
           }

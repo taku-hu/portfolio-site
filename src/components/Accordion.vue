@@ -9,17 +9,17 @@
       <div class="skill-accordion__label">
         <div class="skill-lebel">
           <h2 class="skill-lebel__name">
-            <i class="fa fa-angle-down" :class="{ 'fa-angle-down--rotate': skill.show }" />
+            <i class="fa fa-angle-down" :class="{ 'fa-angle-down--rotate': skill.open }" />
             {{ skill.name }}
           </h2>
-          <span class="skill-lebel__percent">
-            <span :style="{backgroundColor: skill.bgColor, width: `${skill.value}%`}"></span>
+          <span class="skill-lebel__graph">
+            <span class="skill-lebel__bar" :style="{backgroundColor: skill.bgColor, width: `${skill.value}%`}"></span>
           </span>
           <span class="skill-lebel__value">{{ skill.value }}%</span>
         </div>
       </div>
       <transition name="slide">
-        <div class="skill-accordion__contents" @click.stop v-show="skill.show">
+        <div class="skill-accordion__contents" @click.stop v-show="skill.open">
           <img :src="require(`@/assets/images/${skill.name}.png`)" />
           <p v-html="skill.description"></p>
         </div>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "AccordionComponent",
+  name: 'AccordionComponent',
   props: {
     inheritedSkills: Array,
     inheritedMessage: String
@@ -42,29 +42,25 @@ export default {
   },
   methods: {
     toggleAccordion(skill) {
-      this.inheritedSkills.find(
-        inheritedSkills => inheritedSkills.name === skill.name
-      ).show = 
-      !this.inheritedSkills.find(
-        inheritedSkills => inheritedSkills.name === skill.name
-      ).show;
+      const selected = this.inheritedSkills.find(inheritedSkills => inheritedSkills.name === skill.name);
+      selected.open = !selected.open;
     }
   },
   beforeUpdate() {
     const checkTrue = this.inheritedSkills.every(value => value.show);
     const checkFalse = this.inheritedSkills.every(value => !value.show);
     if (checkTrue) {
-      this.inherited_message = "Close all";
+      this.inherited_message = 'Close all';
     } else if (checkFalse) {
-      this.inherited_message = "Show all";
+      this.inherited_message = 'Show all';
     }
-    this.$emit("update:inheritedMessage", this.inherited_message);
+    this.$emit('update:inheritedMessage', this.inherited_message);
   }
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/_fragments.scss";
+@import '@/assets/styles/_fragments.scss';
 
 .accordion-body {
   @include center-styling(wrap, row, space-around, flex-start);
@@ -111,7 +107,7 @@ export default {
             } // 回転アニメーション
           }
         } //__name
-        &__percent {
+        &__graph {
           position: relative;
           width: 50%;
           height: 50%;
@@ -119,13 +115,13 @@ export default {
           border-radius: 1rem;
           overflow: hidden;
           margin: 0 0.5rem;
-          span {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            animation: rise 4s ease-in-out;
-          }
+        }
+        &__bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          animation: rise 4s ease-in-out;
         }
       } //.skill-lebel
     } //__label
@@ -157,11 +153,15 @@ export default {
 }
 
 // 開閉アニメーション
+.slide-enter-active,
+.slide-leave-active {
+  overflow: hidden;
+}
 .slide-enter-active {
   transition: 0.5s ease-in;
 }
 .slide-leave-active {
-  transition: 0.5s;
+  transition: 0.3s ease-out;
 }
 .slide-enter-to,
 .slide-leave {

@@ -24,8 +24,8 @@ export default {
         {
           name: 'HTML・CSS',
           value: 90,
-          bgColor: 'orangered',
-          show: false,
+          bgColor: '#ff4500',
+          open: false,
           description: `
             両方共に主要な機能は理解しています。<br>
             「flexbox」や「grid」を使いレスポンシブなウェブサイトを作ることが出来ます。
@@ -34,8 +34,8 @@ export default {
         {
           name: 'Sass',
           value: 80,
-          bgColor: 'hotpink',
-          show: false,
+          bgColor: '#ff69b4',
+          open: false,
           description: `
             開発に必要な基本的な機能は理解しています。
           `
@@ -43,8 +43,8 @@ export default {
         {
           name: 'JavaScript',
           value: 65,
-          bgColor: 'gold',
-          show: false,
+          bgColor: '#ffd700',
+          open: false,
           description: `
             私が現在メインで学習しており最も関心のある言語です。<br>
             基本的な仕様・機能については理解しており、全てES6以降の型で学習いたしました。<br>
@@ -54,8 +54,8 @@ export default {
         {
           name: 'Vue.js',
           value: 70,
-          bgColor: 'mediumseagreen',
-          show: false,
+          bgColor: '#3cb371',
+          open: false,
           description: `
             主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。<br>
             WORKSに載せているポートフォリオは全てVue.jsで開発しました。
@@ -64,8 +64,8 @@ export default {
         {
           name: 'Firebase',
           value: 30,
-          bgColor: 'orange',
-          show: false,
+          bgColor: '#ffa500',
+          open: false,
           description: `
             本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
             概要は理解していますが、より使いこなせるように更なる学習を重ねています。
@@ -74,8 +74,8 @@ export default {
         {
           name: 'Git・Github',
           value: 60,
-          bgColor: 'black',
-          show: false,
+          bgColor: '#000',
+          open: false,
           description: `
             Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。<br>
             機能や仕組みは理解しているので複数人での開発にも対応できます。
@@ -84,8 +84,8 @@ export default {
         {
           name: 'webpack',
           value: 40,
-          bgColor: 'skyblue',
-          show: false,
+          bgColor: '#87ceeb',
+          open: false,
           description: `
             1からフロントエンドの開発環境の構築をする事が出来ます。
           `
@@ -97,9 +97,9 @@ export default {
     toggleAll() {
       for (let skill of this.skills) {
         if (this.toggleMessage === 'Show all') {
-          skill.show = true;
+          skill.open = true;
         } else {
-          skill.show = false;
+          skill.open = false;
         }
       }
       this.changeMessage();

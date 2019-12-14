@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     moveAction() {
-      return this.$route.path === '/' ? 'MORE' : 'BACK';
+      return this.$route.name === 'home' ? 'MORE' : 'BACK';
     }
   },
   methods: {
@@ -69,10 +69,10 @@ export default {
       }); //Promiseオブジェクトを値に持つ配列をreturn
     },
     move() {
-      if(this.moveAction === 'MORE') {
+      if(this.$route.name === 'home') {
         location.href = '#';
       } else {
-        this.$router.push({path: '/'});
+        this.$router.push({name: 'home'});
       }
     }
   },

@@ -21,7 +21,7 @@
       <transition name="slide">
         <div class="skill-accordion__contents" @click.stop v-show="skill.open">
           <img :src="require(`@/assets/images/${skill.name}.png`)" />
-          <p v-html="skill.description"></p>
+          <p v-html="skill.details"></p>
         </div>
       </transition>
     </div>
@@ -33,12 +33,6 @@ export default {
   name: 'AccordionComponent',
   props: {
     inheritedSkills: Array,
-    inheritedMessage: String
-  },
-  data() {
-    return {
-      inherited_message: this.inheritedMessage
-    };
   },
   methods: {
     toggleAccordion(skill) {
@@ -46,16 +40,6 @@ export default {
       selected.open = !selected.open;
     }
   },
-  beforeUpdate() {
-    const checkTrue = this.inheritedSkills.every(value => value.show);
-    const checkFalse = this.inheritedSkills.every(value => !value.show);
-    if (checkTrue) {
-      this.inherited_message = 'Close all';
-    } else if (checkFalse) {
-      this.inherited_message = 'Show all';
-    }
-    this.$emit('update:inheritedMessage', this.inherited_message);
-  }
 };
 </script>
 
@@ -104,6 +88,7 @@ export default {
             transition: 0.3s;
             &--rotate {
               transform: rotateX(180deg);
+              transition: 0.5s;
             } // 回転アニメーション
           }
         } //__name
@@ -166,11 +151,9 @@ export default {
 .slide-enter-to,
 .slide-leave {
   max-height: 300px;
-  overflow: hidden;
 }
 .slide-enter,
 .slide-leave-to {
   max-height: 0;
-  overflow: hidden;
 }
 </style>

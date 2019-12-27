@@ -8,7 +8,7 @@
         <i class="fas fa-sort"></i>
       </a>
     </div>
-    <accordion-component :inheritedSkills="skills" :inheritedMessage.sync="toggleMessage" />
+    <accordion-component :inheritedSkills="skills" />
   </section>
 </template>
 
@@ -26,7 +26,7 @@ export default {
           value: 90,
           bgColor: '#ff4500',
           open: false,
-          description: `
+          details: `
             両方共に主要な機能は理解しています。<br>
             「flexbox」や「grid」を使いレスポンシブなウェブサイトを作ることが出来ます。
           `
@@ -36,7 +36,7 @@ export default {
           value: 80,
           bgColor: '#ff69b4',
           open: false,
-          description: `
+          details: `
             開発に必要な基本的な機能は理解しています。
           `
         },
@@ -45,7 +45,7 @@ export default {
           value: 65,
           bgColor: '#ffd700',
           open: false,
-          description: `
+          details: `
             私が現在メインで学習しており最も関心のある言語です。<br>
             基本的な仕様・機能については理解しており、全てES6以降の型で学習いたしました。<br>
             Vue.jsはもちろん、JavaScript自体の知見もより深めていきたいと思っているので、日々コードを動かしながら学習しています。
@@ -56,7 +56,7 @@ export default {
           value: 70,
           bgColor: '#3cb371',
           open: false,
-          description: `
+          details: `
             主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。<br>
             WORKSに載せているポートフォリオは全てVue.jsで開発しました。
           `
@@ -66,7 +66,7 @@ export default {
           value: 30,
           bgColor: '#ffa500',
           open: false,
-          description: `
+          details: `
             本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
             概要は理解していますが、より使いこなせるように更なる学習を重ねています。
           `
@@ -76,7 +76,7 @@ export default {
           value: 60,
           bgColor: '#000',
           open: false,
-          description: `
+          details: `
             Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。<br>
             機能や仕組みは理解しているので複数人での開発にも対応できます。
           `
@@ -86,29 +86,35 @@ export default {
           value: 40,
           bgColor: '#87ceeb',
           open: false,
-          description: `
+          details: `
             1からフロントエンドの開発環境の構築をする事が出来ます。
           `
         }
       ] //skills
     }; //ruturn
   },
+  watch: {
+    skills: {
+      handler() {
+        const checkTrue = this.skills.every(skill => skill.open);
+        const checkFalse = this.skills.every(skill => !skill.open);
+        if(checkTrue) {
+          this.toggleMessage = 'Close all';
+        } else if(checkFalse) {
+          this.toggleMessage = 'Show all';
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
     toggleAll() {
-      for (let skill of this.skills) {
-        if (this.toggleMessage === 'Show all') {
+      for (const skill of this.skills) {
+        if(this.toggleMessage === 'Show all') {
           skill.open = true;
         } else {
           skill.open = false;
         }
-      }
-      this.changeMessage();
-    },
-    changeMessage() {
-      if (this.toggleMessage === 'Show all') {
-        this.toggleMessage = 'Close all';
-      } else {
-        this.toggleMessage = 'Show all';
       }
     }
   },

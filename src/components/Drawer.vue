@@ -58,9 +58,10 @@ export default {
     width: 100%;
     font-family: 'Orbitron', sans-serif;
     background-color: rgba(34, 34, 34, 0.9);
-    transition: 0.5s;
+    transition: 0.3s;
     &--opened {
       transform: translateY(16rem);
+      transition: 0.5s;
     }
     nav {
       width: 100%;

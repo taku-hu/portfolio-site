@@ -1,28 +1,37 @@
 <template>
   <div id="app">
     <transition name="switch" mode="out-in">
-      <div class="title-call" v-if="!titleCall" key="title" >
-        <div class="title-call__background">
+      <div class="title" v-if="!titleCall" key="title" >
+        <div class="title__background">
           <p v-for="sentence in bgSentences" :key="sentence.id">
             <span :data-text="sentence.item">{{ sentence.item }}</span>
           </p>
         </div>
-        <div class="title-call__front">
+        <div class="title__front">
           <h1>{{ title }}</h1>
         </div>
       </div>
+
       <div class="contents" v-else key="contents" >
-        <header-component />
+        <header-component @smoothScroll="smoothScroll" />
+
         <main>
           <transition name="switch" mode="out-in">
             <router-view />
           </transition>
-          <a class="contents__move-button" @click="move">
-            <i class="fas fa-angle-left" v-show="moveAction === 'BACK'"></i>
-            {{ moveAction }}
-            <i class="fas fa-angle-right" v-show="moveAction === 'MORE'"></i>
-          </a>
         </main>
+
+        <a class="contents__move-button" @click="movePage">
+          <i class="fas fa-angle-left" v-show="moveAction === 'BACK'"></i>
+          {{ moveAction }}
+          <i class="fas fa-angle-right" v-show="moveAction === 'MORE'"></i>
+        </a>
+        <transition name="slide-up">
+          <a class="contents__scroll-button" @click="smoothScroll('header')" v-show="scroll">
+            <i class="fas fa-arrow-up"></i>
+          </a>
+        </transition>
+
         <footer-component />
       </div>
     </transition>
@@ -32,24 +41,35 @@
 <script>
 import HeaderComponent from '@/components/Header.vue';
 import FooterComponent from '@/components/Footer.vue';
-import { mobileBrowser } from '@/mixins/mobileBrowser.js';
 import { background } from '@/mixins/background.js';
 
 export default {
   name: 'App',
-  mixins: [mobileBrowser, background],
+  mixins: [background],
   created() {
-    window.onload = async () => {
-      await Promise.all(this.typing('Welcome to my website!'));
-      setTimeout(() => {
-        this.titleCall = true;
-      }, 200);
-    }; //タイトル文字を一文字ずつ表示
+    this.window();
+
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      const reVh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${reVh}px`);
+    });
+
+    window.addEventListener('scroll', () => {
+      const positionY = window.scrollY;
+      if(positionY > 0) {
+        this.scroll = true;
+      } else {
+        this.scroll = false;
+      }
+    })
   },
   data() {
     return {
       title: '',
-      titleCall: false
+      titleCall: false,
+      scroll: false,
     };
   },
   computed: {
@@ -58,22 +78,32 @@ export default {
     }
   },
   methods: {
-    typing(word) {
-      return [...word].map((character, index) => {
-        return new Promise(resolve => {
-          setTimeout(() => {
-            this.title += character;
-            resolve();
-          }, 200 * ++index);
-        });
-      }); //Promiseオブジェクトを値に持つ配列をreturn
+    window:onload = async function() {
+      const typing = word => {
+        return [...word].map((character, index) => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              this.title += character;
+              resolve();
+            }, 200 * ++index);
+          });
+        }); //Promiseオブジェクトを値に持つ配列をreturn
+      }
+
+      await Promise.all(typing('Welcome to my website!'));
+      setTimeout(() => {
+        this.titleCall = true;
+      }, 200);
     },
-    move() {
+    movePage() {
       if(this.$route.name === 'home') {
-        location.href = '#';
+        this.$router.push({name: 'about'});
       } else {
         this.$router.push({name: 'home'});
       }
+    },
+    smoothScroll(element) {
+      this.$scrollTo(element);
     }
   },
   components: {
@@ -93,14 +123,16 @@ body {
   font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
 }
 a {
+  color: #000;
   text-decoration: none;
+  cursor: pointer;
 }
 
 #app {
   @include center-styling;
   text-align: center;
   overflow: hidden;
-  .title-call {
+  .title {
     @include center-styling;
     position: relative;
     width: 100%;
@@ -128,8 +160,10 @@ a {
         }
       }
     } //__front
-  } //.title-call
+  } //.title
+
   .contents {
+    @include center-styling;
     width: 100%;
     main {
       @include center-styling;
@@ -137,27 +171,40 @@ a {
     }
     &__move-button {
       display: block;
-      width: 130px;
-      height: 50px;
+      width: 8rem;
+      height: 3rem;
+      line-height: 3rem;
       border: solid 1px #000;
-      font-size: 16px;
-      line-height: 50px;
-      color: #000;
-      background-color: #fff;
-      margin: 40px;
-      transition: 0.3s;
-      cursor: pointer;
+      margin: 3rem;;
+      transition: 0.5s;
       &:hover {
-        background-color: #000;
         color: #fff;
+        background-color: #000;
       }
     } //__move-button
+    &__scroll-button {
+      @include center-styling;
+      position: fixed;
+      right: 10%;
+      bottom: 5%;
+      z-index: 99;
+      width: 5rem;
+      height: 5rem;
+      color: #fff;
+      background-color: rgba(255, 0, 0, 0.8);
+      font-size: 2.5rem;
+      border-radius: 50%;
+      box-shadow: 1px 1px 6px 0px #333;
+      &:active {
+        transform: scale(0.9);
+      }
+    } //__scroll-button
   } //.contents
 }
 
 //カーソルの点滅アニメーション
 @keyframes flashing {
-  0% {
+  100% {
     opacity: 0;
   }
 }
@@ -167,14 +214,8 @@ a {
   0% {
     transform: translateX(100%);
   }
-  100% {
-    transform: translateX(0);
-  }
 }
 @keyframes slide-reverse {
-  0% {
-    transform: translateX(0);
-  }
   100% {
     transform: translateX(100%);
   }
@@ -184,12 +225,19 @@ a {
 .switch-enter-active {
   transition: 1.5s;
 }
-.switch-enter-to,
-.switch-leave {
-  opacity: 1;
-}
 .switch-enter,
 .switch-leave-to {
+  opacity: 0;
+}
+
+//ボタン表示トランジション
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: 0.5s;
+}
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(3rem);
   opacity: 0;
 }
 </style>

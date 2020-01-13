@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" id="landing">
+  <footer class="footer">
     <div class="footer__top">
       <nav>
         <ul>
@@ -37,28 +37,27 @@ export default {
     background-color: #47b7cc;
     nav {
       width: 100%;
-      ul {
-        width: 100%;
-        display: flex;
-        padding: 0 15%;
-        box-sizing: border-box;
-        li {
-          width: 25%;
-          &:not(:last-child) {
-            border-right: 1px solid #000;
-          }
-          a {
-            @include button-sizing;
-            font-family: 'Orbitron', sans-serif;
-            color: #000;
-          }
-        }
+    }
+    ul {
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 15%;
+    }
+    li {
+      width: 25%;
+      &:not(:last-child) {
+        border-right: 1px solid #000;
       }
-    } //nav
+      a {
+        @include button-sizing;
+        font-family: 'Orbitron', sans-serif;
+      }
+    }
   } //__top
   &__bottom {
     height: 5rem;
-    background-color: $base-black;
+    background-color: #1a1a1a;
     small {
       color: #fff;
       font-size: 1rem;

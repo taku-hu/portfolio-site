@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__navi">
-      <nav>
+      <nav class="header__navi">
         <ul>
           <li v-for="page in pages" :key="page.name">
             <router-link :to="page.path">
@@ -10,20 +10,20 @@
           </li>
         </ul>
       </nav>
+      <div class="header__menu-button" @click="toggleMenu">
+        <i class="fas fa-bars" v-show="!active"></i>
+        <i class="fas fa-times" v-show="active"></i>
+      </div>
     </div>
 
-    <div class="header__menu-button" @click="toggleMenu">
-      <i class="fas fa-bars" v-show="!active"></i>
-      <i class="fas fa-times" v-show="active"></i>
-    </div>
-
-    <drawer-component :inheritedActive="active" @toggle="toggleMenu" />
+    <drawer-component :inheritedActive="active" @toggleMenu="toggleMenu" />
 
     <div class="header__background">
       <p v-for="sentence in bgSentences" :key="sentence.id">
         <span :data-text="sentence.item">{{ sentence.item }}</span>
       </p>
     </div>
+
     <div class="header__front">
       <h1>Takuto's</h1>
       <h2>portfolio site</h2>
@@ -32,7 +32,7 @@
           WELCOME TO MY WEBSITE!
         </span>
       </p>
-      <a class="down-button" href="#landing" >
+      <a class="down-button" @click="smoothScroll('footer')">
         <i class="fas fa-angle-down"></i>
       </a>
     </div>
@@ -41,13 +41,12 @@
 
 <script>
 import DrawerComponent from './Drawer.vue';
-import { mobileBrowser } from '@/mixins/mobileBrowser.js';
 import { pageLinks } from '@/mixins/pageLinks.js';
 import { background } from '@/mixins/background.js';
 
 export default {
   name: 'HeaderComponent',
-  mixins: [mobileBrowser, pageLinks, background],
+  mixins: [pageLinks, background],
   data() {
     return {
       active: false
@@ -56,6 +55,9 @@ export default {
   methods: {
     toggleMenu() {
       this.active = !this.active;
+    },
+    smoothScroll(element) {
+      this.$emit('smoothScroll', element)
     }
   },
   components: {
@@ -74,11 +76,7 @@ export default {
   height: calc(var(--vh, 1vh) * 100);
   color: #fff;
   background-color: rgb(15, 54, 167);
-  background-image: linear-gradient(
-    90deg,
-    rgba(15, 54, 167, 1) 40%,
-    rgba(0, 163, 254, 1) 100%
-  );
+  background-image: linear-gradient(90deg, rgba(15, 54, 167, 1) 40%, rgba(0, 163, 254, 1) 100%);
   overflow: hidden;
   margin-bottom: 3rem;
 
@@ -86,56 +84,51 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 102;
     width: 100%;
     height: 3.5rem;
     font-family: 'Orbitron', sans-serif;
     background-color: #000;
-    nav {
+    ul {
       width: 100%;
-      ul {
-        width: 100%;
-        display: flex;
-        padding: 0 15%;
-        box-sizing: border-box;
+      height: inherit;
+      display: flex;
+      box-sizing: border-box;
+      padding: 0 10%;
+    }
+    li {
+      width: 25%;
+      height: inherit;
+      font-size: 1.5rem;
+      font-weight: bold;
+      &:not(:last-child) {
+        border-right: 1px solid #fff;
       }
-      li {
-        width: 25%;
-        height: 3.5rem;
+      a {
+        @include button-sizing;
+        color: #fff;
         line-height: 3.5rem;
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-shadow: none;
-        &:not(:last-child) {
-          border-right: 1px solid #fff;
+        transition: 0.5s;
+        &.router-link-exact-active,
+        &:hover {
+          color: #000;
+          background-color: #fff;
         }
-        a {
-          @include button-sizing;
-          color: #fff;
-          transition: 0.5s;
-          &.router-link-exact-active {
-            color: #000;
-            background-color: #fff;
-          }
-          &:hover {
-            color: #000;
-            background-color: #fff;
-          }
-        }
-      } //li
-    } //nav
+      }
+    } //li
   } //__navi
-
   &__menu-button {
-    @include center-styling;
     display: none;
     position: fixed;
     top: 0;
     left: 3%;
-    z-index: 100;
+    z-index: 102;
+    width: 3.5rem;
+    height: 3.5rem;
     font-size: 2rem;
     cursor: pointer;
-    .fas {
+    .fa-bars,
+    .fa-times {
       line-height: 3.5rem;
     }
   }
@@ -143,38 +136,37 @@ export default {
   &__background {
     @include bg-animation-back;
   } //.background
-
   &__front {
     @include center-styling;
     @include bg-animation-front;
     h1 {
       -webkit-text-stroke: 2px #fff;
       color: transparent;
-      font-weight: bold;
       font-size: 5rem;
+      font-weight: bold;
       letter-spacing: 0.2rem;
       margin-bottom: 5rem;
     }
     h2 {
       -webkit-text-stroke: 2px #fff;
       color: transparent;
-      font-weight: bold;
       font-size: 3rem;
+      font-weight: bold;
       letter-spacing: 0.3rem;
       margin-bottom: 10rem;
     }
     p {
       position: relative;
       font-size: 1.5rem;
-      text-shadow: 1px 2px 3px #1c1c1c;
       font-weight: bold;
+      text-shadow: 1px 2px 3px #1c1c1c;
       transition: 0.5s;
       overflow: hidden;
       span {
         position: relative;
         display: inline-block;
-        padding: 5px;
         letter-spacing: 1px;
+        padding: 5px;
         animation: slide 5s linear infinite;
         &:before {
           content: attr(data-text);
@@ -189,8 +181,10 @@ export default {
       @include center-styling;
       position: absolute;
       bottom: 0;
-      width: 40px;
-      height: 40px;
+      width: 3rem;
+      height: 3rem;
+      color: #fff;
+      font-size: 2rem;
       border: 1px solid #fff;
       border-radius: 50%;
       transition: 0.5s;
@@ -199,13 +193,8 @@ export default {
         color: transparent;
         transform: scale(0.7);
       }
-      &:hover i {
+      &:hover .fa-angle-down {
         color: #0000ff;
-      }
-      i {
-        color: #fff;
-        font-size: 30px;
-        text-shadow: none;
       }
     } //.down-button
   } //__front

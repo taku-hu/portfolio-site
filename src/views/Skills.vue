@@ -2,11 +2,11 @@
   <section class="skills">
     <h3 class="skills__heading">My Skills</h3>
     <div class="accordion-heading">
-      <p class="accordion-heading__sentence">Click the item&nbsp;or</p>
-      <a class="accordion-heading__show-button" @click="toggleAll">
+      <p class="accordion-heading__sentence">Click the item or&nbsp;</p>
+      <button class="accordion-heading__show-button" @click="toggleAll">
         {{ toggleMessage }}
         <i class="fas fa-sort"></i>
-      </a>
+      </button>
     </div>
     <accordion-component :inheritedSkills="skills" />
   </section>
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     toggleAll() {
-      for (const skill of this.skills) {
+      for(const skill of this.skills) {
         if(this.toggleMessage === 'Show all') {
           skill.open = true;
         } else {
@@ -139,16 +139,15 @@ export default {
     &__sentence {
       font-family: 'Orbitron', sans-serif;
       font-size: 2rem;
-      margin-right: 1rem;
     }
     &__show-button {
-      display: block;
-      border: 1px solid #000;
-      width: 100px;
-      height: 30px;
-      line-height: 30px;
+      @include clear-button-css;
+      width: 9rem;;
+      height: 3rem;
+      line-height: 3rem;;
       font-weight: bold;
-      cursor: pointer;
+      font-size: 1.2rem;
+      border: 1px solid #000;
       transition: 0.2s;
       &:hover {
         color: #fff;

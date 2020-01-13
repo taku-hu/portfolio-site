@@ -12,7 +12,8 @@
           <span v-html="work.icon"></span>
           <h3>{{ work.name }}</h3>
           <a :href="work.link" target="_blank">
-            <i class="fas fa-angle-right"></i>&nbsp;Details
+            <i class="fas fa-mouse-pointer"></i>
+            Details
           </a>
         </div>
         <div class="work-box__face2">
@@ -86,67 +87,65 @@ export default {
   }
   &__wrapper {
     @include center-styling($wrap: wrap, $direction: row);
-    .work-box {
-      position: relative;
-      width: 20rem;
-      height: 15rem;
-      margin: 7.5rem 1rem;
-      &:hover .work-box__face1 {
-        transform: translateY(-7.5rem);
-        a {
-          display: block;
+  }
+  .work-box {
+    position: relative;
+    width: 20rem;
+    height: 15rem;
+    margin: 7.5rem 1rem;
+    &:hover .work-box__face1 {
+      transform: translateY(-7.5rem);
+      a {
+        display: block;
+      }
+    }
+    &:hover .work-box__face2 {
+      transform: translateY(7.5rem);
+    }
+    &__face1 {
+      @include center-styling;
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      transition: 0.5s;
+      span {
+        font-size: 5rem;
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-weight: bold;
+        text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+        margin-bottom: 1rem;
+      }
+      a {
+        display: none;
+        width: 6rem;
+        height: 2.5rem;
+        line-height: 2.5rem;
+        background-color: #fff;
+        &:hover {
+          color: #fff;
+          background-color: #000;
         }
       }
-      &:hover .work-box__face2 {
-        transform: translateY(7.5rem);
+    } //__face1
+    &__face2 {
+      @include center-styling;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      box-shadow: 1px 1px 6px 0px #b2b2b2;
+      text-align: left;
+      transition: 0.5s;
+      padding: 0.5rem;
+      p {
+        line-height: 1.5;
+        word-break: break-all;
       }
-      &__face1 {
-        @include center-styling;
-        position: absolute;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        color: #fff;
-        transition: 0.5s;
-        span {
-          font-size: 5rem;
-          margin-bottom: 1rem;
-        }
-        h3 {
-          font-weight: bold;
-          text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-          margin-bottom: 1rem;
-        }
-        a {
-          display: none;
-          width: 100px;
-          height: 40px;
-          line-height: 40px;
-          border: 1px solid #000;
-          color: #000;
-          background-color: #fff;
-          &:hover {
-            color: #fff;
-            background-color: #000;
-          }
-        }
-      } //__face1
-      &__face2 {
-        @include center-styling;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        box-shadow: 1px 1px 6px 0px #b2b2b2;
-        text-align: left;
-        transition: 0.5s;
-        padding: 0.5rem;
-        p {
-          line-height: 1.5;
-          word-break: break-all;
-        }
-      } //__face2
-    } //.work-box
-  } //__wrapper
+    } //__face2
+  } //.work-box
 } //.works
 </style>

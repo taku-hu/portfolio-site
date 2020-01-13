@@ -1,11 +1,11 @@
 <template>
   <div class="navigation-drawer">
-    <div class="navigation-drawer__overlay" v-show="inheritedActive" @click="toggle"></div>
+    <div class="navigation-drawer__overlay" v-show="inheritedActive" @click="toggleMenu"></div>
 
     <div
       class="navigation-drawer__menu"
       :class="{ 'navigation-drawer__menu--opened': inheritedActive }"
-      @click="toggle"
+      @click="toggleMenu"
     >
       <nav>
         <ul>
@@ -30,8 +30,8 @@ export default {
     inheritedActive: Boolean
   },
   methods: {
-    toggle() {
-      this.$emit('toggle');
+    toggleMenu() {
+      this.$emit('toggleMenu');
     }
   }
 };
@@ -45,15 +45,17 @@ export default {
   height: 100%;
   &__overlay {
     position: fixed;
-    z-index: 98;
-    width: 100%;
-    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
     background-color: rgba(0, 0, 0, 0.6);
   }
   &__menu {
     position: fixed;
-    z-index: 99;
-    top: -16 + 3.5rem;
+    z-index: 101;
+    top: -12.5rem; //.header__naviの高さ - メニューの高さ
     left: 0;
     width: 100%;
     font-family: 'Orbitron', sans-serif;
@@ -63,23 +65,20 @@ export default {
       transform: translateY(16rem);
       transition: 0.5s;
     }
-    nav {
+    li {
       width: 100%;
-      li {
-        width: 100%;
-        height: 4rem;
-        box-sizing: border-box;
-        &:not(:last-child) {
-          border-bottom: 1px solid #fff;
-        }
-        a {
-          @include button-sizing;
-          color: #fff;
-          font-size: 1.5rem;
-          line-height: 4rem;
-        }
-      } //li
-    } //nav
+      height: 4rem;
+      box-sizing: border-box;
+      &:not(:last-child) {
+        border-bottom: 1px solid #fff;
+      }
+      a {
+        @include button-sizing;
+        color: #fff;
+        font-size: 1.5rem;
+        line-height: 4rem;
+      }
+    } //li
   } //__menu
 } //.navigation-drawer
 </style>

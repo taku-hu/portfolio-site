@@ -42,7 +42,7 @@ export default {
         },
         {
           name: 'JavaScript',
-          value: 65,
+          value: 75,
           bgColor: '#ffd700',
           open: false,
           details: `
@@ -148,6 +148,7 @@ export default {
       font-weight: bold;
       font-size: 1.2rem;
       border: 1px solid #000;
+      cursor: pointer;
       transition: 0.2s;
       &:hover {
         color: #fff;

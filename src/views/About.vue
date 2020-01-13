@@ -4,9 +4,7 @@
     <table class="about__list">
       <tr v-for="data in dataSet" :key="data.th">
         <th>{{ data.th }}</th>
-        <td>
-          <a :href="data.link" target="_blank" v-html="data.td"></a>
-        </td>
+        <td v-html="data.td" @click="jumpToLink(data)" :class="{ linked: data.link }"></td>
       </tr>
     </table>
   </section>
@@ -50,6 +48,15 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    jumpToLink(data) {
+      if(!data.link) {
+        return;
+      }
+
+      window.open(data.link, '_blank');
+    }
   }
 };
 </script>
@@ -67,16 +74,20 @@ export default {
     border-spacing: 2rem 4rem;
     border-collapse: separate;
     th {
-      padding: 1rem 0.5rem;
-      font-weight: bold;
       color: #fff;
       background-color: #000;
+      font-weight: bold;
+      padding: 1rem 0.5rem;
     }
     td {
-      padding: 1rem;
       border-bottom: 2px solid #000;
+      padding: 1rem;
+      &.linked {
+        color: #0B4AB8;
+        cursor: pointer;
+      }
     }
-  }
+  } //__list
 } //about
 
 //メディアクエリ
@@ -93,6 +104,6 @@ export default {
         }
       }
     } //__list
-  }
+  } //.about
 }
 </style>

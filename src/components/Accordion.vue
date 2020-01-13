@@ -138,14 +138,12 @@ export default {
 }
 
 // 開閉アニメーション
-.slide-enter-active,
-.slide-leave-active {
-  overflow: hidden;
-}
 .slide-enter-active {
+  overflow: hidden;
   transition: 0.5s ease-in;
 }
 .slide-leave-active {
+  overflow: hidden;
   transition: 0.3s ease-out;
 }
 .slide-enter-to,

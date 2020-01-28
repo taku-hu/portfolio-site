@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__navi">
-      <nav class="header__navi">
+      <nav>
         <ul>
           <li v-for="page in pages" :key="page.name">
             <router-link :to="page.path">
@@ -25,14 +25,14 @@
     </div>
 
     <div class="header__front">
-      <h1>Takuto's</h1>
-      <h2>portfolio site</h2>
-      <p>
+      <h1 class="header__heading1">Takuto's</h1>
+      <h1 class="header__heading2">portfolio site</h1>
+      <p class="header__scroll-board">
         <span data-text="WELCOME TO MY WEBSITE!">
           WELCOME TO MY WEBSITE!
         </span>
       </p>
-      <a class="down-button" @click="smoothScroll('footer')">
+      <a class="header__down-button" @click="smoothScroll('footer')">
         <i class="fas fa-angle-down"></i>
       </a>
     </div>
@@ -90,15 +90,13 @@ export default {
     font-family: 'Orbitron', sans-serif;
     background-color: #000;
     ul {
-      width: 100%;
-      height: inherit;
       display: flex;
       box-sizing: border-box;
       padding: 0 10%;
     }
     li {
       width: 25%;
-      height: inherit;
+      height: 100%;
       font-size: 1.5rem;
       font-weight: bold;
       &:not(:last-child) {
@@ -109,8 +107,8 @@ export default {
         color: #fff;
         line-height: 3.5rem;
         transition: 0.5s;
-        &.router-link-exact-active,
-        &:hover {
+        &:hover,
+        &.router-link-exact-active {
           color: #000;
           background-color: #fff;
         }
@@ -135,71 +133,71 @@ export default {
 
   &__background {
     @include bg-animation-back;
-  } //.background
-  &__front {
-    @include center-styling;
-    @include bg-animation-front;
-    h1 {
-      -webkit-text-stroke: 2px #fff;
-      color: transparent;
-      font-size: 5rem;
-      font-weight: bold;
-      letter-spacing: 0.2rem;
-      margin-bottom: 5rem;
-    }
-    h2 {
-      -webkit-text-stroke: 2px #fff;
-      color: transparent;
-      font-size: 3rem;
-      font-weight: bold;
-      letter-spacing: 0.3rem;
-      margin-bottom: 10rem;
-    }
-    p {
-      position: relative;
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-shadow: 1px 2px 3px #1c1c1c;
-      transition: 0.5s;
-      overflow: hidden;
-      span {
-        position: relative;
-        display: inline-block;
-        letter-spacing: 1px;
-        padding: 5px;
-        animation: slide 5s linear infinite;
-        &:before {
-          content: attr(data-text);
-          position: absolute;
-          top: 0;
-          left: -100%;
-          padding: 5px;
-        }
-      }
-    }
-    .down-button {
-      @include center-styling;
-      position: absolute;
-      bottom: 0;
-      width: 3rem;
-      height: 3rem;
-      color: #fff;
-      font-size: 2rem;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      transition: 0.5s;
-      &:hover {
-        background-color: #fff;
-        color: transparent;
-        transform: scale(0.7);
-      }
-      &:hover .fa-angle-down {
-        color: #0000ff;
-      }
-    } //.down-button
-  } //__front
-} //header
+  }
 
+  &__front {
+    @include center-styling($justify: space-around);
+    @include bg-animation-front;
+    box-sizing: border-box;
+    padding: 3.5rem 0 3rem;
+  }
+  &__heading1 {
+    -webkit-text-stroke: 2px #fff;
+    color: transparent;
+    font-size: 5rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+  }
+  &__heading2 {
+    -webkit-text-stroke: 2px #fff;
+    color: transparent;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+  }
+  &__scroll-board {
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 1px 2px 3px #1c1c1c;
+    transition: 0.5s;
+    overflow: hidden;
+    span {
+      position: relative;
+      display: inline-block;
+      letter-spacing: 1px;
+      padding: 5px;
+      animation: slide 5s linear infinite;
+      &:before {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: -100%;
+        padding: 5px;
+      }
+    }
+  }
+  &__down-button {
+    @include center-styling;
+    position: absolute;
+    bottom: 0;
+    width: 3rem;
+    height: 3rem;
+    color: #fff;
+    font-size: 2rem;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    transition: 0.5s;
+    &:hover {
+      color: transparent;
+      background-color: #fff;
+      transform: scale(0.7);
+    }
+    &:hover .fa-angle-down {
+      color: #0000ff;
+    }
+  }
+} //header
 
 //メディアクエリ
 @include media-query($bp-tablet) {

@@ -51,9 +51,7 @@ export default {
   },
   methods: {
     jumpToLink(data) {
-      if(!data.link) {
-        return;
-      }
+      if(!data.link) return;
 
       window.open(data.link, '_blank');
     }
@@ -83,7 +81,7 @@ export default {
       border-bottom: 2px solid #000;
       padding: 1rem;
       &.linked {
-        color: #0B4AB8;
+        color: #0000EE;
         cursor: pointer;
       }
     }

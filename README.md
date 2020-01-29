@@ -6,8 +6,8 @@
   </p>
   <br>
   <p align="center">
-    <a href="[https://taku-hu.firebaseapp.com" target="_blank">
-      [https://taku-hu.firebaseapp.com
+    <a href="https://taku-hu.firebaseapp.com" target="_blank">
+      https://taku-hu.firebaseapp.com
     </a>
   </p>
 </div>

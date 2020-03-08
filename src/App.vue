@@ -49,16 +49,17 @@ export default {
   created() {
     this.window();
 
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    window.addEventListener('resize', () => {
-      const reVh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${reVh}px`);
-    });
+      const getInnerVh = () => {
+        const vh =  window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+      getInnerVh();
+      window.addEventListener('resize', () => {
+        getInnerVh();
+      });
 
     window.addEventListener('scroll', () => {
-      const positionY = window.scrollY;
-      if(positionY > 0) {
+      if(window.scrollY > 0) {
         this.scroll = true;
       } else {
         this.scroll = false;

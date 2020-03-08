@@ -1,22 +1,25 @@
 <template>
   <header class="header">
-    <div class="header__navi">
-      <nav>
-        <ul>
-          <li v-for="page in pages" :key="page.name">
-            <router-link :to="page.path">
-              {{ page.name }}
-            </router-link>
-          </li>
-        </ul>
-      </nav>
-      <div class="header__menu-button" @click="toggleMenu">
-        <i class="fas fa-bars" v-show="!active"></i>
-        <i class="fas fa-times" v-show="active"></i>
-      </div>
+    <div class="header__bar"></div>
+    <nav
+      class="header__navi"
+      :class="{ 'header__navi--opened': active }"
+      @click="toggleMenu"
+    >
+      <ul>
+        <li v-for="page in pages" :key="page.name">
+          <router-link :to="page.path">
+            {{ page.name }}
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+    <div class="header__menu-button" @click="toggleMenu">
+      <i class="fas fa-bars" v-show="!active"></i>
+      <i class="fas fa-times" v-show="active"></i>
     </div>
 
-    <drawer-component :inheritedActive="active" @toggleMenu="toggleMenu" />
+    <div class="header__overlay" v-show="active" @click="toggleMenu"></div>
 
     <div class="header__background">
       <p v-for="sentence in bgSentences" :key="sentence.id">
@@ -40,7 +43,6 @@
 </template>
 
 <script>
-import DrawerComponent from './Drawer.vue';
 import { pageLinks } from '@/mixins/pageLinks.js';
 import { background } from '@/mixins/background.js';
 
@@ -54,14 +56,11 @@ export default {
   },
   methods: {
     toggleMenu() {
-      this.active = !this.active;
+      if(document.body.clientWidth <= 896) this.active = !this.active;
     },
     smoothScroll(element) {
       this.$emit('smoothScroll', element)
     }
-  },
-  components: {
-    DrawerComponent
   }
 };
 </script>
@@ -80,15 +79,22 @@ export default {
   overflow: hidden;
   margin-bottom: 3rem;
 
-  &__navi {
+  &__bar {
     position: fixed;
     top: 0;
     left: 0;
     z-index: 102;
     width: 100%;
     height: 3.5rem;
-    font-family: 'Orbitron', sans-serif;
     background-color: #000;
+  }
+  &__navi {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 103;
+    width: 100%;
+    font-family: 'Orbitron', sans-serif;
     ul {
       display: flex;
       box-sizing: border-box;
@@ -129,6 +135,15 @@ export default {
     .fa-times {
       line-height: 3.5rem;
     }
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
   &__background {
@@ -202,11 +217,39 @@ export default {
 //メディアクエリ
 @include media-query($bp-tablet) {
   .header {
+    &__navi {
+      z-index: 101;
+      top: -12.5rem; //.header__naviの高さ - メニューの高さ
+      background-color: rgba(34, 34, 34, 0.9);
+      transition: 0.3s;
+      &--opened {
+        transform: translateY(16rem);
+        transition: 0.5s;
+      }
+      ul {
+        flex-direction: column;
+        padding: 0;
+      }
+      li {
+        width: 100%;
+        height: 4rem;
+        box-sizing: border-box;
+        &:not(:last-child) {
+          border-right: 0;
+          border-bottom: 1px solid #fff;
+        }
+        a {
+          font-size: 1.5rem;
+          line-height: 4rem;
+          &:hover {
+            color: none;
+            background-color: none;
+          }
+        }
+      } //li
+    } //__navi
     &__menu-button {
       display: block;
-    }
-    &__navi nav {
-      display: none;
     }
   } //header
 }

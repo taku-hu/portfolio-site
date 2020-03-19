@@ -1,32 +1,31 @@
 <template>
-  <section class="works">
+  <main class="works">
     <h3 class="works__heading">My Works</h3>
     <div class="works__wrapper">
       <div
-        class="work-box"
+        class="work"
         v-for="work in works"
         :key="work.name"
         ontouchstart=""
       >
-        <div class="work-box__face1" :style="{ backgroundColor: work.color }">
-          <span v-html="work.icon"></span>
-          <h3>{{ work.name }}</h3>
-          <a :href="work.link" target="_blank">
+        <div class="work__face1" :style="{ backgroundColor: work.color }">
+          <span class="work__icon" v-html="work.icon"></span>
+          <h3 class="work__name">{{ work.name }}</h3>
+          <a class="work__link" :href="work.link" target="_blank">
             <i class="fas fa-mouse-pointer"></i>
             Details
           </a>
         </div>
-        <div class="work-box__face2">
-          <p v-html="work.description"></p>
+        <div class="work__face2">
+          <p class="work__discription" v-html="work.description"></p>
         </div>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
 export default {
-  name: 'works',
   data() {
     return {
       works: [
@@ -88,18 +87,18 @@ export default {
   &__wrapper {
     @include center-styling($wrap: wrap, $direction: row);
   }
-  .work-box {
+  .work {
     position: relative;
     width: 20rem;
     height: 15rem;
     margin: 7.5rem 1rem;
-    &:hover .work-box__face1 {
+    &:hover .work__face1 {
       transform: translateY(-7.5rem);
       a {
         display: block;
       }
     }
-    &:hover .work-box__face2 {
+    &:hover .work__face2 {
       transform: translateY(7.5rem);
     }
     &__face1 {
@@ -110,27 +109,7 @@ export default {
       height: 100%;
       color: #fff;
       transition: 0.5s;
-      span {
-        font-size: 5rem;
-        margin-bottom: 1rem;
-      }
-      h3 {
-        font-weight: bold;
-        text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-        margin-bottom: 1rem;
-      }
-      a {
-        display: none;
-        width: 6rem;
-        height: 2.5rem;
-        line-height: 2.5rem;
-        background-color: #fff;
-        &:hover {
-          color: #fff;
-          background-color: #000;
-        }
-      }
-    } //__face1
+    }
     &__face2 {
       @include center-styling;
       position: absolute;
@@ -141,11 +120,33 @@ export default {
       text-align: left;
       transition: 0.5s;
       padding: 0.5rem;
-      p {
-        line-height: 1.5;
-        word-break: break-all;
+    }
+    &__icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+    }
+    &__name {
+      font-weight: bold;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+      margin-bottom: 1rem;
+    }
+    &__link {
+      display: none;
+      width: 6rem;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      border: 1px solid #000;
+      background-color: #fff;
+      &:hover {
+        color: #fff;
+        background-color: #000;
       }
-    } //__face2
-  } //.work-box
+    }
+    &__discription {
+      line-height: 1.5;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+  } //.work
 } //.works
 </style>

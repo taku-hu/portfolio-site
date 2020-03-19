@@ -1,5 +1,5 @@
 <template>
-  <section class="home">
+  <main class="home">
     <div class="home__title">
       <h1>
         Takuto Takeuchi's<br>
@@ -8,17 +8,11 @@
     </div>
     <p class="home__discription">
       私のポートフォリオサイトにお越しいただき、ありがとうございます。<br>
-      独学でフロントエンドエンジニアを目指す大学生です。<br>
+      プログラミングの奥深さ・面白さに魅了され、独学で勉強しながらフロントエンドエンジニアを目指しています。<br>
       どうぞ、よろしくお願いいたします。
     </p>
-  </section>
+  </main>
 </template>
-
-<script>
-export default {
-  name: "home"
-};
-</script>
 
 <style lang="scss">
 @import "@/assets/styles/_fragments.scss";
@@ -62,7 +56,7 @@ export default {
     }
   } //__title
   &__discription {
-    display: inline-block;
+    width: 80%;
     line-height: 4;
     letter-spacing: 0.3rem;
     text-align: left;

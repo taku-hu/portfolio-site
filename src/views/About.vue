@@ -1,49 +1,48 @@
 <template>
-  <section class="about">
+  <main class="about">
     <h3 class="about__heading">My Profile</h3>
     <table class="about__list">
-      <tr v-for="data in dataSet" :key="data.th">
-        <th>{{ data.th }}</th>
-        <td v-html="data.td" @click="jumpToLink(data)" :class="{ linked: data.link }"></td>
+      <tr v-for="data in ProfileData" :key="data.th">
+        <th>{{ data.title }}</th>
+        <td v-html="data.information" @click="jumpToLink(data)" :class="{ linked: data.link }"></td>
       </tr>
     </table>
-  </section>
+  </main>
 </template>
 
 <script>
 export default {
-  name: 'about',
   data() {
     return {
-      dataSet: [
+      ProfileData: [
         { 
-          th: 'Name',
-          td: '竹内 琢人（Takeuchi Takuto）',
+          title: 'Name',
+          information: '竹内 琢人（Takeuchi Takuto）',
           link: null
         },
         { 
-          th: 'Occupation',
-          td: '大学生',
-          link: null
-        },
-        { 
-          th: 'University',
-          td: '法政大学 経済学部 国際経済学科',
+          title: 'Background',
+          information: '法政大学 経済学部 国際経済学科 卒業',
           link: null
         },
         {
-          th: 'Qiita',
-          td: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
+          title: 'Qiita',
+          information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
           link: 'https://qiita.com/taku-hu'
         },
         {
-          th: 'Github',
-          td: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
+          title: 'Github',
+          information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
           link: 'https://github.com/taku-hu'
         },
         { 
-          th: 'Mail',
-          td: 'hs.tm.ec.a.tt@gmail.com', 
+          title: 'wantedly',
+          information: '<i class="fas fa-mouse-pointer"></i>&nbsp;竹内琢人', 
+          link: 'https://www.wantedly.com/users/124833407'
+        },
+        { 
+          title: 'Contact',
+          information: 'hs.tm.ec.a.tt@gmail.com', 
           link: null 
         }
       ]

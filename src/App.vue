@@ -12,22 +12,21 @@
         </div>
       </div>
 
-      <div class="contents" v-else key="contents" >
+      <div class="wrapper" v-else key="contents" >
         <header-component @smoothScroll="smoothScroll" />
 
-        <main>
-          <transition name="switch" mode="out-in">
-            <router-view />
-          </transition>
-        </main>
+        <transition name="switch" mode="out-in">
+          <router-view />
+        </transition>
 
-        <a class="contents__move-button" @click="movePage">
+        <a class="move-button" @click="movePage">
           <i class="fas fa-angle-left" v-show="moveAction === 'BACK'"></i>
           {{ moveAction }}
           <i class="fas fa-angle-right" v-show="moveAction === 'MORE'"></i>
         </a>
+
         <transition name="slide-up">
-          <a class="contents__scroll-button" @click="smoothScroll('header')" v-show="scroll">
+          <a class="scroll-button" @click="smoothScroll('header')" v-show="scroll">
             <i class="fas fa-arrow-up"></i>
           </a>
         </transition>
@@ -44,7 +43,6 @@ import FooterComponent from '@/components/Footer.vue';
 import { background } from '@/mixins/background.js';
 
 export default {
-  name: 'App',
   mixins: [background],
   created() {
     this.window();
@@ -163,44 +161,40 @@ a {
     } //__front
   } //.title
 
-  .contents {
+  .wrapper {
     @include center-styling;
     width: 100%;
-    main {
-      @include center-styling;
-      width: 100%;
-    }
-    &__move-button {
-      display: block;
-      width: 8rem;
-      height: 3rem;
-      line-height: 3rem;
-      border: solid 1px #000;
-      margin: 3rem;;
-      transition: 0.5s;
-      &:hover {
-        color: #fff;
-        background-color: #000;
-      }
-    } //__move-button
-    &__scroll-button {
-      @include center-styling;
-      position: fixed;
-      right: 10%;
-      bottom: 5%;
-      z-index: 99;
-      width: 5rem;
-      height: 5rem;
+  }
+  .move-button {
+    display: block;
+    width: 8rem;
+    height: 3rem;
+    line-height: 3rem;
+    border: solid 1px #000;
+    margin: 3rem;;
+    transition: 0.5s;
+    &:hover {
       color: #fff;
-      background-color: rgba(255, 0, 0, 0.8);
-      font-size: 2.5rem;
-      border-radius: 50%;
-      box-shadow: 1px 1px 6px 0px #333;
-      &:active {
-        transform: scale(0.9);
-      }
-    } //__scroll-button
-  } //.contents
+      background-color: #000;
+    }
+  } //.move-button
+  .scroll-button {
+    @include center-styling;
+    position: fixed;
+    right: 10%;
+    bottom: 5%;
+    z-index: 99;
+    width: 5rem;
+    height: 5rem;
+    color: #fff;
+    background-color: rgba(255, 0, 0, 0.8);
+    font-size: 2.5rem;
+    border-radius: 50%;
+    box-shadow: 1px 1px 6px 0px #333;
+    &:active {
+      transform: scale(0.9);
+    }
+  } //.scroll-button
 }
 
 //カーソルの点滅アニメーション

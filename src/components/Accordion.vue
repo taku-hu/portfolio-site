@@ -1,36 +1,35 @@
 <template>
-  <div class="accordion-body">
+  <section class="skills__accordions">
     <div
-      class="skill-accordion"
+      class="accordion"
       v-for="skill in inheritedSkills"
       :key="skill.name"
       @click="toggleAccordion(skill)"
     >
-      <div class="skill-accordion__label">
-        <div class="skill-lebel">
-          <h2 class="skill-lebel__name">
+      <div class="accordion__label">
+        <div class="skill">
+          <h2 class="skill__name">
             <i class="fa fa-angle-down" :class="{ 'fa-angle-down--rotate': skill.open }" />
             {{ skill.name }}
           </h2>
-          <span class="skill-lebel__graph">
-            <span class="skill-lebel__bar" :style="{backgroundColor: skill.bgColor, width: `${skill.value}%`}"></span>
+          <span class="skill__graph">
+            <span class="skill__bar" :style="{backgroundColor: skill.bgColor, width: `${skill.value}%`}"></span>
           </span>
-          <span class="skill-lebel__value">{{ skill.value }}%</span>
+          <span class="skill__value">{{ skill.value }}%</span>
         </div>
       </div>
       <transition name="slide">
-        <div class="skill-accordion__contents" @click.stop v-show="skill.open">
+        <div class="accordion__contents" @click.stop v-show="skill.open">
           <img :src="require(`@/assets/images/${skill.name}.png`)" />
           <p v-html="skill.details"></p>
         </div>
       </transition>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: 'AccordionComponent',
   props: {
     inheritedSkills: Array,
   },
@@ -46,10 +45,10 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
-.accordion-body {
+.skills__accordions {
   @include center-styling(wrap, row, space-around, flex-start);
   width: 100%;
-  .skill-accordion {
+  .accordion {
     position: relative;
     width: 30rem;
     background-color: #222;
@@ -75,7 +74,7 @@ export default {
       color: #fff;;
       text-shadow: 1px 2px 3px #1c1c1c;
       cursor: pointer;
-      .skill-lebel {
+      .skill {
         @include center-styling($direction: row);
         width: 100%;
         height: 100%;
@@ -106,9 +105,10 @@ export default {
           top: 0;
           left: 0;
           height: 100%;
+          border-radius: 1rem 0 0 1rem;
           animation: rise 4s ease-in-out;
         }
-      } //.skill-lebel
+      } //.skill
     } //__label
     &__contents {
       @include center-styling($direction: row, $justify: space-around);
@@ -116,6 +116,7 @@ export default {
       box-sizing: border-box;
       background-color: #fff;
       border-radius: 0 0 5px 5px;
+      padding: 0.5rem;
       img {
         display: block;
         width: 20%;
@@ -127,8 +128,8 @@ export default {
         word-break: break-all;
       }
     } //__contents
-  } //.skill-accordion
-} // accordion-body
+  } //.accordion
+} // .skills__accordions
 
 // skillバーの上昇アニメーション
 @keyframes rise {

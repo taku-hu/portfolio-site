@@ -1,22 +1,21 @@
 <template>
-  <section class="skills">
+  <main class="skills">
     <h3 class="skills__heading">My Skills</h3>
-    <div class="accordion-heading">
-      <p class="accordion-heading__sentence">Click the item or&nbsp;</p>
-      <button class="accordion-heading__show-button" @click="toggleAll">
+    <div class="skills__sentence">
+      <p>Click the item or&nbsp;</p>
+      <button @click="toggleAll">
         {{ toggleMessage }}
         <i class="fas fa-sort"></i>
       </button>
     </div>
     <accordion-component :inheritedSkills="skills" />
-  </section>
+  </main>
 </template>
 
 <script>
 import AccordionComponent from '@/components/Accordion.vue';
 
 export default {
-  name: 'Skills',
   data() {
     return {
       toggleMessage: 'Show all',
@@ -27,8 +26,8 @@ export default {
           bgColor: '#ff4500',
           open: false,
           details: `
-            両方共に主要な機能は理解しています。<br>
-            「flexbox」や「grid」を使いレスポンシブなウェブサイトを作ることが出来ます。
+            両方共に十分な理解をしています。<br>
+            BEMによる設計も理解しており、「flexbox」や「grid」を使いレスポンシウェブデザインのコーディングをすることができます。
           `
         },
         {
@@ -37,7 +36,7 @@ export default {
           bgColor: '#ff69b4',
           open: false,
           details: `
-            開発に必要な基本的な機能は理解しています。
+            mixinや基本的な関数、標準的な記法等の開発に必要な主要な事柄は理解しています。
           `
         },
         {
@@ -87,7 +86,7 @@ export default {
           bgColor: '#87ceeb',
           open: false,
           details: `
-            1からフロントエンドの開発環境の構築をする事が出来ます。
+            主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。
           `
         }
       ] //skills
@@ -133,14 +132,14 @@ export default {
   &__heading {
     @include section-heading;
   }
-  .accordion-heading {
+  &__sentence {
     @include center-styling($direction: row);
     margin-bottom: 3rem;
-    &__sentence {
+    p {
       font-family: 'Orbitron', sans-serif;
       font-size: 2rem;
     }
-    &__show-button {
+    button {
       @include clear-button-css;
       width: 9rem;;
       height: 3rem;
@@ -155,7 +154,7 @@ export default {
         background-color: #000;
       }
     }
-  } //.accordion-heading
+  } // __sentence
 } //skills
 
 //メディアクエリ

@@ -65,6 +65,17 @@ export default {
     position: absolute;
     left: 0;
     bottom: 0;
+    color: #536694;
+    &:hover {
+      color: #fff;
+      animation: spin 1.5s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+	100% {
+    transform: rotate(360deg);
   }
 }
 

@@ -8,7 +8,7 @@
       </div>
       <transition name="open">
         <div class="body" v-show="accordion.open">
-          <a class="link" :href="accordion.link" >
+          <a :href="accordion.link" >
             <span v-html="accordion.icon"></span>
             {{ accordion.item }}
           </a>
@@ -25,8 +25,8 @@
         <nav class="link">
           <ul>
             <li v-for="link in links" :key="link.name">
-              <span v-html="link.icon"></span>
               <router-link :to="link.path">
+                <span v-html="link.icon"></span>
                 {{ link.name.toLowerCase() }}
               </router-link>
             </li>
@@ -94,7 +94,7 @@ export default {
     .label {
       height: 1.5rem;
       line-height: 1.5rem;
-      background-color: #282A35;
+      background-color: #282a36;
       padding-left: 0.5rem;
       .fa-angle-down {
         transition: 0.2s;
@@ -106,7 +106,19 @@ export default {
     .body {
       height: 1.5rem;
       line-height: 1.5rem;
-      padding-left: 1.5rem;
+      a {
+        @include button-sizing;
+        padding-left: 1.5rem;
+        &:hover {
+          background-color: #313341;
+        }
+      }
+      .router-link-exact-active {
+        background-color: #44475a;
+        &:hover {
+          background-color: #44475a;
+        }
+      }
       .fa-vuejs {
         color: #41B883;
       }
@@ -117,19 +129,19 @@ export default {
         color: #0D79CC;
       }
     }
-  }
-  .link {
-    .fa-home {
-      color: #ff4500;
-    }
-    .fa-user-circle {
-      color: #0d79cc;
-    }
-    .fa-wrench {
-      color: #ffd700;
-    }
-    .fa-address-card {
-      color: #32cd32;
+    .link {
+      .fa-home {
+        color: #ff4500;
+      }
+      .fa-user-circle {
+        color: #0d79cc;
+      }
+      .fa-wrench {
+        color: #ffd700;
+      }
+      .fa-address-card {
+        color: #32cd32;
+      }
     }
   }
 } //.explorer

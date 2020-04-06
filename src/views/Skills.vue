@@ -1,6 +1,5 @@
 <template>
-  <main class="skills">
-    <h3 class="skills__heading">My Skills</h3>
+  <section class="skills">
     <div class="skills__sentence">
       <p>Click the item or&nbsp;</p>
       <button @click="toggleAll">
@@ -9,7 +8,7 @@
       </button>
     </div>
     <accordion-component :inheritedSkills="skills" />
-  </main>
+  </section>
 </template>
 
 <script>
@@ -127,17 +126,17 @@ export default {
 @import '@/assets/styles/_fragments.scss';
 
 .skills {
-  @include section-box('SKILLS');
-  @include center-styling;
-  &__heading {
-    @include section-heading;
-  }
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  padding: 0 0.5rem;
   &__sentence {
     @include center-styling($direction: row);
-    margin-bottom: 3rem;
+    margin: 3rem 0;
     p {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
     button {
       @include clear-button-css;
@@ -146,12 +145,12 @@ export default {
       line-height: 3rem;;
       font-weight: bold;
       font-size: 1.2rem;
-      border: 1px solid #000;
+      color: #fff;
+      border: 1px solid #fff;
       cursor: pointer;
       transition: 0.2s;
       &:hover {
-        color: #fff;
-        background-color: #000;
+        transform: scale(0.9);
       }
     }
   } // __sentence
@@ -160,13 +159,13 @@ export default {
 //メディアクエリ
 @include media-query($bp-mobile) {
   .skills {
-    .accordion-heading {
-      @include center-styling;
+    &__sentence {
+      flex-direction: column;
       margin-bottom: 1rem;
-      &__sentence {
+      p {
         margin-bottom: 1rem;
       }
-    } //.accordion-heading
+    }
   } //.skills
 }
 </style>

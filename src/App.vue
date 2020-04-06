@@ -1,112 +1,62 @@
 <template>
   <div id="app">
-    <transition name="switch" mode="out-in">
-      <div class="title" v-if="!titleCall" key="title" >
-        <div class="title__background">
-          <p v-for="sentence in bgSentences" :key="sentence.id">
-            <span :data-text="sentence.item">{{ sentence.item }}</span>
-          </p>
+    <div class="wrapper">
+      <leftbar-component />
+
+      <explorer-component />
+
+      <main class="code">
+        <div class="code__tag">
+          <i class="fab fa-vuejs"></i>
+          {{ currentPage.toUpperCase() }}
+          <i class="fas fa-times" @click="closeTab"></i>
         </div>
-        <div class="title__front">
-          <h1>{{ title }}</h1>
+        <div class="code__field">
+
+          <transition name="switch">
+            <router-view />
+          </transition>
+
         </div>
-      </div>
+      </main>
+    </div>
 
-      <div class="wrapper" v-else key="contents" >
-        <header-component @smoothScroll="smoothScroll" />
-
-        <transition name="switch" mode="out-in">
-          <router-view />
-        </transition>
-
-        <a class="move-button" @click="movePage">
-          <i class="fas fa-angle-left" v-show="moveAction === 'BACK'"></i>
-          {{ moveAction }}
-          <i class="fas fa-angle-right" v-show="moveAction === 'MORE'"></i>
-        </a>
-
-        <transition name="slide-up">
-          <a class="scroll-button" @click="smoothScroll('header')" v-show="scroll">
-            <i class="fas fa-arrow-up"></i>
-          </a>
-        </transition>
-
-        <footer-component />
-      </div>
-    </transition>
+    <footer-component />
   </div>
 </template>
 
 <script>
-import HeaderComponent from '@/components/Header.vue';
+import LeftbarComponent from '@/components/Leftbar.vue';
+import ExplorerComponent from '@/components/Explorer.vue';
 import FooterComponent from '@/components/Footer.vue';
-import { background } from '@/mixins/background.js';
 
 export default {
-  mixins: [background],
   created() {
-    this.window();
-
-      const getInnerVh = () => {
-        const vh =  window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      }
+    const getInnerVh = () => {
+    const vh =  window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    getInnerVh();
+    window.addEventListener('resize', () => {
       getInnerVh();
-      window.addEventListener('resize', () => {
-        getInnerVh();
-      });
-
-    window.addEventListener('scroll', () => {
-      if(window.scrollY > 0) {
-        this.scroll = true;
-      } else {
-        this.scroll = false;
-      }
-    })
-  },
-  data() {
-    return {
-      title: '',
-      titleCall: false,
-      scroll: false,
-    };
+    });
   },
   computed: {
-    moveAction() {
-      return this.$route.name === 'home' ? 'MORE' : 'BACK';
+    currentPage() {
+      return this.$route.name;
     }
   },
   methods: {
-    window:onload = async function() {
-      const typing = word => {
-        return [...word].map((character, index) => {
-          return new Promise(resolve => {
-            setTimeout(() => {
-              this.title += character;
-              resolve();
-            }, 200 * ++index);
-          });
-        }); //Promiseオブジェクトを値に持つ配列をreturn
-      }
-
-      await Promise.all(typing('Welcome to my website!'));
-      setTimeout(() => {
-        this.titleCall = true;
-      }, 200);
-    },
-    movePage() {
-      if(this.$route.name === 'home') {
-        this.$router.push({name: 'about'});
-      } else {
-        this.$router.push({name: 'home'});
-      }
-    },
-    smoothScroll(element) {
-      this.$scrollTo(element);
+    closeTab() {
+      if(confirm(`
+        Do you want to save the changes you made to ${this.currentPage.substring(0, 1).toUpperCase() + this.currentPage.substring(1)}.vue?
+        Your changes will be lost if you don't save them.
+      `)) window.close;
     }
   },
   components: {
-    HeaderComponent,
+    LeftbarComponent,
+    ExplorerComponent,
     FooterComponent
   }
 };
@@ -122,98 +72,73 @@ body {
   font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
 }
 a {
-  color: #000;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
-
 #app {
-  @include center-styling;
-  text-align: center;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  color: #fff;
   overflow: hidden;
-  .title {
-    @include center-styling;
+}
+.wrapper {
+  width: 100%;
+  height: calc(100% - 1.5rem);
+  display: flex;
+  overflow: hidden;
+}
+.code {
+  width: calc(100% - 13rem);
+  height: 100%;
+  background-color: #191A21;
+  &__tag {
     position: relative;
-    width: 100%;
-    height: calc(var(--vh, 1vh) * 100);
-    background-color: rgb(15, 54, 167);
-    background-image: linear-gradient(90deg, rgba(15, 54, 167, 1) 40%, rgba(0, 163, 254, 1) 100%);
-    overflow: hidden;
-    &__background {
-      @include bg-animation-back;
-    } //__background
-    &__front {
-      @include center-styling;
-      @include bg-animation-front;
-      h1 {
-        @include txt-neon-shadow;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 5rem;
-        font-weight: bold;
-        color: #fff;
-        &:after {
-          width: 4px;
-          content: '';
-          border-right: 4px solid #fff;
-          animation: flashing 0.4s linear infinite;
-        }
-      }
-    } //__front
-  } //.title
-
-  .wrapper {
-    @include center-styling;
-    width: 100%;
-  }
-  .move-button {
-    display: block;
-    width: 8rem;
-    height: 3rem;
-    line-height: 3rem;
-    border: solid 1px #000;
-    margin: 3rem;;
-    transition: 0.5s;
-    &:hover {
-      color: #fff;
-      background-color: #000;
+    display: inline-block;
+    width: 6.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: #282A35;
+    padding: 0 0.5rem;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #9E5B8B;
     }
-  } //.move-button
-  .scroll-button {
-    @include center-styling;
-    position: fixed;
-    right: 10%;
-    bottom: 5%;
-    z-index: 99;
-    width: 5rem;
-    height: 5rem;
-    color: #fff;
-    background-color: rgba(255, 0, 0, 0.8);
-    font-size: 2.5rem;
-    border-radius: 50%;
-    box-shadow: 1px 1px 6px 0px #333;
-    &:active {
-      transform: scale(0.9);
+    .fa-vuejs {
+      color: #41B883;
+      margin-right: 0.2rem;
     }
-  } //.scroll-button
-}
+    .fa-times {
+      cursor: pointer;
+      margin-left: 0.6rem;
+    }
+  }
+  &__field {
+    width: 100%;
+    height: calc(100% - 2.5rem);
+    background-color: #282A35;
+  }
+} //header
 
-//カーソルの点滅アニメーション
-@keyframes flashing {
-  100% {
-    opacity: 0;
-  }
+//スクロールバーのカスタマイズ
+::-webkit-scrollbar {
+  width: 1rem;
+  background-color: #2C2E38;
 }
-
-//背景用文字スライドアニメーション
-@keyframes slide {
-  0% {
-    transform: translateX(100%);
-  }
+::-webkit-scrollbar-track {
+  border: 1px solid #21222C;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, .1);
 }
-@keyframes slide-reverse {
-  100% {
-    transform: translateX(100%);
-  }
+::-webkit-scrollbar-thumb {
+  background-color: #494A51;
+  box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
 }
 
 //ページ遷移トランジション
@@ -225,14 +150,24 @@ a {
   opacity: 0;
 }
 
-//ボタン表示トランジション
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: 0.5s;
-}
-.slide-up-enter,
-.slide-up-leave-to {
-  transform: translateY(3rem);
-  opacity: 0;
+//メディアクエリ
+@include media-query($bp-mobile) {
+  .code {
+    width: calc(100% - 10rem);
+  }
+
+  //スクロールバーのカスタマイズ
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: #2C2E38;
+  }
+  ::-webkit-scrollbar-track {
+    border: 1px solid #21222C;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .1);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #494A51;
+    box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
+  }
 }
 </style>

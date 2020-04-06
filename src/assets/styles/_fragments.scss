@@ -28,35 +28,6 @@ $bp-mobile: 480px;
   appearance: none;
 }
 
-@mixin section-box($page-name) {
-  position: relative;
-  width: 80%;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 1px 1px 6px 0px #ccc;
-  padding: 1rem;
-  &:after {
-    content: $page-name;
-    position: absolute;
-    top: -10px;
-    left: 20px;
-    display: block;
-    text-align: center;
-    color: #fff;
-    background-color: #000;
-    transform: rotate(-5deg);
-    padding: 5px 20px;
-  }
-}
-
-@mixin section-heading {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 3rem;
-  font-weight: bold;
-  text-shadow: 1px 2px 2px #1d1d1d;
-  margin: 3rem 0;
-}
-
 @mixin txt-neon-shadow {
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.5),
     0 0 30px rgba(255, 255, 255, 0.5), 0 0 40px rgba(52, 152, 219, 1),
@@ -64,54 +35,8 @@ $bp-mobile: 480px;
     0 0 70px rgba(52, 152, 219, 1);
 }
 
-@mixin bg-animation-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: inherit;
-  white-space: nowrap;
-  user-select: none;
-  p {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-    transition: 0.5s;
-    span {
-      position: relative;
-      display: inline-block;
-      padding: 5px 0 5px 5px;
-      letter-spacing: 1px;
-      &:before {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: -100%;
-        padding: 5px 0 5px 5px;
-      }
-    }
-    &:nth-child(odd) span {
-      animation: slide 20s linear infinite;
-    }
-    &:nth-child(even) span {
-      animation: slide-reverse 20s linear infinite;
-    }
-  }
-}
-
-@mixin bg-animation-front {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: inherit;
-  @content;
-}
-
 @mixin media-query($breake-point) {
-  @media (max-width: $breake-point) {
+  @media all and (max-width: $breake-point) {
     @content;
   }
 }

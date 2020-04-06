@@ -51,11 +51,11 @@ export default {
   .accordion {
     position: relative;
     width: 30rem;
-    background-color: #222;
+    color: #000;
+    background-color: #0D7ACC;
     border-radius: 10px;
-    box-shadow: 1px 1px 6px 0px #b2b2b2;
     padding: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     &:before {
       content: '';
       position: absolute;
@@ -78,7 +78,6 @@ export default {
         @include center-styling($direction: row);
         width: 100%;
         height: 100%;
-        font-size: 0.9rem;
         &__name {
           width: 30%;
           font-weight: bold;
@@ -154,5 +153,16 @@ export default {
 .slide-enter,
 .slide-leave-to {
   max-height: 0;
+}
+
+//メディアクエリ
+@include media-query($bp-mobile) {
+  .skills__accordions {
+    .accordion {
+      &__label {
+        font-size: 0.8rem;
+      }
+    }
+  }
 }
 </style>

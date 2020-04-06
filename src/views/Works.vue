@@ -1,6 +1,5 @@
 <template>
-  <main class="works">
-    <h3 class="works__heading">My Works</h3>
+  <section class="works">
     <div class="works__wrapper">
       <div
         class="work"
@@ -21,7 +20,7 @@
         </div>
       </div>
     </div>
-  </main>
+  </section>
 </template>
 
 <script>
@@ -79,13 +78,13 @@ export default {
 @import '@/assets/styles/_fragments.scss';
 
 .works {
-  @include section-box('WORKS');
-  @include center-styling;
-  &__heading {
-    @include section-heading;
-  }
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
   &__wrapper {
     @include center-styling($wrap: wrap, $direction: row);
+    width: 100%;
+    height: 100%;
   }
   .work {
     position: relative;
@@ -108,6 +107,7 @@ export default {
       width: 100%;
       height: 100%;
       color: #fff;
+      text-align: center;
       transition: 0.5s;
     }
     &__face2 {
@@ -116,7 +116,6 @@ export default {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
-      box-shadow: 1px 1px 6px 0px #b2b2b2;
       text-align: left;
       transition: 0.5s;
       padding: 0.5rem;
@@ -135,11 +134,9 @@ export default {
       width: 6rem;
       height: 2.5rem;
       line-height: 2.5rem;
-      border: 1px solid #000;
-      background-color: #fff;
+      border: 1px solid #fff;
       &:hover {
-        color: #fff;
-        background-color: #000;
+        transform: scale(0.9);
       }
     }
     &__discription {

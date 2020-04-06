@@ -1,13 +1,12 @@
 <template>
-  <main class="about">
-    <h3 class="about__heading">My Profile</h3>
+  <section class="about">
     <table class="about__list">
       <tr v-for="data in ProfileData" :key="data.th">
         <th>{{ data.title }}</th>
-        <td v-html="data.information" @click="jumpToLink(data)" :class="{ linked: data.link }"></td>
+        <td v-html="data.information" @click="jumpToLink(data)" :class="{linked: data.link}"></td>
       </tr>
     </table>
-  </main>
+  </section>
 </template>
 
 <script>
@@ -62,25 +61,22 @@ export default {
 @import '@/assets/styles/_fragments.scss';
 
 .about {
-  @include section-box('ABOUT');
   @include center-styling;
-  &__heading {
-    @include section-heading;
-  }
+  width: 100%;
+  height: 100%;
+  text-align: center;
   &__list {
-    border-spacing: 2rem 4rem;
+    border-spacing: 1rem 3rem;
     border-collapse: separate;
     th {
-      color: #fff;
-      background-color: #000;
+      background-color: #0D7ACC;
       font-weight: bold;
       padding: 1rem 0.5rem;
     }
     td {
-      border-bottom: 2px solid #000;
       padding: 1rem;
       &.linked {
-        color: #0000EE;
+        color: #0D7ACC;
         cursor: pointer;
       }
     }
@@ -92,15 +88,14 @@ export default {
   .about {
     &__list {
       tr {
-        @include center-styling($align: stretch);
-        &:not(:last-child) {
-          margin-bottom: 1.5rem;
-        }
-        td {
-          border: 1px solid #000;
-        }
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
       }
-    } //__list
+      td {
+        border-bottom: none;
+      }
+    }
   } //.about
 }
 </style>

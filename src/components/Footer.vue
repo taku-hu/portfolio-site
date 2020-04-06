@@ -1,68 +1,75 @@
 <template>
   <footer class="footer">
-    <div class="footer__top">
-      <nav>
-        <ul>
-          <li v-for="page in pages" :key="page.name">
-            <router-link :to="page.path">
-              {{ page.name }}
-            </router-link>
-          </li>
-        </ul>
-      </nav>
+    <div class="footer__left">
+      <span class="items">
+        <i class="fas fa-code-branch"></i>
+        master
+      </span>
+      <span class="items">
+        <i class="fas fa-cloud-upload-alt"></i>
+      </span>
+      <span class="items">
+        <i class="far fa-times-circle"></i>
+        0
+        <i class="fas fa-exclamation-triangle"></i>
+        0
+      </span>
+      <span class="items">
+        <i class="fas fa-tools"></i>1
+      </span>
     </div>
-    <div class="footer__bottom">
+
+    <div class="footer__center">
       <small>copyright&copy; 2019 All rights reserved. Takuto Takeuchi</small>
+    </div>
+
+    <div class="footer__right">
+      <span class="items">
+        UTF-8
+      </span>
+      <span class="items">
+        CRLF
+      </span>
+      <span class="items">
+        JavaScript
+      </span>
+      <span class="items">
+        Prettier
+      </span>
+      <span class="items">
+        <i class="fas fa-chalkboard-teacher"></i>
+      </span>
+      <span class="items">
+        <i class="far fa-bell"></i>
+      </span>
     </div>
   </footer>
 </template>
-
-<script>
-import { pageLinks } from '@/mixins/pageLinks.js';
-
-export default {
-  name: 'FooterComponent',
-  mixins: [pageLinks],
-};
-</script>
 
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
 .footer {
+  @include center-styling($direction: row, $justify: space-between);
   width: 100%;
-  &__top {
-    @include center-styling;
-    height: 3rem;
-    background-color: #47b7cc;
-    nav {
-      width: 100%;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 0.4rem;
+  background-color: #191A21;
+  &__left {
+    margin-left: 1rem;
+    .items {
+      margin-right: 0.5rem;
     }
-    ul {
-      display: flex;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 0 15%;
+  }
+  &__center {
+    text-align: center;
+  }
+  &__right {
+    margin-right: 1rem;
+    .items {
+      margin-left: 1rem;
     }
-    li {
-      width: 25%;
-      &:not(:last-child) {
-        border-right: 1px solid #000;
-      }
-      a {
-        @include button-sizing;
-        font-family: 'Orbitron', sans-serif;
-      }
-    }
-  } //__top
-  &__bottom {
-    height: 5rem;
-    background-color: #1a1a1a;
-    small {
-      color: #fff;
-      font-size: 1rem;
-      line-height: 5rem;
-    }
-  } //__bottom
-} //footer
+  }
+}
 </style>

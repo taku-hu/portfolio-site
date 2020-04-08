@@ -147,7 +147,7 @@ export default {
   }
 } //.works
 
-@include media-query($bp-mobile) {
+@include media-query($bp-tablet) {
   .works {
     @include center-styling;
     .work {

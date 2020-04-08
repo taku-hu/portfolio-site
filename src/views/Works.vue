@@ -123,9 +123,9 @@ export default {
     }
     &__title {
       width: 100%;
-      height: 5rem;
-      line-height: 5rem;
-      font-size: 2.5rem;
+      height: 4rem;
+      line-height: 4rem;
+      font-size: 2rem;
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       background-color: $base-blue;
@@ -141,8 +141,7 @@ export default {
     &__description {
       width: 50%;
       line-height: 1.5;
-      font-size: 1.1rem;
-      text-align-last: left;
+      text-align: left;
       margin: 0 auto;
     }
   }

@@ -19,10 +19,6 @@
       </span>
     </div>
 
-    <div class="footer__center">
-      <small>copyright&copy; 2019 All rights reserved. Takuto Takeuchi</small>
-    </div>
-
     <div class="footer__right">
       <span class="items">
         Theme: {{ colorTheme }}
@@ -80,9 +76,6 @@ export default {
     .items {
       margin-right: 0.5rem;
     }
-  }
-  &__center {
-    text-align: center;
   }
   &__right {
     margin-right: 1rem;

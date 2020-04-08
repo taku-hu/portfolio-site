@@ -1,25 +1,24 @@
 <template>
   <section class="works">
-    <div class="works__wrapper">
-      <div
-        class="work"
-        v-for="work in works"
-        :key="work.name"
-        ontouchstart=""
-      >
-        <div class="work__face1" :style="{ backgroundColor: work.color }">
-          <span class="work__icon" v-html="work.icon"></span>
-          <h3 class="work__name">{{ work.name }}</h3>
-          <a class="work__link" :href="work.link" target="_blank">
-            <i class="fas fa-mouse-pointer"></i>
-            Details
-          </a>
-        </div>
-        <div class="work__face2">
-          <p class="work__discription" v-html="work.description"></p>
+    <div class="work" v-for="work in works" :key="work.name">
+      <h2 class="work__name">{{ work.name }}</h2>
+      <img class="work__image" :src="require(`@/assets/images/${work.title}.png`)" @click="openModal(work)">
+    </div>
+
+    <transition name="switch">
+      <div class="modal" v-if="modalActive">
+        <div class="modal__overlay" @click="closeModal">
+          <div class="modal__contents">
+            <p class="modal__title">{{ modalData.name }}</p>
+            <div class="modal__inner-wrapper">
+              <img class="modal__image" :src="require(`@/assets/images/${modalData.title}.png`)">
+              <p class="modal__description" v-html="modalData.description"></p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
+
   </section>
 </template>
 
@@ -29,47 +28,46 @@ export default {
     return {
       works: [
         {
-          name: 'ポートフォリオサイト',
-          icon: '<i class="fas fa-address-card"></i>',
-          color: '#3340cb',
-          link: 'https://github.com/taku-hu/my-portfolio-site',
+          name: 'Portfolio Site',
+          title: 'Portfolio-site',
           description: `
-            私が初めにVue.jsで作ったもので、私のポートフォリオサイトです。<br>
-            コーディングに慣れたりVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。
+            私が初めて作ったもので、私のポートフォリオサイトです。<br>
+            コーディングに慣れやVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。<br>
+            コードのハイライトにhighlight.jsを使ったこと以外は全てフルスクラッッチで実装しています。
           `
         },
         {
-          name: 'タイピングアプリ',
-          icon: '<i class="far fa-keyboard"></i>',
-          color: '#2196f3',
-          link: 'https://github.com/taku-hu/my-typing-app',
+          name: 'Online Bookshelf',
+          title: 'Bookshelf',
           description: `
-            私が2番目にVue.jsで作ったものです。<br>
-            以前の開発の経験を生かしてより多くの機能を盛り込みました。
+            私が3番目に作ったもので、Vue.js + Firebase + GoogleBooksAPIを使っています。<br>
+            ごく小規模ではありますが、認証機能やデータベースHTTP通信やAPIの利用など実際の開発を意識して作りました。<br>
+            そして状態管理に初めてVuexを導入しました。<br>
+            まだまだではありますが、開発を通してコンポーネントベースでのより実践的な開発が学べたと感じています。
           `
         },
         {
-          name: 'オンライン本棚',
-          icon: '<i class="fas fa-book"></i>',
-          color: '#21b1aa',
-          link: 'https://github.com/taku-hu/my-online-bookshelf',
+          name: 'Typing Game',
+          title: 'Typing-app',
           description: `
-            私が3番目にVue.jsで作ったもので、Firebaseでログインとデータベースの機能を盛り込みました。<br>
-            そして状態管理に初めてVuexを使いました。まだまだではありますが、開発を通してVue.jsでのより実践的なコーディングが学べたと感じています。
-          `
-        },
-        {
-          name: '過去の残骸達',
-          icon: '<i class="fas fa-pager"></i>',
-          color: '#333',
-          link: 'https://github.com/taku-hu',
-          description: `
-            学習し始めの時に作ったLPやサイトの模写、簡単なアプリ達です。<br>
-            成果物としては無価値ですが思い出として...
+            私が2番目に作ったものです。<br>
+            以前の開発の経験を生かしてより多くの機能を盛り込みました。<br>
+            特にJavaScript自体の理解を深めたいと思い、より多くのネイティブコードを書きました。
           `
         }
-      ] //works
+      ],
+      modalData: '',
+      modalActive: false
     }; //return
+  },
+  methods: {
+    openModal(work) {
+      this.modalActive = true;
+      this.modalData = work;
+    },
+    closeModal() {
+      this.modalActive = false;
+    }
   }
 };
 </script>
@@ -78,72 +76,94 @@ export default {
 @import '@/assets/styles/_fragments.scss';
 
 .works {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
   height: 100%;
+  text-align: center;
   overflow-y: scroll;
-  &__wrapper {
-    @include center-styling($wrap: wrap, $direction: row);
-    width: 100%;
-    height: 100%;
-  }
   .work {
-    position: relative;
-    width: 20rem;
-    height: 15rem;
-    margin: 7.5rem 1rem;
-    &:hover .work__face1 {
-      transform: translateY(-7.5rem);
-      a {
-        display: block;
-      }
-    }
-    &:hover .work__face2 {
-      transform: translateY(7.5rem);
-    }
-    &__face1 {
-      @include center-styling;
-      position: absolute;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      color: #fff;
-      text-align: center;
-      transition: 0.5s;
-    }
-    &__face2 {
-      @include center-styling;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      text-align: left;
-      transition: 0.5s;
-      padding: 0.5rem;
-    }
-    &__icon {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-    }
+    width: 40%;
     &__name {
-      font-weight: bold;
-      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+      font-size: 2rem;
+      font-family: 'Orbitron', sans-serif;
       margin-bottom: 1rem;
     }
-    &__link {
-      display: none;
-      width: 6rem;
-      height: 2.5rem;
-      line-height: 2.5rem;
-      border: 1px solid #fff;
+    &__image {
+      width: 100%;
+      box-shadow: 0 0 10px #000;
+      transition: 0.3s;
       &:hover {
-        transform: scale(0.9);
+        box-shadow: 0 0 40px #000;
+        transform: scale(1.1);
       }
     }
-    &__discription {
-      line-height: 1.5;
-      text-decoration: underline;
-      word-break: break-all;
+  }
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    color: #000;
+    &__overlay {
+      @include center-styling;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
     }
-  } //.work
+    &__contents {
+      @include center-styling;   
+      width: 80%;
+      height: 80%;
+      background-color: #fff;
+    }
+    &__title {
+      width: 100%;
+      height: 5rem;
+      line-height: 5rem;
+      font-size: 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      background-color: $base-blue;
+    }
+    &__inner-wrapper {
+      @include center-styling;
+      flex-grow: 1;
+    }
+    &__image {
+      width: 50%;
+      margin-bottom: 1.5rem;
+    }
+    &__description {
+      width: 50%;
+      line-height: 1.5;
+      font-size: 1.1rem;
+      text-align-last: left;
+      margin: 0 auto;
+    }
+  }
 } //.works
+
+@include media-query($bp-mobile) {
+  .works {
+    @include center-styling;
+    .work {
+      width: 85%;
+      margin-bottom: 2rem;
+    }
+    .modal {
+      &__image {
+        width: 80%;
+      }
+      &__description {
+        width: 80%;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
 </style>

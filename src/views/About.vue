@@ -1,10 +1,20 @@
 <template>
   <section class="about">
     <table class="about__list">
-      <tr v-for="data in ProfileData" :key="data.th">
-        <th>{{ data.title }}</th>
-        <td v-html="data.information" @click="jumpToLink(data)" :class="{linked: data.link}"></td>
-      </tr>
+      <template v-for="data in ProfileData">
+        <tr class="title" :key="data.title">
+          <th class="title__name">{{ data.title }}</th>
+        </tr>
+        <tr class="information" :key="data.infromation">
+          <td 
+            class="information__data"
+            :class="{'information__data--linked' : data.link}"
+            v-html="data.information"
+            @click="jumpToLink(data)"
+            >
+          </td>
+        </tr>
+      </template>
     </table>
   </section>
 </template>
@@ -66,36 +76,22 @@ export default {
   height: 100%;
   text-align: center;
   &__list {
-    border-spacing: 1rem 3rem;
-    border-collapse: separate;
-    th {
-      background-color: #0D7ACC;
-      font-weight: bold;
-      padding: 1rem 0.5rem;
+    .title {
+      &__name {
+        background-color: $base-blue;
+        font-weight: bold;
+        padding: 1rem 0.5rem;
+      }
     }
-    td {
-      padding: 1rem;
-      &.linked {
-        color: #0D7ACC;
-        cursor: pointer;
+    .information {
+      &__data {
+        padding: 1rem;
+        &--linked {
+          color: $base-blue;
+          cursor: pointer;
+        }
       }
     }
   } //__list
 } //about
-
-//メディアクエリ
-@include media-query($bp-tablet) {
-  .about {
-    &__list {
-      tr {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1rem;
-      }
-      td {
-        border-bottom: none;
-      }
-    }
-  } //.about
-}
 </style>

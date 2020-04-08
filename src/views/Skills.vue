@@ -1,6 +1,6 @@
 <template>
   <section class="skills">
-    <div class="skills__sentence">
+    <div class="skills__heading">
       <p>Click the item or&nbsp;</p>
       <button @click="toggleAll">
         {{ toggleMessage }}
@@ -131,7 +131,7 @@ export default {
   box-sizing: border-box;
   overflow-y: scroll;
   padding: 0 0.5rem;
-  &__sentence {
+  &__heading {
     @include center-styling($direction: row);
     margin: 3rem 0;
     p {
@@ -159,7 +159,7 @@ export default {
 //メディアクエリ
 @include media-query($bp-mobile) {
   .skills {
-    &__sentence {
+    &__heading {
       flex-direction: column;
       margin-bottom: 1rem;
       p {

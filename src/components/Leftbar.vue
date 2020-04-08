@@ -1,18 +1,22 @@
 <template>
-  <div class="left-bar">
-    <div class="left-bar__icons" v-for="menuIcon in menuIcons" :key="menuIcon">
+  <div class="left-bar" :class="{'left-bar--theme-changed' : themeChanged}">
+    <div class="left-bar__icons" :class="{'left-bar__icons--theme-changed' : themeChanged}" v-for="menuIcon in menuIcons" :key="menuIcon">
       <span v-html="menuIcon"></span>
     </div>
-    <div class="left-bar__settings">
-      <i class="fas fa-cog"></i>
+    <div class="left-bar__settings" @click="changeTheme">
+      <i class="fas fa-cog" ></i>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    themeChanged: Boolean
+  },
   data() {
     return {
+      inheritedThemeChanged: this.themeChanged,
       menuIcons: [
         '<i class="far fa-copy"></i>',
         '<i class="fas fa-search"></i>',
@@ -21,6 +25,21 @@ export default {
         '<i class="fas fa-bug"></i>',
         '<i class="fas fa-th-large"></i>'
       ],
+    }
+  },
+  methods: {
+    changeTheme() {
+      this.$swal({
+        icon: 'question',
+        title: 'Change color theme?',
+        showCancelButton: true,
+        showCloseButton: true,
+      }).then(result => {
+        if(result.value) {
+          this.inheritedThemeChanged = !this.inheritedThemeChanged
+          this.$emit('update:themeChanged', this.inheritedThemeChanged)
+        }
+      });
     }
   }
 }
@@ -35,6 +54,10 @@ export default {
   height: 100%;
   font-size: 1.5rem;
   background-color: #343746;
+  box-shadow: 0 1px 2px #000;
+  &--theme-changed {
+    background-color: #333;
+  }
   &__icons {
     @include center-styling;
     width: 100%;
@@ -54,6 +77,17 @@ export default {
         background-color: #9E5B8B;
       }
     }
+    &--theme-changed {
+      color: #858585;
+      &:first-child {
+        position: relative;
+        color: #fff;
+        background-color: transparent;
+        &:before {
+          background-color: #fff;
+        }
+      }
+    }
     .fa-search {
       transform: rotateY(180deg);
     }
@@ -65,17 +99,18 @@ export default {
     position: absolute;
     left: 0;
     bottom: 0;
-    color: #536694;
-    &:hover {
-      color: #fff;
-      animation: spin 1.5s linear infinite;
-    }
+    cursor: pointer;
+    animation: flashing 1s linear  alternate infinite;
   }
 }
 
-@keyframes spin {
-	100% {
-    transform: rotate(360deg);
+//点滅アニメーション
+@keyframes flashing {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

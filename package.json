@@ -13,7 +13,7 @@
     "reset-css": "^4.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vue-scrollto": "^2.17.1"
+    "vue-sweetalert2": "^3.0.3"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.10.1",

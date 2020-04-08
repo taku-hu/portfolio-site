@@ -9,7 +9,7 @@
       <div class="accordion__label">
         <div class="skill">
           <h2 class="skill__name">
-            <i class="fa fa-angle-down" :class="{ 'fa-angle-down--rotate': skill.open }" />
+            <i class="fa fa-angle-down" :class="{ 'fa-angle-down--rotate': skill.open }"></i>
             {{ skill.name }}
           </h2>
           <span class="skill__graph">
@@ -20,7 +20,7 @@
       </div>
       <transition name="slide">
         <div class="accordion__contents" @click.stop v-show="skill.open">
-          <img :src="require(`@/assets/images/${skill.name}.png`)" />
+          <img :src="require(`@/assets/images/${skill.name}.png`)">
           <p v-html="skill.details"></p>
         </div>
       </transition>
@@ -50,28 +50,15 @@ export default {
   width: 100%;
   .accordion {
     position: relative;
-    width: 30rem;
-    color: #000;
-    background-color: #0D7ACC;
-    border-radius: 10px;
+    width: 25rem;
+    background-color: $base-blue;
+    box-shadow: 0 0 5px #000;
     padding: 0.5rem;
     margin-bottom: 2rem;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      width: 100%;
-      height: 1.5rem;
-      background-color: rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-    }
     &__label {
       width: 100%;
       height: 2rem;
       line-height: 2rem;
-      color: #fff;;
       text-shadow: 1px 2px 3px #1c1c1c;
       cursor: pointer;
       .skill {
@@ -113,8 +100,7 @@ export default {
       @include center-styling($direction: row, $justify: space-around);
       width: 100%;
       box-sizing: border-box;
-      background-color: #fff;
-      border-radius: 0 0 5px 5px;
+      background-color: #282A35;
       padding: 0.5rem;
       img {
         display: block;

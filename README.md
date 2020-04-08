@@ -1,7 +1,7 @@
 <div class="image">
   <p align="center">
     <a href="https://taku-hu.firebaseapp.com">
-      <img src="https://user-images.githubusercontent.com/54551190/78582430-37705380-7870-11ea-8bbb-f4ac950aa33f.png" width="300">
+      <img src="https://user-images.githubusercontent.com/54551190/78818238-52c59500-7a0f-11ea-86a9-521c5be1fff6.png" width="300">
     </a>
   </p>
   <br>
@@ -31,9 +31,9 @@
   <div class="detail__description">
   <p>
     Vue.jsで作った私のポートフォリオサイトです。<br>
-    サイト内のものはコードのハイライト以外は全てフルスクラッチで実装しました。
+    サイト内のものはほぼ全てフルスクラッチで実装しました。
   </p>
-  <p>良ければWORKSページ内に載せている他の成果物もご覧下さい。</p>
+  <p>良ければWORKSページ内に載せている他のポートフォリオもご覧下さい。</p>
   </div>
 
   <br>
@@ -42,9 +42,9 @@
     <h2 align="center">--Responsive Web Design--</h2>
     <p align="center">タブレット・モバイル端末にも対応しています。</p>
     <p align="center">
-      <img src="https://user-images.githubusercontent.com/54551190/78582432-38a18080-7870-11ea-8bcc-943b3978375a.png" height="300">
+      <img src="https://user-images.githubusercontent.com/54551190/78818231-51946800-7a0f-11ea-8c13-e879056353e6.png" height="300">
       &nbsp;
-      <img src="https://user-images.githubusercontent.com/54551190/78582433-38a18080-7870-11ea-90e4-df3d35a2cfc0.png" height="300">
+      <img src="https://user-images.githubusercontent.com/54551190/78819768-b5b82b80-7a11-11ea-9eb8-f93daac7f692.png" height="300">
     </p>
   </div>
 </div>

@@ -56,10 +56,8 @@ export default {
     closeTab() {
       this.$swal({
         icon: 'warning',
-        html: `
-          Do you want to save the changes you made to ${this.currentPage}?<br>
-          Your changes will be lost if you don't save them.
-        `,
+        title: `Do you want to save the changes you made to ${this.currentPage}?`,
+        text: 'Your changes will be lost if you don\'t save them.',
         showCancelButton: true,
         showCloseButton: true,
       }).then(result => {

@@ -1,27 +1,27 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <leftbar-component />
+      <leftbar-component :themeChanged.sync = "themeChanged" />
 
-      <explorer-component />
+      <explorer-component :themeChanged = "themeChanged" />
 
-      <main class="code">
-        <div class="code__tag">
+      <main class="code" :class="{'code--theme-changed' : themeChanged}">
+        <div class="code__tag" :class="{'code__tag--theme-changed' : themeChanged}">
           <i class="fab fa-vuejs"></i>
-          {{ currentPage.toUpperCase() }}
+          {{ currentPage }}
           <i class="fas fa-times" @click="closeTab"></i>
         </div>
-        <div class="code__field">
+        <div class="code__field" :class="{'code__field--theme-changed' : themeChanged}">
 
           <transition name="switch">
-            <router-view />
+            <router-view :themeChanged = "themeChanged"/>
           </transition>
 
         </div>
       </main>
     </div>
 
-    <footer-component />
+    <footer-component :themeChanged = "themeChanged"/>
   </div>
 </template>
 
@@ -41,17 +41,30 @@ export default {
       getInnerVh();
     });
   },
+  data() {
+    return {
+      themeChanged: false
+    }
+  },
   computed: {
     currentPage() {
-      return this.$route.name;
+      //先頭の文字を大文字に
+      return `${this.$route.name.substring(0, 1).toUpperCase()}${this.$route.name.substring(1)}.vue`;
     }
   },
   methods: {
     closeTab() {
-      if(confirm(`
-        Do you want to save the changes you made to ${this.currentPage.substring(0, 1).toUpperCase() + this.currentPage.substring(1)}.vue?
-        Your changes will be lost if you don't save them.
-      `)) window.close;
+      this.$swal({
+        icon: 'warning',
+        html: `
+          Do you want to save the changes you made to ${this.currentPage}?<br>
+          Your changes will be lost if you don't save them.
+        `,
+        showCancelButton: true,
+        showCloseButton: true,
+      }).then(result => {
+        if(result.value) window.open('about:blank','_self').close()
+      });
     }
   },
   components: {
@@ -92,16 +105,19 @@ a {
   width: calc(100% - 13rem);
   height: 100%;
   background-color: #191A21;
+  box-shadow: 0 -1px 2px #000;
+  &--theme-changed {
+    background-color: #2D2D2D;
+  }
   &__tag {
     position: relative;
     display: inline-block;
-    width: 6.5rem;
     height: 2.5rem;
     line-height: 2.5rem;
     font-size: 0.8rem;
-    text-align: center;
     background-color: #282A35;
-    padding: 0 0.5rem;
+    text-align: center;
+    padding: 0 0.6rem;
     &:before {
       content: '';
       position: absolute;
@@ -111,7 +127,14 @@ a {
       height: 2px;
       background-color: #9E5B8B;
     }
+    &--theme-changed {
+      background-color: #1E1E1E;
+      &:before {
+        display: none;
+      }
+    }
     .fa-vuejs {
+      font-size: 1.1rem;
       color: #41B883;
       margin-right: 0.2rem;
     }
@@ -124,12 +147,15 @@ a {
     width: 100%;
     height: calc(100% - 2.5rem);
     background-color: #282A35;
+    &--theme-changed {
+      background-color: #1e1e1e;
+    }
   }
 } //header
 
 //スクロールバーのカスタマイズ
 ::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.8rem;
   background-color: #2C2E38;
 }
 ::-webkit-scrollbar-track {
@@ -143,7 +169,7 @@ a {
 
 //ページ遷移トランジション
 .switch-enter-active {
-  transition: 1.5s;
+  transition: 1s;
 }
 .switch-enter,
 .switch-leave-to {

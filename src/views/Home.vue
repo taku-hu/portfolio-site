@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <div class="home__lines">
+    <div class="home__lines" :class="{'home__lines--theme-changed' : themeChanged}">
       <p v-for="n in 100" :key="n">{{ n }}</p>
     </div>
     <div class="home__body">
@@ -16,6 +16,9 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import 'highlight.js/styles/dracula.css';
 
 export default {
+  props: {
+    themeChanged: Boolean
+  },
   created() {
     hljs.registerLanguage('javascript', javascript);
     this.comment = hljs.highlightAuto(this.comment).value;
@@ -34,7 +37,7 @@ export default {
   data() {
     return {
       comment: `//Welcome to my website!
-//Please scroll down.
+//Take your time.
       `,
       code: `console.log('Hello Hackers!');
 
@@ -79,11 +82,14 @@ console.log('Have a nice day!');
   font-size: 0.8rem;
   overflow: hidden;
   &__lines {
+    color: #374178;
+    &--theme-changed {
+      color: #858585;
+    }
     p {
       width: 3rem;
       height: 1.2rem;
       line-height: 1.2rem;
-      color: #374178;
       padding-left: 0.5rem;
     }
   }

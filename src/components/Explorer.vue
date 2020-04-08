@@ -1,14 +1,18 @@
 <template>
-  <div class="explorer">
+  <div class="explorer" :class="{'explorer--theme-changed' : themeChanged}">
     <div class="explorer__bar">EXPLORER</div>
     <div class="explorer__main-accordion" v-for="accordion in accordions" :key="accordion.labelName">
-      <div class="label" @click="toggleExplorer(accordion)">
+      <div
+        class="label"
+        :class="{'label--opened': accordion.open, 'label--theme-changed' : themeChanged}"
+        @click="toggleExplorer(accordion)"
+      >
         <i class="fas fa-angle-down" :class="{close : !accordion.open}" ></i>
         {{ accordion.labelName }}
       </div>
       <transition name="open">
         <div class="body" v-show="accordion.open">
-          <a :href="accordion.link" >
+          <a :href="accordion.link" target="_blank">
             <span v-html="accordion.icon"></span>
             {{ accordion.item }}
           </a>
@@ -17,11 +21,15 @@
     </div>
 
     <div class="explorer__main-accordion">
-      <div class="label" @click="pageActive = !pageActive">
-        <i class="fas fa-angle-down" :class="{close : !pageActive}"></i>
+      <div
+        class="label"
+        :class="{'label--opened': linksOpen,  'label--theme-changed' : themeChanged}"
+        @click="linksOpen = !linksOpen"
+      >
+        <i class="fas fa-angle-down" :class="{close : !linksOpen}"></i>
         pages
       </div>
-      <div class="body" v-show="pageActive">
+      <div class="body" v-show="linksOpen">
         <nav class="link">
           <ul>
             <li v-for="link in links" :key="link.name">
@@ -39,6 +47,9 @@
 
 <script>
 export default {
+  props: {
+    themeChanged: Boolean
+  },
   data() {
     return {
       accordions: [
@@ -54,16 +65,16 @@ export default {
           icon: '<i class="fab fa-quora"></i>',
           item: 'Qiita',
           link: 'https://qiita.com/taku-hu',
-          open: true
+          open: false
         },
       ],
-      pageActive: true,
       links: [
         {icon: '<i class="fas fa-home">', name: 'HOME', path: '/'},
         {icon: '<i class="fas fa-user-circle">', name: 'ABOUT', path: '/about'},
         {icon: '<i class="fas fa-wrench"></i>', name: 'SKILLS', path: '/skills'},
         {icon: '<i class="far fa-address-card"></i>', name: 'WORKS', path: '/works'}
       ],
+      linksOpen: true
     };
   },
   methods: {
@@ -83,10 +94,15 @@ export default {
   height: 100%;
   background-color: #21222C;
   font-size: 0.8rem;
+  box-sizing: border-box;
   padding: 0 2px;
+  &--theme-changed {
+    background-color: #252526;
+  }
   &__bar {
     height: 2.5rem;
     line-height: 2.5rem;
+    box-sizing: border-box;
     padding-left: 1rem;
   }
   &__main-accordion {
@@ -95,7 +111,14 @@ export default {
       height: 1.5rem;
       line-height: 1.5rem;
       background-color: #282a36;
+      cursor: pointer;
       padding-left: 0.5rem;
+      &--opened {
+        box-shadow: 0 2px 3px #000;
+      }
+      &--theme-changed {
+        background-color: #383838;
+      }
       .fa-angle-down {
         transition: 0.2s;
         &.close {
@@ -106,8 +129,10 @@ export default {
     .body {
       height: 1.5rem;
       line-height: 1.5rem;
+      font-size: 0.7rem;
       a {
         @include button-sizing;
+        box-sizing: border-box;
         padding-left: 1.5rem;
         &:hover {
           background-color: #313341;

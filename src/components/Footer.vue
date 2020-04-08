@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{'footer--theme-changed' : themeChanged}">
     <div class="footer__left">
       <span class="items">
         <i class="fas fa-code-branch"></i>
@@ -25,6 +25,9 @@
 
     <div class="footer__right">
       <span class="items">
+        Theme: {{ colorTheme }}
+      </span>
+      <span class="items">
         UTF-8
       </span>
       <span class="items">
@@ -46,6 +49,19 @@
   </footer>
 </template>
 
+<script>
+export default {
+  props: {
+    themeChanged: Boolean
+  },
+  computed: {
+    colorTheme() {
+      return this.themeChanged ? 'Dark(Visual Studio)' : 'Dracula'
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 @import '@/assets/styles/_fragments.scss';
 
@@ -56,6 +72,9 @@
   line-height: 1.5rem;
   font-size: 0.4rem;
   background-color: #191A21;
+  &--theme-changed {
+    background-color: $base-blue;
+  }
   &__left {
     margin-left: 1rem;
     .items {

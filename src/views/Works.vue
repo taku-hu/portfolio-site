@@ -8,10 +8,12 @@
     <transition name="switch">
       <div class="modal" v-if="modalActive">
         <div class="modal__overlay" @click="closeModal">
-          <div class="modal__contents">
-            <p class="modal__title">{{ modalData.name }}</p>
+          <div class="modal__contents" @click.stop>
+            <h3 class="modal__title">{{ modalData.name }}</h3>
             <div class="modal__inner-wrapper">
-              <img class="modal__image" :src="require(`@/assets/images/${modalData.title}.png`)">
+              <a class="modal__link" :href="modalData.link" target="_blank">
+                <img class="modal__image" :src="require(`@/assets/images/${modalData.title}.png`)">
+              </a>
               <p class="modal__description" v-html="modalData.description"></p>
             </div>
           </div>
@@ -30,6 +32,7 @@ export default {
         {
           name: 'Portfolio Site',
           title: 'Portfolio-site',
+          link: 'https://github.com/taku-hu/portfolio-site',
           description: `
             私が初めて作ったもので、私のポートフォリオサイトです。<br>
             コーディングに慣れやVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。<br>
@@ -39,6 +42,7 @@ export default {
         {
           name: 'Online Bookshelf',
           title: 'Bookshelf',
+          link: 'https://github.com/taku-hu/online-bookshelf',
           description: `
             私が3番目に作ったもので、Vue.js + Firebase + GoogleBooksAPIを使っています。<br>
             ごく小規模ではありますが、認証機能やデータベースHTTP通信やAPIの利用など実際の開発を意識して作りました。<br>
@@ -49,6 +53,7 @@ export default {
         {
           name: 'Typing Game',
           title: 'Typing-app',
+          link: 'https://github.com/taku-hu/typing-app',
           description: `
             私が2番目に作ったものです。<br>
             以前の開発の経験を生かしてより多くの機能を盛り込みました。<br>
@@ -133,9 +138,14 @@ export default {
       @include center-styling;
       flex-grow: 1;
     }
-    &__image {
+    &__link {
       width: 50%;
+      cursor: pointer;
       margin-bottom: 1.5rem;
+    }
+    &__image {
+      width: 100%;
+      height: 100%
     }
     &__description {
       width: 50%;
@@ -155,7 +165,7 @@ export default {
       margin-bottom: 2rem;
     }
     .modal {
-      &__image {
+      &__link {
         width: 80%;
       }
       &__description {

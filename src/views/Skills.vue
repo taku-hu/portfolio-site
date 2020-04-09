@@ -1,19 +1,31 @@
 <template>
   <section class="skills">
-    <div class="skills__heading">
-      <p>Click the item or&nbsp;</p>
-      <button @click="toggleAll">
-        {{ toggleMessage }}
-        <i class="fas fa-sort"></i>
-      </button>
+    <div class="skills__wrapper">
+      <h2 class="skills__heading">My SKILLS</h2>
+      <p class="skills__sentence">
+        現在の私のスキルです。<br>
+        主にJavaScriptを中心にWEB、フロントエンドについて学習しています。
+      </p>
+      <p class="skills__bar">
+        <a class="skills__marker" href="https://github.com/taku-hu">GitHub</a>にコードを公開しているので、よければ御覧ください。
+      </p>
+      <ul class="skills__list">
+        <li v-for="skill in skills" :key="skill.name">
+          <span
+            class="skills__marker"
+            :style="`border-bottom: 2px solid ${skill.color}`"
+          >
+            {{ skill.name}}
+          </span>
+          &nbsp;-&nbsp;
+          <span v-html="skill.details" style="color: #fff"></span>
+        </li>
+      </ul>
     </div>
-    <accordion-component :inheritedSkills="skills" />
   </section>
 </template>
 
 <script>
-import AccordionComponent from '@/components/Accordion.vue';
-
 export default {
   data() {
     return {
@@ -21,28 +33,22 @@ export default {
       skills: [
         {
           name: 'HTML・CSS',
-          value: 90,
-          bgColor: '#ff4500',
-          open: false,
+          color: '#ff4500',
           details: `
             両方共に十分な理解をしています。<br>
-            BEMによる設計も理解しており、「flexbox」や「grid」を使いレスポンシウェブデザインのコーディングをすることができます。
+            BEMによる設計も理解しており、「flexbox」や「grid」を使いレスポンシブウェブデザインのコーディングをすることができます。
           `
         },
         {
           name: 'Sass',
-          value: 80,
-          bgColor: '#ff69b4',
-          open: false,
+          color: '#ff69b4',
           details: `
             mixinや基本的な関数、標準的な記法等の開発に必要な主要な事柄は理解しています。
           `
         },
         {
           name: 'JavaScript',
-          value: 75,
-          bgColor: '#ffd700',
-          open: false,
+          color: '#ffd700',
           details: `
             私が現在メインで学習しており最も関心のある言語です。<br>
             基本的な仕様・機能については理解しており、全てES6以降の型で学習いたしました。<br>
@@ -51,9 +57,7 @@ export default {
         },
         {
           name: 'Vue.js',
-          value: 70,
-          bgColor: '#3cb371',
-          open: false,
+          color: '#3cb371',
           details: `
             主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。<br>
             WORKSに載せているポートフォリオは全てVue.jsで開発しました。
@@ -61,9 +65,7 @@ export default {
         },
         {
           name: 'Firebase',
-          value: 30,
-          bgColor: '#ffa500',
-          open: false,
+          color: '#ffa500',
           details: `
             本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
             概要は理解していますが、より使いこなせるように更なる学習を重ねています。
@@ -71,9 +73,7 @@ export default {
         },
         {
           name: 'Git・Github',
-          value: 60,
-          bgColor: '#000',
-          open: false,
+          color: '#000',
           details: `
             Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。<br>
             機能や仕組みは理解しているので複数人での開発にも対応できます。
@@ -81,43 +81,13 @@ export default {
         },
         {
           name: 'webpack',
-          value: 40,
-          bgColor: '#87ceeb',
-          open: false,
+          color: '#87ceeb',
           details: `
             主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。
           `
         }
       ] //skills
     }; //ruturn
-  },
-  watch: {
-    skills: {
-      handler() {
-        const checkTrue = this.skills.every(skill => skill.open);
-        const checkFalse = this.skills.every(skill => !skill.open);
-        if(checkTrue) {
-          this.toggleMessage = 'Close all';
-        } else if(checkFalse) {
-          this.toggleMessage = 'Show all';
-        }
-      },
-      deep: true
-    }
-  },
-  methods: {
-    toggleAll() {
-      for(const skill of this.skills) {
-        if(this.toggleMessage === 'Show all') {
-          skill.open = true;
-        } else {
-          skill.open = false;
-        }
-      }
-    }
-  },
-  components: {
-    AccordionComponent
   }
 };
 </script>
@@ -128,44 +98,88 @@ export default {
 .skills {
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
-  overflow-y: scroll;
-  padding: 0 0.5rem;
+  font-size: 0.9rem;
+  font-family: 'Open Sans', sans-serif;
+  &__wrapper {
+    width: 65%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  &__marker {
+    color: #3790f6;
+    font-weight: bold;
+  }
   &__heading {
-    @include center-styling($direction: row);
-    margin: 3rem 0;
-    p {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
+    width: 100%;
+    font-size: 2.5rem;
+    border-bottom: 2px solid #4f505a;
+    padding: 3rem 0 1rem;
+    margin-bottom: 1.5rem;
+  }
+  &__sentence {
+    width: 100%;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+  &__list {
+    width: 95%;
+    list-style: disc inside;
+    word-break: break-all;
+    margin: 0 auto;
+    li {
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
     }
-    button {
-      @include clear-button-css;
-      width: 9rem;;
-      height: 3rem;
-      line-height: 3rem;;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #fff;
-      border: 1px solid #fff;
-      cursor: pointer;
-      transition: 0.2s;
-      &:hover {
-        transform: scale(0.9);
-      }
-    }
-  } // __sentence
-} //skills
+  }
+  &__bar {
+    width: 100%;
+    font-size: 1rem;
+    background-color: #31333d;
+    border-left: 5px solid $base-blue;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    margin-bottom: 2rem;
+  }
+}
 
 //メディアクエリ
+@include media-query($bp-tablet) {
+  .skills {
+    &__wrapper {
+      width: 85%;
+    }
+    &__heading {
+      margin-bottom: 2rem;
+    }
+    &__list {
+      margin-bottom: 2rem;
+    }
+    &__bar {
+      margin-bottom: 3rem;
+    }
+    &__subheading {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
 @include media-query($bp-mobile) {
   .skills {
     &__heading {
-      flex-direction: column;
-      margin-bottom: 1rem;
-      p {
-        margin-bottom: 1rem;
-      }
+      font-size: 2rem;
     }
-  } //.skills
+    &__sentence {
+      font-size: 0.8rem;
+    }
+    &__list {
+      font-size: 0.9rem;
+    }
+    &__bar {
+      margin-bottom: 3rem;
+    }
+    &__subheading {
+      font-size: 2rem;
+    }
+  }
 }
 </style>

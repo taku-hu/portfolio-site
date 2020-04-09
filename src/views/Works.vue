@@ -83,7 +83,6 @@ export default {
   width: 100%;
   height: 100%;
   text-align: center;
-  overflow-y: scroll;
   .work {
     width: 40%;
     &__name {
@@ -147,6 +146,7 @@ export default {
   }
 } //.works
 
+//メディアクエリ
 @include media-query($bp-tablet) {
   .works {
     @include center-styling;

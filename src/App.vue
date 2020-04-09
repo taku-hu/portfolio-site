@@ -85,7 +85,6 @@ body {
 a {
   color: #fff;
   text-decoration: none;
-  cursor: pointer;
 }
 #app {
   width: 100%;
@@ -145,6 +144,7 @@ a {
     width: 100%;
     height: calc(100% - 2.5rem);
     background-color: #282A35;
+    overflow-y: scroll;
     &--theme-changed {
       background-color: #1e1e1e;
     }

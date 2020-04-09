@@ -100,14 +100,17 @@ export default {
     left: 0;
     bottom: 0;
     cursor: pointer;
-    animation: flashing 1s linear  alternate infinite;
+    animation: flashing 1.5s linear alternate infinite;
   }
 }
 
 //点滅アニメーション
 @keyframes flashing {
   0% {
-    opacity: 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0
   }
   100% {
     opacity: 1;

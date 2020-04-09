@@ -1,7 +1,7 @@
 <div class="image">
   <p align="center">
     <a href="https://taku-hu.firebaseapp.com">
-      <img src="https://user-images.githubusercontent.com/54551190/78818238-52c59500-7a0f-11ea-86a9-521c5be1fff6.png" width="300">
+      <img src="https://user-images.githubusercontent.com/54551190/78898044-1a28c880-7aae-11ea-9551-c1ec5dc3b1d6.png" width="300">
     </a>
   </p>
   <br>
@@ -42,9 +42,9 @@
     <h2 align="center">--Responsive Web Design--</h2>
     <p align="center">タブレット・モバイル端末にも対応しています。</p>
     <p align="center">
-      <img src="https://user-images.githubusercontent.com/54551190/78818231-51946800-7a0f-11ea-8c13-e879056353e6.png" height="300">
+      <img src="https://user-images.githubusercontent.com/54551190/78896079-e13b2480-7aaa-11ea-8212-714498a74870.png" height="300">
       &nbsp;
-      <img src="https://user-images.githubusercontent.com/54551190/78819768-b5b82b80-7a11-11ea-9eb8-f93daac7f692.png" height="300">
+      <img src="https://user-images.githubusercontent.com/54551190/78895951-a2a56a00-7aaa-11ea-88f8-618129deee6b.png" height="300">
     </p>
   </div>
 </div>

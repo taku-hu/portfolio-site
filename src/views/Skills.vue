@@ -7,14 +7,15 @@
         主にJavaScriptを中心にWEB、フロントエンドについて学習しています。
       </p>
       <p class="skills__bar">
-        <a class="skills__marker" href="https://github.com/taku-hu">GitHub</a>にコードを公開しているので、よければ御覧ください。
+        <a class="skills__clickable-marker" href="https://github.com/taku-hu" target="_blank">GitHub</a>にコードを公開しているので、よければ御覧ください。
       </p>
       <ul class="skills__list">
-        <li v-for="skill in skills" :key="skill.name">
-          <span
-            class="skills__marker"
-            :style="`border-bottom: 2px solid ${skill.color}`"
-          >
+        <li
+          v-for="skill in skills"
+          :key="skill.name"
+          :style="{backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})`}"
+        >
+          <span class="skills__marker">
             {{ skill.name}}
           </span>
           &nbsp;-&nbsp;
@@ -109,6 +110,11 @@ export default {
     color: #3790f6;
     font-weight: bold;
   }
+  &__clickable-marker {
+    @extend .skills__marker;
+    text-decoration: underline #fff;
+    cursor: pointer;
+  }
   &__heading {
     width: 100%;
     font-size: 2.5rem;
@@ -122,12 +128,16 @@ export default {
     margin-bottom: 2rem;
   }
   &__list {
-    width: 95%;
-    list-style: disc inside;
     word-break: break-all;
+    padding-left: 1.3rem;
     margin: 0 auto;
     li {
       line-height: 1.5;
+      background-repeat: no-repeat;
+      background-position: left top;
+      background-size: 1.2rem;
+      box-sizing: border-box;
+      padding-left: 1.8rem;
       margin-bottom: 0.5rem;
     }
   }
@@ -151,9 +161,6 @@ export default {
     &__heading {
       margin-bottom: 2rem;
     }
-    &__list {
-      margin-bottom: 2rem;
-    }
     &__bar {
       margin-bottom: 3rem;
     }
@@ -174,11 +181,8 @@ export default {
     &__list {
       font-size: 0.9rem;
     }
-    &__bar {
-      margin-bottom: 3rem;
-    }
     &__subheading {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 }

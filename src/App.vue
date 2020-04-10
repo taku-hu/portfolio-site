@@ -114,6 +114,7 @@ a {
     font-size: 0.8rem;
     background-color: #282A35;
     text-align: center;
+    user-select: none;
     padding: 0 0.6rem;
     &:before {
       content: '';

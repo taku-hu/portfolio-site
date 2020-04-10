@@ -63,10 +63,12 @@ export default {
     width: 100%;
     height: 3.5rem;
     color: #536694;
+    cursor: not-allowed;
     &:first-child {
       position: relative;
       color: #fff;
       background-color: #3C3D51;
+      cursor: default;
       &:before {
         content: '';
         position: absolute;

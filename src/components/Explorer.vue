@@ -95,6 +95,7 @@ export default {
   background-color: #21222C;
   font-size: 0.8rem;
   box-sizing: border-box;
+  user-select: none;
   padding: 0 2px;
   &--theme-changed {
     background-color: #252526;

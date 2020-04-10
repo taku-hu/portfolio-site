@@ -98,6 +98,7 @@ export default {
     &__image {
       width: 100%;
       box-shadow: 0 0 10px #000;
+      cursor: zoom-in;
       transition: 0.3s;
       &:hover {
         box-shadow: 0 0 40px #000;

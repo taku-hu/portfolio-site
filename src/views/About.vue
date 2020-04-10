@@ -116,6 +116,7 @@ export default {
   }
   &__clickable-marker {
     @extend .about__marker;
+    text-decoration: underline #fff;
     cursor: pointer;
   }
   &__heading {
@@ -131,8 +132,8 @@ export default {
     margin-bottom: 2rem;
   }
   &__list {
-    width: 95%;
-    list-style: disc inside;
+    list-style: disc outside;
+    padding-left: 2.5rem;
     margin: 0 auto 2rem;
     li {
       line-height: 1.5;
@@ -164,9 +165,6 @@ export default {
     &__heading {
       margin-bottom: 2rem;
     }
-    &__list {
-      margin-bottom: 2rem;
-    }
     &__bar {
       margin-bottom: 3rem;
     }
@@ -187,11 +185,8 @@ export default {
     &__list {
       font-size: 0.9rem;
     }
-    &__bar {
-      margin-bottom: 3rem;
-    }
     &__subheading {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 }

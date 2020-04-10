@@ -66,8 +66,10 @@ export default {
   width: 100%;
   height: 1.5rem;
   line-height: 1.5rem;
-  font-size: 0.4rem;
+  font-size: 0.5rem;
   background-color: #191A21;
+  overflow: hidden;
+  user-select: none;
   &--theme-changed {
     background-color: $base-blue;
   }

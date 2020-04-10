@@ -45,7 +45,7 @@ export default {
           link: 'https://github.com/taku-hu/online-bookshelf',
           description: `
             私が3番目に作ったもので、Vue.js + Firebase + GoogleBooksAPIを使っています。<br>
-            ごく小規模ではありますが、認証機能やデータベースHTTP通信やAPIの利用など実際の開発を意識して作りました。<br>
+            ごく小規模ではありますが、認証機能やデータベース、HTTP通信やAPIの利用など実際の開発を意識して作りました。<br>
             そして状態管理に初めてVuexを導入しました。<br>
             まだまだではありますが、開発を通してコンポーネントベースでのより実践的な開発が学べたと感じています。
           `

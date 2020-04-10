@@ -61,7 +61,7 @@ class Profile {
 const me = new Profile();
 
 me.name = 'Takeuchi Takuto';
-me.gender = 'man';
+me.gender = 'male';
 
 me.getAge(1993);
 

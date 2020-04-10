@@ -1,10 +1,11 @@
 import 'reset-css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import 'typeface-open-sans';
+import 'typeface-orbitron';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 
 const swalOptions = {
   confirmButtonColor: '#0d7acc',

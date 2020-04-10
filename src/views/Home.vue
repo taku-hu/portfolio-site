@@ -36,8 +36,8 @@ export default {
   },
   data() {
     return {
-      comment: `//Welcome to my website!
-//Take your time.
+      comment: `//Thank you for visiting.
+//This is my portfolio site.
       `,
       code: `console.log('Hello Hackers!');
 

@@ -2,12 +2,13 @@
   <section class="about">
     <div class="about__wrapper">
       <h2 class="about__heading">
-        {{ month }}
-        {{ year }}
-        (version 1.00)
+        {{ now.month }}
+        {{ now.day }}{{ suffix }}
+        {{ now.year }}
+        version
       </h2>
       <p class="about__sentence">
-        Welcome to the {{ month }} {{ year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
+        Welcome to the {{ now.month }} {{ now.day }}{{ suffix }} {{ now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
       </p>
       <ul class="about__list">
         <li v-for="data in profileData" :key="data.title">
@@ -28,7 +29,7 @@
         <a class="about__clickable-marker" href="https://github.com/taku-hu">GitHub</a>. 
       </p>
       <h3 class="about__subheading">
-        New feature of {{ month }} {{ year }}
+        New feature of {{ now.month }}  {{ now.day }}{{ suffix }} {{ now.year }}
       </h3>
       <ul class="about__list">
         <li>
@@ -46,15 +47,17 @@
 <script>
 export default {
   created() {
-    const monthNames = ['Janualy', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const now = new Date();
-    this.year = now.getFullYear();
-    this.month = monthNames[now.getMonth()]; 
+    const monthNames = ['Janualy', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const date = new Date();
+    this.now.year = date.getFullYear();
+    this.now.month = monthNames[date.getMonth()]; 
+    this.now.day = date.getDate();
   },
   data() {
     return {
-      year: '',
-      month: '',
+      now: {
+        year: '', month: '', day: ''
+      },
       profileData: [
         { 
           title: 'Name',
@@ -88,6 +91,20 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    suffix() {
+      const date = this.now.day;
+      if(date === 1 || date === 21 || date ===31) {
+        return 'st';
+      } else if(date === 2 || date === 22) {
+        return 'nd';
+      } else if(date === 3 || date ===23) {
+        return 'rd';
+      } else {
+        return 'th'
+      }
+    }
   },
   methods: {
     iconClick() {

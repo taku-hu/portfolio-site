@@ -23,8 +23,7 @@ export default {
     hljs.registerLanguage('javascript', javascript);
     this.comment = hljs.highlightAuto(this.comment).value;
     this.code = hljs.highlightAuto(this.code).value;
-  },
-  mounted() {
+
     const copyedCode = this.code;
     this.code = '';
     for(let i = 0; i < copyedCode.length; i ++) {
@@ -83,6 +82,7 @@ console.log('Have a nice day!');
   overflow: hidden;
   &__lines {
     color: #374178;
+    user-select: none;
     &--theme-changed {
       color: #858585;
     }

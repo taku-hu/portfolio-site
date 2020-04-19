@@ -12,11 +12,9 @@
           <i class="fas fa-times" @click="closeTab"></i>
         </div>
         <div class="code__field" :class="{'code__field--theme-changed' : themeChanged}">
-
           <transition name="switch">
             <router-view :themeChanged = "themeChanged"/>
           </transition>
-
         </div>
       </main>
     </div>
@@ -33,10 +31,12 @@ import FooterComponent from '@/components/Footer.vue';
 export default {
   created() {
     const getInnerVh = () => {
-    const vh =  window.innerHeight * 0.01;
+      const vh =  window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
+
     getInnerVh();
+
     window.addEventListener('resize', () => {
       getInnerVh();
     });
@@ -61,7 +61,7 @@ export default {
         showCancelButton: true,
         showCloseButton: true,
       }).then(result => {
-        if(result.value) window.open('about:blank','_self').close()
+        if(result.value) window.open('about:blank','_self').close();
       });
     }
   },
@@ -179,20 +179,10 @@ a {
 @include media-query($bp-mobile) {
   .code {
     width: calc(100% - 10rem);
-  }
-
-  //スクロールバーのカスタマイズ
-  ::-webkit-scrollbar {
-    width: 0.5rem;
-    background-color: #2C2E38;
-  }
-  ::-webkit-scrollbar-track {
-    border: 1px solid #21222C;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, .1);
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #494A51;
-    box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
+    //スクロールバーのカスタマイズ
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
   }
 }
 </style>

@@ -1,17 +1,17 @@
 <template>
   <div class="explorer" :class="{'explorer--theme-changed' : themeChanged}">
-    <div class="explorer__bar">EXPLORER</div>
-    <div class="explorer__main-accordion" v-for="accordion in accordions" :key="accordion.labelName">
+    <div class="explorer__heading">EXPLORER</div>
+    <div class="accordion" v-for="accordion in accordions" :key="accordion.labelName">
       <div
-        class="label"
-        :class="{'label--opened': accordion.open, 'label--theme-changed' : themeChanged}"
+        class="accordion__label"
+        :class="{'accordion__label--opened': accordion.open, 'accordion__label--theme-changed' : themeChanged}"
         @click="toggleExplorer(accordion)"
       >
         <i class="fas fa-angle-down" :class="{close : !accordion.open}" ></i>
         {{ accordion.labelName }}
       </div>
       <transition name="open">
-        <div class="body" v-show="accordion.open">
+        <div class="accordion__body" v-show="accordion.open">
           <a :href="accordion.link" target="_blank">
             <span v-html="accordion.icon"></span>
             {{ accordion.item }}
@@ -20,17 +20,17 @@
       </transition>
     </div>
 
-    <div class="explorer__main-accordion">
+    <div class="accordion">
       <div
-        class="label"
-        :class="{'label--opened': linksOpen,  'label--theme-changed' : themeChanged}"
+        class="accordion__label"
+        :class="{'accordion__label--opened': linksOpen,  'accordion__label--theme-changed' : themeChanged}"
         @click="linksOpen = !linksOpen"
       >
         <i class="fas fa-angle-down" :class="{close : !linksOpen}"></i>
         pages
       </div>
-      <div class="body" v-show="linksOpen">
-        <nav class="link">
+      <div class="accordion__body" v-show="linksOpen">
+        <nav class="accordion__links">
           <ul>
             <li v-for="link in links" :key="link.name">
               <router-link :to="link.path">
@@ -57,7 +57,7 @@ export default {
           labelName: 'OPEN EDITORS',
           icon: '<i class="fab fa-vuejs"></i>',
           item: 'portfolio-site',
-          link: null,
+          link: 'https://github.com/taku-hu/portfolio-site',
           open: true
         },
         {
@@ -100,15 +100,15 @@ export default {
   &--theme-changed {
     background-color: #252526;
   }
-  &__bar {
+  &__heading {
     height: 2.5rem;
     line-height: 2.5rem;
     box-sizing: border-box;
     padding-left: 1rem;
   }
-  &__main-accordion {
+  .accordion {
     margin-bottom: 2px;
-    .label {
+    &__label {
       height: 1.5rem;
       line-height: 1.5rem;
       background-color: #282a36;
@@ -127,7 +127,7 @@ export default {
         }
       }
     }
-    .body {
+    &__body {
       height: 1.5rem;
       line-height: 1.5rem;
       font-size: 0.7rem;
@@ -155,7 +155,7 @@ export default {
         color: #0D79CC;
       }
     }
-    .link {
+    &__links {
       .fa-home {
         color: #ff4500;
       }

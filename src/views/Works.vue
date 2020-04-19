@@ -1,8 +1,12 @@
 <template>
   <section class="works">
-    <div class="work" v-for="work in works" :key="work.name">
-      <h2 class="work__name">{{ work.name }}</h2>
-      <img class="work__image" :src="require(`@/assets/images/${work.title}.png`)" @click="openModal(work)">
+    <h2 class="works__heading">My WORKS</h2>
+
+    <div class="works__wrapper">
+      <div class="work" v-for="work in works" :key="work.name">
+        <h2 class="work__name">{{ work.name }}</h2>
+        <img class="work__image" :src="require(`@/assets/images/${work.title}.png`)" @click="openModal(work)">
+      </div>
     </div>
 
     <transition name="switch">
@@ -35,8 +39,8 @@ export default {
           link: 'https://github.com/taku-hu/portfolio-site',
           description: `
             私が初めて作ったもので、私のポートフォリオサイトです。<br>
-            コーディングに慣れやVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。<br>
-            コードのハイライトにhighlight.jsを使ったこと以外は全てフルスクラッッチで実装しています。
+            コーディングの慣れやVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。<br>
+            コードのハイライトにhighlight.jsを使ったこと以外はホボ全てフルスクラッッチで実装しています。
           `
         },
         {
@@ -57,7 +61,7 @@ export default {
           description: `
             私が2番目に作ったものです。<br>
             以前の開発の経験を生かしてより多くの機能を盛り込みました。<br>
-            特にJavaScript自体の理解を深めたいと思い、より多くのネイティブコードを書きました。
+            特にJavaScript自体の理解を深めたいと思い、より多くのコードを書きました。
           `
         }
       ],
@@ -81,15 +85,24 @@ export default {
 @import '@/assets/styles/_fragments.scss';
 
 .works {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
   width: 100%;
   height: 100%;
   text-align: center;
+  &__heading {
+    width: 65%;
+    font-size: 2.5rem;
+    font-family: 'Open Sans', sans-serif;
+    border-bottom: 2px solid #4f505a;
+    text-align: left;
+    padding: 3rem 0 1rem;
+    margin: 0 auto 1.5rem;
+  }
+  &__wrapper {
+    @include center-styling(wrap, row, space-around);
+  }
   .work {
     width: 40%;
+    margin-bottom: 2rem;
     &__name {
       font-size: 2rem;
       font-family: 'Orbitron', sans-serif;
@@ -160,10 +173,12 @@ export default {
 //メディアクエリ
 @include media-query($bp-tablet) {
   .works {
-    @include center-styling;
+    &__heading {
+      width: 85%;
+      font-size: 2rem;
+    }
     .work {
       width: 85%;
-      margin-bottom: 2rem;
     }
     .modal {
       &__link {

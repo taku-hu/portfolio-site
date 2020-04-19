@@ -102,7 +102,12 @@ export default {
     left: 0;
     bottom: 0;
     cursor: pointer;
+    transition: 1s;
     animation: flashing 1.5s linear alternate infinite;
+    &:hover {
+      transform: rotate(120deg);
+      animation: none;
+    }
   }
 }
 

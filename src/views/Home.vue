@@ -88,13 +88,12 @@ console.log('Have a nice day!');
     }
     p {
       width: 3rem;
-      height: 1.2rem;
       line-height: 1.2rem;
       padding-left: 0.5rem;
     }
   }
   &__body {
-    pre {
+    pre, code {
       line-height: 1.2rem;
     }
   }

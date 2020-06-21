@@ -1,10 +1,10 @@
 <template>
-  <div class="explorer" :class="{'explorer--theme-changed' : themeChanged}">
+  <div class="explorer" :class="{'explorer--theme-changed' : isThemeChanged}">
     <div class="explorer__heading">EXPLORER</div>
-    <div class="accordion" v-for="accordion in accordions" :key="accordion.labelName">
+    <div class="accordion" v-for="accordion in state.accordions" :key="accordion.labelName">
       <div
         class="accordion__label"
-        :class="{'accordion__label--opened': accordion.open, 'accordion__label--theme-changed' : themeChanged}"
+        :class="{'accordion__label--opened': accordion.open, 'accordion__label--theme-changed' : isThemeChanged}"
         @click="toggleExplorer(accordion)"
       >
         <i class="fas fa-angle-down" :class="{close : !accordion.open}" ></i>
@@ -23,16 +23,16 @@
     <div class="accordion">
       <div
         class="accordion__label"
-        :class="{'accordion__label--opened': linksOpen,  'accordion__label--theme-changed' : themeChanged}"
-        @click="linksOpen = !linksOpen"
+        :class="{'accordion__label--opened': state.linksOpen, 'accordion__label--theme-changed' : isThemeChanged}"
+        @click="state.linksOpen = !state.linksOpen"
       >
-        <i class="fas fa-angle-down" :class="{close : !linksOpen}"></i>
+        <i class="accordion__icon fas fa-angle-down" :class="{'accordion__icon--close' : !state.linksOpen}"></i>
         pages
       </div>
-      <div class="accordion__body" v-show="linksOpen">
+      <div class="accordion__body" v-show="state.linksOpen">
         <nav class="accordion__links">
           <ul>
-            <li v-for="link in links" :key="link.name">
+            <li v-for="link in state.links" :key="link.name">
               <router-link :to="link.path">
                 <span v-html="link.icon"></span>
                 {{ link.name.toLowerCase() }}
@@ -46,12 +46,14 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, reactive } from 'vue';
+
+export default defineComponent({
   props: {
-    themeChanged: Boolean
+    isThemeChanged: Boolean
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       accordions: [
         {
           labelName: 'OPEN EDITORS',
@@ -65,7 +67,7 @@ export default {
           icon: '<i class="fab fa-quora"></i>',
           item: 'Qiita',
           link: 'https://qiita.com/taku-hu',
-          open: false
+          open: true
         },
       ],
       links: [
@@ -75,19 +77,23 @@ export default {
         {icon: '<i class="far fa-address-card"></i>', name: 'WORKS', path: '/works'}
       ],
       linksOpen: true
-    };
-  },
-  methods: {
-    toggleExplorer(accordion) {
-      const selected = this.accordions.find(accordions => accordions.labelName === accordion.labelName);
+    })
+
+    const toggleExplorer = (accordion)  => {
+      const selected = state.accordions.find(accordions => accordions.labelName === accordion.labelName);
       selected.open = !selected.open;
     }
-  },
-}
+
+    return {
+      state,
+      toggleExplorer,
+    }
+  }
+})
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import '@/assets/styles/_parts.scss';
 
 .explorer {
   width: 10rem;
@@ -120,9 +126,9 @@ export default {
       &--theme-changed {
         background-color: #383838;
       }
-      .fa-angle-down {
+    &__icon {
         transition: 0.2s;
-        &.close {
+        &--close {
           transform: rotate(-90deg);
         }
       }

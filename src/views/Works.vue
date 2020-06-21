@@ -3,22 +3,22 @@
     <h2 class="works__heading">My WORKS</h2>
 
     <div class="works__wrapper">
-      <div class="work" v-for="work in works" :key="work.name">
+      <div class="work" v-for="work in state.works" :key="work.name">
         <h2 class="work__name">{{ work.name }}</h2>
         <img class="work__image" :src="require(`@/assets/images/${work.title}.png`)" @click="openModal(work)">
       </div>
     </div>
 
     <transition name="switch">
-      <div class="modal" v-if="modalActive">
+      <div class="modal" v-if="state.modalActive">
         <div class="modal__overlay" @click="closeModal">
           <div class="modal__contents" @click.stop>
-            <h3 class="modal__title">{{ modalData.name }}</h3>
+            <h3 class="modal__title">{{ state.modalData.name }}</h3>
             <div class="modal__inner-wrapper">
-              <a class="modal__link" :href="modalData.link" target="_blank">
-                <img class="modal__image" :src="require(`@/assets/images/${modalData.title}.png`)">
+              <a class="modal__link" :href="state.modalData.link" target="_blank">
+                <img class="modal__image" :src="require(`@/assets/images/${state.modalData.title}.png`)">
               </a>
-              <p class="modal__description" v-html="modalData.description"></p>
+              <p class="modal__description" v-html="state.modalData.description"></p>
             </div>
           </div>
         </div>
@@ -29,9 +29,11 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
+import { defineComponent, reactive } from 'vue';
+
+export default defineComponent({
+  setup() {
+    const state = reactive({
       works: [
         {
           name: 'Portfolio Site',
@@ -67,22 +69,27 @@ export default {
       ],
       modalData: '',
       modalActive: false
-    }; //return
-  },
-  methods: {
-    openModal(work) {
-      this.modalActive = true;
-      this.modalData = work;
-    },
-    closeModal() {
-      this.modalActive = false;
+    })
+
+    const openModal = (work) => {
+      state.modalData = work;
+      state.modalActive = true;
+    }
+    const closeModal = ()  => {
+      state.modalActive = false;
+    }
+
+    return {
+      state,
+      openModal,
+      closeModal
     }
   }
-};
+});
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import '@/assets/styles/_parts.scss';
 
 .works {
   width: 100%;

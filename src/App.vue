@@ -1,81 +1,83 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <leftbar-component :themeChanged.sync = "themeChanged" />
+      <leftbar-component :isThemeChanged="state.isThemeChanged" @change-theme="changeTheme"/>
 
-      <explorer-component :themeChanged = "themeChanged" />
+      <explorer-component/>
 
-      <main class="code" :class="{'code--theme-changed' : themeChanged}">
-        <div class="code__tag" :class="{'code__tag--theme-changed' : themeChanged}">
+      <main class="code" :class="{'code--theme-changed' : state.isThemeChanged}">
+        <div class="code__tag" :class="{'code__tag--theme-changed' : state.isThemeChanged}">
           <i class="fab fa-vuejs"></i>
-          {{ currentPage }}
-          <i class="fas fa-times" @click="closeTab"></i>
+          {{ state.pageName }}
+          <span @click="closeTab">
+            <i class="fas fa-times"></i>
+          </span>
         </div>
-        <div class="code__field" :class="{'code__field--theme-changed' : themeChanged}">
+        <div class="code__field" :class="{'code__field--theme-changed' : state.isThemeChanged}">
           <transition name="switch">
-            <router-view :themeChanged = "themeChanged"/>
+            <router-view :isThemeChanged = "state.isThemeChanged"/>
           </transition>
         </div>
       </main>
     </div>
 
-    <footer-component :themeChanged = "themeChanged"/>
+    <footer-component :isThemeChanged="state.isThemeChanged"/>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, reactive, computed } from 'vue';
+import { useRouter } from 'vue-router'
+
 import LeftbarComponent from '@/components/Leftbar.vue';
 import ExplorerComponent from '@/components/Explorer.vue';
 import FooterComponent from '@/components/Footer.vue';
 
-export default {
-  created() {
-    const getInnerVh = () => {
-      const vh =  window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-
-    getInnerVh();
-
-    window.addEventListener('resize', () => {
-      getInnerVh();
-    });
-  },
-  data() {
-    return {
-      themeChanged: false
-    }
-  },
-  computed: {
-    currentPage() {
-      //先頭の文字を大文字に
-      return `${this.$route.name.substring(0, 1).toUpperCase()}${this.$route.name.substring(1)}.vue`;
-    }
-  },
-  methods: {
-    closeTab() {
-      this.$swal({
-        icon: 'warning',
-        title: `Do you want to save the changes you made to ${this.currentPage}?`,
-        text: 'Your changes will be lost if you don\'t save them.',
-        showCancelButton: true,
-        showCloseButton: true,
-      }).then(result => {
-        if(result.value) window.open('about:blank','_self').close();
-      });
-    }
-  },
+export default defineComponent({
   components: {
     LeftbarComponent,
     ExplorerComponent,
     FooterComponent
+  },
+  setup() {
+    const getInnerVh = () => {
+      const vh =  window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    getInnerVh();
+    window.addEventListener('resize', () => {
+      getInnerVh();
+    });
+
+    const state = reactive({
+      isThemeChanged: false,
+      pageName: `${String(computed(() => useRouter().currentRoute.value.name).value)}.vue`
+    });
+
+    const closeTab = () => {
+      const response = confirm('Do you want to save the changes you made to Home.vue?')
+      if(response) {
+          const open = window.open('about:blank','_self');
+          if(open) {
+            open.close();
+          }
+      }
+    }
+    const changeTheme = () => {
+      state.isThemeChanged = !state.isThemeChanged
+    }
+
+    return {
+      state,
+      closeTab,
+      changeTheme
+    };
   }
-};
+})
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
-
+@import '@/assets/styles/_parts.scss';
 html {
   font-size: calc(62.5% + 0.5vw);
 }
@@ -151,7 +153,6 @@ a {
     }
   }
 } //header
-
 //スクロールバーのカスタマイズ
 ::-webkit-scrollbar {
   width: 0.8rem;
@@ -165,7 +166,6 @@ a {
   background-color: #494A51;
   box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
 }
-
 //ページ遷移トランジション
 .switch-enter-active {
   transition: 1s;
@@ -174,7 +174,6 @@ a {
 .switch-leave-to {
   opacity: 0;
 }
-
 //メディアクエリ
 @include media-query($bp-mobile) {
   .code {

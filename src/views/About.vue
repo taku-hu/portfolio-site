@@ -2,16 +2,16 @@
   <section class="about">
     <div class="about__wrapper">
       <h2 class="about__heading">
-        {{ now.month }}
-        {{ now.day }}{{ suffix }}
-        {{ now.year }}
+        {{ state.now.month }}
+        {{ state.now.day }}{{ suffix }}
+        {{ state.now.year }}
         version
       </h2>
       <p class="about__sentence">
-        Welcome to the {{ now.month }} {{ now.day }}{{ suffix }} {{ now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
+        Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
       </p>
       <ul class="about__list">
-        <li v-for="data in profileData" :key="data.title">
+        <li v-for="data in state.profileData" :key="data.title">
           <span class="about__marker">{{ data.title }}</span>
           &nbsp;-&nbsp;
           <a
@@ -29,7 +29,7 @@
         <a class="about__clickable-marker" href="https://github.com/taku-hu">GitHub</a>. 
       </p>
       <h3 class="about__subheading">
-        New feature of {{ now.month }}  {{ now.day }}{{ suffix }} {{ now.year }}
+        New feature of {{ state.now.month }}  {{ state.now.day }}{{ suffix }} {{ state.now.year }}
       </h3>
       <ul class="about__list">
         <li>
@@ -45,16 +45,11 @@
 </template>
 
 <script>
-export default {
-  created() {
-    const monthNames = ['Janualy', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const date = new Date();
-    this.now.year = date.getFullYear();
-    this.now.month = monthNames[date.getMonth()]; 
-    this.now.day = date.getDate();
-  },
-  data() {
-    return {
+import { defineComponent, reactive, computed } from 'vue';
+
+export default defineComponent({
+  setup() {
+    const state = reactive({
       now: {
         year: '', month: '', day: ''
       },
@@ -90,32 +85,42 @@ export default {
           link: null 
         }
       ]
-    };
-  },
-  computed: {
-    suffix() {
-      const date = this.now.day;
-      if(date === 1 || date === 21 || date ===31) {
+    });
+
+    const suffix = computed(() => {
+      const date = state.now.day;
+      if([1, 21, 31].includes(date)) {
         return 'st';
-      } else if(date === 2 || date === 22) {
+      } else if([2, 22].includes(date)) {
         return 'nd';
-      } else if(date === 3 || date ===23) {
+      } else if([3, 23].includes(date)) {
         return 'rd';
       } else {
         return 'th'
       }
-    }
-  },
-  methods: {
-    iconClick() {
+    })
+
+    const monthNames = ['Janualy', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const date = new Date();
+    state.now.year = date.getFullYear();
+    state.now.month = monthNames[date.getMonth()]; 
+    state.now.day = date.getDate();
+
+    const iconClick = () => {
       document.querySelector('.left-bar__settings').click();
     }
+
+    return {
+      state,
+      suffix,
+      iconClick
+    }
   }
-};
+});
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import '@/assets/styles/_parts.scss';
 
 .about {
   width: 100%;

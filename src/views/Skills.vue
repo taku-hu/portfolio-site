@@ -4,14 +4,15 @@
       <h2 class="skills__heading">My SKILLS</h2>
       <p class="skills__sentence">
         現在の私のスキルです。<br>
-        主にJavaScriptを中心にWEB、フロントエンドについて学習しています。
+        フロントエンドのJS周りがコアスキルです。
       </p>
       <p class="skills__bar">
         <a class="skills__clickable-marker" href="https://github.com/taku-hu" target="_blank">GitHub</a>にコードを公開しているので、よければ御覧ください。
       </p>
       <ul class="skills__list">
         <li
-          v-for="skill in skills"
+          class="skills__list-item"
+          v-for="skill in state.skills"
           :key="skill.name"
           :style="{backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})`}"
         >
@@ -19,7 +20,7 @@
             {{ skill.name}}
           </span>
           &nbsp;-&nbsp;
-          <span v-html="skill.details" style="color: #fff"></span>
+          <span v-html="skill.details"></span>
         </li>
       </ul>
     </div>
@@ -27,46 +28,57 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      toggleMessage: 'Show all',
+import { defineComponent, reactive } from 'vue';
+
+export default defineComponent({
+  setup() {
+    const state = reactive({
       skills: [
         {
           name: 'HTML・CSS',
-          color: '#ff4500',
           details: `
-            両方共に十分な理解をしています。<br>
-            BEMによる設計も理解しており、「flexbox」や「grid」を使いレスポンシブウェブデザインのコーディングをすることができます。
+            両方共に問題なく扱えます。<br>
+            BEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。
           `
         },
         {
           name: 'Sass',
-          color: '#ff69b4',
           details: `
-            mixinや基本的な関数、標準的な記法等の開発に必要な主要な事柄は理解しています。
+            開発に必要な機能は十分に理解しています。
           `
         },
         {
           name: 'JavaScript',
-          color: '#ffd700',
           details: `
-            私が現在メインで学習しており最も関心のある言語です。<br>
-            基本的な仕様・機能については理解しており、全てES6以降の型で学習いたしました。<br>
-            Vue.jsはもちろん、JavaScript自体の知見もより深めていきたいと思っているので、日々コードを動かしながら学習しています。
+            私が最も得意としている言語です。<br>
+            当然ES6以降の文法も十分に理解しています。
+          `
+        },
+        {
+          name: 'TypeScript',
+          details: `
+            現在業務でメインで使っており、現在最も関心のある言語です。<br>
+            業務ではVue + TypeScriptでの開発を行っています。
           `
         },
         {
           name: 'Vue.js',
-          color: '#3cb371',
           details: `
-            主な仕様や機能、vue-cliや単一ファイルコンポーネントによる開発の概念、Vuexでの状態管理については理解しています。<br>
-            WORKSに載せているポートフォリオは全てVue.jsで開発しました。
+            現在業務でメインで使っているフレームワークです。
+            WORKSに載せているポートフォリオも全てVue.jsで開発しました。
+            最近はVue3に備えて、Vue3 beta + compositionAPIも触っています。
+          `
+        },
+        {
+          name: 'React',
+          details: `
+            最近最も関心を持っているライブラリです。
+            Vue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。
+            現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。
           `
         },
         {
           name: 'Firebase',
-          color: '#ffa500',
           details: `
             本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
             概要は理解していますが、より使いこなせるように更なる学習を重ねています。
@@ -74,27 +86,28 @@ export default {
         },
         {
           name: 'Git・Github',
-          color: '#000',
           details: `
-            Git Flow・Github Flowを理解し、git・githubを用いた開発が行えます。<br>
-            機能や仕組みは理解しているので複数人での開発にも対応できます。
+            Git Flow・Github Flowを理解しており、git・githubを用いた複数人での開発が行えます。
           `
         },
         {
           name: 'webpack',
-          color: '#87ceeb',
           details: `
             主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。
           `
         }
-      ] //skills
-    }; //ruturn
+      ]
+    })
+
+    return {
+      state
+    }
   }
-};
+});
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import '@/assets/styles/_parts.scss';
 
 .skills {
   width: 100%;
@@ -131,15 +144,15 @@ export default {
     word-break: break-all;
     padding-left: 1.3rem;
     margin: 0 auto;
-    li {
-      line-height: 1.5;
-      background-repeat: no-repeat;
-      background-position: left top;
-      background-size: 1.2rem;
-      box-sizing: border-box;
-      padding-left: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
+  }
+  &__list-item {
+    line-height: 1.5;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 1.2rem;
+    box-sizing: border-box;
+    padding-left: 1.8rem;
+    margin-bottom: 0.8rem;
   }
   &__bar {
     width: 100%;

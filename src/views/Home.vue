@@ -1,6 +1,9 @@
 <template>
   <section class="home">
-    <div class="home__lines" :class="{'home__lines--theme-changed' : isThemeChanged}">
+    <div
+      class="home__lines"
+      :class="{ 'home__lines--theme-changed': isThemeChanged }"
+    >
       <p v-for="n in 100" :key="n">{{ n }}</p>
     </div>
     <div class="home__body">
@@ -11,7 +14,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, onBeforeMount } from 'vue';
 
 import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript';
@@ -20,9 +23,13 @@ import 'highlight.js/styles/dracula.css';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
   },
-  setup() {
+  setup(props, context) {
+    onBeforeMount(() => {
+      context.emit('set-route-name');
+    });
+
     const state = reactive({
       comment: `//Thank you for visiting.
 //This is my portfolio site.
@@ -51,8 +58,8 @@ const me = new Profile(
 me.getAge(1993);
 
 console.log('Have a nice day!');
-      `
-    })
+      `,
+    });
 
     state.comment = hljs.highlightAuto(state.comment).value;
     state.code = hljs.highlightAuto(state.code).value;
@@ -62,18 +69,19 @@ console.log('Have a nice day!');
     [...copyedCode].forEach((string, index) => {
       setTimeout(() => {
         state.code += string;
-      }, 10 * index)
-    })
+      }, 10 * index);
+    });
 
     return {
-      state
-    }
-  }
-})
+      onBeforeMount,
+      state,
+    };
+  },
+});
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/_parts.scss";
+@import '@/assets/styles/_parts.scss';
 
 .home {
   display: flex;
@@ -94,7 +102,8 @@ console.log('Have a nice day!');
     }
   }
   &__body {
-    pre, code {
+    pre,
+    code {
       line-height: 1.2rem;
     }
   }

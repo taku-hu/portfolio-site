@@ -1,53 +1,39 @@
 <template>
   <section class="home">
-    <div class="home__lines" :class="{'home__lines--theme-changed' : themeChanged}">
+    <div class="home__lines" :class="{'home__lines--theme-changed' : isThemeChanged}">
       <p v-for="n in 100" :key="n">{{ n }}</p>
     </div>
     <div class="home__body">
-      <pre><code class="language-javascript" v-html="comment"></code></pre>
-      <pre><code class="language-javascript" v-html="code"></code></pre>
+      <pre><code class="language-typescript" v-html="state.comment"></code></pre>
+      <pre><code class="language-typescript" v-html="state.code"></code></pre>
     </div>
   </section>
 </template>
 
 <script>
-import hljs from 'highlight.js/lib/highlight';
-import javascript from 'highlight.js/lib/languages/javascript';
+import { defineComponent, reactive } from 'vue';
+
+import hljs from 'highlight.js/lib/core';
+import typescript from 'highlight.js/lib/languages/typescript';
+hljs.registerLanguage('typescript', typescript);
 import 'highlight.js/styles/dracula.css';
 
-export default {
+export default defineComponent({
   props: {
-    themeChanged: Boolean
+    isThemeChanged: Boolean
   },
-  created() {
-    hljs.registerLanguage('javascript', javascript);
-    this.comment = hljs.highlightAuto(this.comment).value;
-    this.code = hljs.highlightAuto(this.code).value;
-
-    const copyedCode = this.code;
-    this.code = '';
-    for(let i = 0; i < copyedCode.length; i ++) {
-      setTimeout(() => {
-        const typedCode = copyedCode.substring(0, i);
-        this.code = typedCode;
-      }, 10 * i)
-    }
-  },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       comment: `//Thank you for visiting.
 //This is my portfolio site.
       `,
       code: `console.log('Hello Hackers!');
 
 class Profile {
-  constructor(name, age, gender) {
-    this.name = name;
-    this.age = age;
-    this.gender = gender;
+  constructor(readonly name: string, readonly gender: 'male' | 'female', private age?: number) {
   }
 
-  getAge(birthYear) {
+  getAge(this: Profile, birthYear: number) {
     const now = new Date();
     const thisYear = now.getFullYear();
 
@@ -57,22 +43,37 @@ class Profile {
   }
 }
 
-const me = new Profile();
-
-me.name = 'Takeuchi Takuto';
-me.gender = 'male';
+const me = new Profile(
+  'Takeuchi Takuto',
+  'male'
+);
 
 me.getAge(1993);
 
 console.log('Have a nice day!');
       `
+    })
+
+    state.comment = hljs.highlightAuto(state.comment).value;
+    state.code = hljs.highlightAuto(state.code).value;
+
+    const copyedCode = state.code;
+    state.code = '';
+    [...copyedCode].forEach((string, index) => {
+      setTimeout(() => {
+        state.code += string;
+      }, 10 * index)
+    })
+
+    return {
+      state
     }
   }
-}
+})
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/_fragments.scss";
+@import "@/assets/styles/_parts.scss";
 
 .home {
   display: flex;

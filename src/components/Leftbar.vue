@@ -1,6 +1,6 @@
 <template>
-  <div class="left-bar" :class="{'left-bar--theme-changed' : themeChanged}">
-    <div class="left-bar__icons" :class="{'left-bar__icons--theme-changed' : themeChanged}" v-for="menuIcon in menuIcons" :key="menuIcon">
+  <div class="left-bar" :class="{'left-bar--theme-changed' : isThemeChanged}">
+    <div class="left-bar__icons" :class="{'left-bar__icons--theme-changed' : isThemeChanged}" v-for="menuIcon in state.menuIcons" :key="menuIcon">
       <span v-html="menuIcon"></span>
     </div>
     <div class="left-bar__settings" @click="changeTheme">
@@ -10,13 +10,14 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, reactive } from 'vue';
+
+export default defineComponent({
   props: {
-    themeChanged: Boolean
+    isThemeChanged: Boolean
   },
-  data() {
-    return {
-      inheritedThemeChanged: this.themeChanged,
+  setup(_, context) {
+    const state = reactive({
       menuIcons: [
         '<i class="far fa-copy"></i>',
         '<i class="fas fa-search"></i>',
@@ -25,28 +26,25 @@ export default {
         '<i class="fas fa-bug"></i>',
         '<i class="fas fa-th-large"></i>'
       ],
+    });
+
+    const changeTheme = () => {
+      const response = confirm('Change color theme?');
+      if(response) {
+        context.emit('change-theme');
+      } 
     }
-  },
-  methods: {
-    changeTheme() {
-      this.$swal({
-        icon: 'question',
-        title: 'Change color theme?',
-        showCancelButton: true,
-        showCloseButton: true,
-      }).then(result => {
-        if(result.value) {
-          this.inheritedThemeChanged = !this.inheritedThemeChanged
-          this.$emit('update:themeChanged', this.inheritedThemeChanged)
-        }
-      });
+
+    return {
+      state,
+      changeTheme
     }
   }
-}
+})
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import '@/assets/styles/_parts.scss';
 
 .left-bar {
   position: relative;

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" :class="{'footer--theme-changed' : themeChanged}">
+  <footer class="footer" :class="{'footer--theme-changed' : isThemeChanged}">
     <div class="footer__left">
       <span class="items">
         <i class="fas fa-code-branch"></i>
@@ -21,7 +21,7 @@
 
     <div class="footer__right">
       <span class="items">
-        Theme: {{ colorTheme }}
+        Theme: {{ state.colorTheme }}
       </span>
       <span class="items">
         UTF-8
@@ -46,20 +46,27 @@
 </template>
 
 <script>
-export default {
+import { defineComponent, reactive, computed } from 'vue'
+
+export default defineComponent({
   props: {
-    themeChanged: Boolean
+    isThemeChanged: Boolean
   },
-  computed: {
-    colorTheme() {
-      return this.themeChanged ? 'Dark(Visual Studio)' : 'Dracula'
+  setup(props) {
+    const state = reactive({
+      colorTheme: computed(() => props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula'),
+    })
+
+    return {
+      state
     }
   }
-}
+  
+})
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_fragments.scss';
+@import '@/assets/styles/_parts.scss';
 
 .footer {
   @include center-styling($direction: row, $justify: space-between);

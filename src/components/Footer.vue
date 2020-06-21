@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" :class="{'footer--theme-changed' : isThemeChanged}">
+  <footer class="footer" :class="{ 'footer--theme-changed': isThemeChanged }">
     <div class="footer__left">
       <span class="items">
         <i class="fas fa-code-branch"></i>
@@ -14,15 +14,11 @@
         <i class="fas fa-exclamation-triangle"></i>
         0
       </span>
-      <span class="items">
-        <i class="fas fa-tools"></i>1
-      </span>
+      <span class="items"> <i class="fas fa-tools"></i>1 </span>
     </div>
 
     <div class="footer__right">
-      <span class="items">
-        Theme: {{ state.colorTheme }}
-      </span>
+      <span class="items"> Theme: {{ state.colorTheme }} </span>
       <span class="items">
         UTF-8
       </span>
@@ -46,23 +42,24 @@
 </template>
 
 <script>
-import { defineComponent, reactive, computed } from 'vue'
+import { defineComponent, reactive, computed } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
   },
   setup(props) {
     const state = reactive({
-      colorTheme: computed(() => props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula'),
-    })
+      colorTheme: computed(() =>
+        props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula'
+      ),
+    });
 
     return {
-      state
-    }
-  }
-  
-})
+      state,
+    };
+  },
+});
 </script>
 
 <style lang="scss">
@@ -74,7 +71,7 @@ export default defineComponent({
   height: 1.5rem;
   line-height: 1.5rem;
   font-size: 0.5rem;
-  background-color: #191A21;
+  background-color: #191a21;
   overflow: hidden;
   user-select: none;
   &--theme-changed {

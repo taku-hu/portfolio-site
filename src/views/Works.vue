@@ -5,34 +5,49 @@
     <div class="works__wrapper">
       <div class="work" v-for="work in state.works" :key="work.name">
         <h2 class="work__name">{{ work.name }}</h2>
-        <img class="work__image" :src="require(`@/assets/images/${work.title}.png`)" @click="openModal(work)">
+        <img
+          class="work__image"
+          :src="require(`@/assets/images/${work.title}.png`)"
+          @click="openModal(work)"
+        />
       </div>
     </div>
 
-    <transition name="switch">
-      <div class="modal" v-if="state.modalActive">
-        <div class="modal__overlay" @click="closeModal">
-          <div class="modal__contents" @click.stop>
-            <h3 class="modal__title">{{ state.modalData.name }}</h3>
-            <div class="modal__inner-wrapper">
-              <a class="modal__link" :href="state.modalData.link" target="_blank">
-                <img class="modal__image" :src="require(`@/assets/images/${state.modalData.title}.png`)">
-              </a>
-              <p class="modal__description" v-html="state.modalData.description"></p>
-            </div>
+    <div class="modal" v-if="state.modal.isActive">
+      <div class="modal__overlay" @click="closeModal">
+        <div class="modal__contents" @click.stop>
+          <h3 class="modal__title">{{ state.modal.data.name }}</h3>
+          <div class="modal__inner-wrapper">
+            <a
+              class="modal__link"
+              :href="state.modal.data.link"
+              target="_blank"
+            >
+              <img
+                class="modal__image"
+                :src="require(`@/assets/images/${state.modal.data.title}.png`)"
+              />
+            </a>
+            <p
+              class="modal__description"
+              v-html="state.modal.data.description"
+            ></p>
           </div>
         </div>
       </div>
-    </transition>
-
+    </div>
   </section>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, onBeforeMount } from 'vue';
 
 export default defineComponent({
-  setup() {
+  setup(_, context) {
+    onBeforeMount(() => {
+      context.emit('set-route-name');
+    });
+
     const state = reactive({
       works: [
         {
@@ -41,50 +56,51 @@ export default defineComponent({
           link: 'https://github.com/taku-hu/portfolio-site',
           description: `
             私が初めて作ったもので、私のポートフォリオサイトです。<br>
-            コーディングの慣れやVue.jsへの理解を深めるため、UIパーツ等はあえて積極的に車輪の再発明を行いました。<br>
-            コードのハイライトにhighlight.jsを使ったこと以外はホボ全てフルスクラッッチで実装しています。
-          `
+            コーディングに慣れるために、あえてほぼフルスクラッチで実装しました。
+            最近Vue3 + compositionAPI + TypeScriptにリプレイスしました。
+          `,
         },
         {
           name: 'Online Bookshelf',
           title: 'Bookshelf',
-          link: 'https://github.com/taku-hu/online-bookshelf',
+          link: 'https://book-manager-app-9ae82.firebaseapp.com/',
           description: `
-            私が3番目に作ったもので、Vue.js + Firebase + GoogleBooksAPIを使っています。<br>
-            ごく小規模ではありますが、認証機能やデータベース、HTTP通信やAPIの利用など実際の開発を意識して作りました。<br>
-            そして状態管理に初めてVuexを導入しました。<br>
-            まだまだではありますが、開発を通してコンポーネントベースでのより実践的な開発が学べたと感じています。
-          `
+            私が勉強したての時に初めて作ったウェブアプリケーションです。<br>
+            Vue2 + GoogleBooksAPI + Firebaseで動いています。<br>
+            現在Vueの部分をReact + Hooks + TSXでリプレイス作業中。
+          `,
         },
         {
           name: 'Typing Game',
           title: 'Typing-app',
-          link: 'https://github.com/taku-hu/typing-app',
+          link: 'https://taku-hu.github.io/typing-app/',
           description: `
-            私が2番目に作ったものです。<br>
-            以前の開発の経験を生かしてより多くの機能を盛り込みました。<br>
-            特にJavaScript自体の理解を深めたいと思い、より多くのコードを書きました。
-          `
-        }
+            Vueの理解を深めるために作ったタイピングゲームです。<br>
+            JavaScript自体の理解も深めたいと思い、あえてフルスクラッチでより多くのコードを書きました。
+          `,
+        },
       ],
-      modalData: '',
-      modalActive: false
-    })
+      modal: {
+        data: '',
+        isActive: false,
+      },
+    });
 
     const openModal = (work) => {
-      state.modalData = work;
-      state.modalActive = true;
-    }
-    const closeModal = ()  => {
-      state.modalActive = false;
-    }
+      state.modal.data = work;
+      state.modal.isActive = true;
+    };
+    const closeModal = () => {
+      state.modal.isActive = false;
+    };
 
     return {
+      onBeforeMount,
       state,
       openModal,
-      closeModal
-    }
-  }
+      closeModal,
+    };
+  },
 });
 </script>
 
@@ -141,10 +157,11 @@ export default defineComponent({
       background-color: rgba(0, 0, 0, 0.5);
     }
     &__contents {
-      @include center-styling;   
+      @include center-styling;
       width: 80%;
       height: 80%;
-      background-color: #fff;
+      color: #fff;
+      background-color: #191a21;
     }
     &__title {
       width: 100%;
@@ -161,16 +178,18 @@ export default defineComponent({
     }
     &__link {
       width: 50%;
+      box-shadow: 0 12px 10px -6px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       margin-bottom: 1.5rem;
     }
     &__image {
       width: 100%;
-      height: 100%
+      height: 100%;
     }
     &__description {
       width: 50%;
       line-height: 1.5;
+      font-weight: bold;
       text-align: left;
       margin: 0 auto;
     }

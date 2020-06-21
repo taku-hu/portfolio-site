@@ -1,10 +1,15 @@
 <template>
-  <div class="left-bar" :class="{'left-bar--theme-changed' : isThemeChanged}">
-    <div class="left-bar__icons" :class="{'left-bar__icons--theme-changed' : isThemeChanged}" v-for="menuIcon in state.menuIcons" :key="menuIcon">
+  <div class="left-bar" :class="{ 'left-bar--theme-changed': isThemeChanged }">
+    <div
+      class="left-bar__icons"
+      :class="{ 'left-bar__icons--theme-changed': isThemeChanged }"
+      v-for="menuIcon in state.menuIcons"
+      :key="menuIcon"
+    >
       <span v-html="menuIcon"></span>
     </div>
     <div class="left-bar__settings" @click="changeTheme">
-      <i class="fas fa-cog" ></i>
+      <i class="fas fa-cog"></i>
     </div>
   </div>
 </template>
@@ -14,7 +19,7 @@ import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
   },
   setup(_, context) {
     const state = reactive({
@@ -24,23 +29,20 @@ export default defineComponent({
         '<i class="fas fa-code-branch"></i>',
         '<i class="fab fa-git-alt"></i>',
         '<i class="fas fa-bug"></i>',
-        '<i class="fas fa-th-large"></i>'
+        '<i class="fas fa-th-large"></i>',
       ],
     });
 
     const changeTheme = () => {
-      const response = confirm('Change color theme?');
-      if(response) {
-        context.emit('change-theme');
-      } 
-    }
+      context.emit('change-theme');
+    };
 
     return {
       state,
-      changeTheme
-    }
-  }
-})
+      changeTheme,
+    };
+  },
+});
 </script>
 
 <style lang="scss">
@@ -65,7 +67,7 @@ export default defineComponent({
     &:first-child {
       position: relative;
       color: #fff;
-      background-color: #3C3D51;
+      background-color: #3c3d51;
       cursor: default;
       &:before {
         content: '';
@@ -74,7 +76,7 @@ export default defineComponent({
         left: 0;
         width: 2px;
         height: 100%;
-        background-color: #9E5B8B;
+        background-color: #9e5b8b;
       }
     }
     &--theme-changed {
@@ -115,7 +117,7 @@ export default defineComponent({
     opacity: 1;
   }
   50% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
     opacity: 1;

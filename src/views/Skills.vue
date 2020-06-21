@@ -3,21 +3,28 @@
     <div class="skills__wrapper">
       <h2 class="skills__heading">My SKILLS</h2>
       <p class="skills__sentence">
-        現在の私のスキルです。<br>
+        現在の私のスキルです。<br />
         フロントエンドのJS周りがコアスキルです。
       </p>
       <p class="skills__bar">
-        <a class="skills__clickable-marker" href="https://github.com/taku-hu" target="_blank">GitHub</a>にコードを公開しているので、よければ御覧ください。
+        <a
+          class="skills__clickable-marker"
+          href="https://github.com/taku-hu"
+          target="_blank"
+        >GitHub
+        </a>にコードを公開しているので、よければ御覧ください。
       </p>
       <ul class="skills__list">
         <li
           class="skills__list-item"
           v-for="skill in state.skills"
           :key="skill.name"
-          :style="{backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})`}"
+          :style="{
+            backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})`,
+          }"
         >
           <span class="skills__marker">
-            {{ skill.name}}
+            {{ skill.name }}
           </span>
           &nbsp;-&nbsp;
           <span v-html="skill.details"></span>
@@ -28,10 +35,14 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, onBeforeMount } from 'vue';
 
 export default defineComponent({
-  setup() {
+  setup(_, context) {
+    onBeforeMount(() => {
+      context.emit('set-route-name');
+    });
+
     const state = reactive({
       skills: [
         {
@@ -39,27 +50,27 @@ export default defineComponent({
           details: `
             両方共に問題なく扱えます。<br>
             BEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。
-          `
+          `,
         },
         {
           name: 'Sass',
           details: `
             開発に必要な機能は十分に理解しています。
-          `
+          `,
         },
         {
           name: 'JavaScript',
           details: `
             私が最も得意としている言語です。<br>
             当然ES6以降の文法も十分に理解しています。
-          `
+          `,
         },
         {
           name: 'TypeScript',
           details: `
-            現在業務でメインで使っており、現在最も関心のある言語です。<br>
+            現在業務でメインで使っており、最も関心のある言語です。<br>
             業務ではVue + TypeScriptでの開発を行っています。
-          `
+          `,
         },
         {
           name: 'Vue.js',
@@ -67,7 +78,7 @@ export default defineComponent({
             現在業務でメインで使っているフレームワークです。
             WORKSに載せているポートフォリオも全てVue.jsで開発しました。
             最近はVue3に備えて、Vue3 beta + compositionAPIも触っています。
-          `
+          `,
         },
         {
           name: 'React',
@@ -75,34 +86,35 @@ export default defineComponent({
             最近最も関心を持っているライブラリです。
             Vue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。
             現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。
-          `
+          `,
         },
         {
           name: 'Firebase',
           details: `
             本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。<br>
             概要は理解していますが、より使いこなせるように更なる学習を重ねています。
-          `
+          `,
         },
         {
           name: 'Git・Github',
           details: `
             Git Flow・Github Flowを理解しており、git・githubを用いた複数人での開発が行えます。
-          `
+          `,
         },
         {
           name: 'webpack',
           details: `
             主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。
-          `
-        }
-      ]
-    })
+          `,
+        },
+      ],
+    });
 
     return {
-      state
-    }
-  }
+      onBeforeMount,
+      state,
+    };
+  },
 });
 </script>
 

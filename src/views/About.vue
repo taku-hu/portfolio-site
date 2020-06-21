@@ -8,36 +8,43 @@
         version
       </h2>
       <p class="about__sentence">
-        Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
+        Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }}
+        {{ state.now.year }} release of My Portfolio Site. There are a lot of
+        information in this version that we hope you will like, some of the key
+        highlights include:
       </p>
       <ul class="about__list">
         <li v-for="data in state.profileData" :key="data.title">
           <span class="about__marker">{{ data.title }}</span>
           &nbsp;-&nbsp;
-          <a
-            :href="data.link"
-            target="_blnak"
-            v-html="data.information"
-          >
-          </a>
+          <a :href="data.link" target="_blnak" v-html="data.information"> </a>
         </li>
       </ul>
       <p class="about__bar">
         If you'd like to know more about me go to
-        <a class="about__clickable-marker" href="https://github.com/taku-hu/profile/blob/master/README.md">Profile</a>
+        <a
+          class="about__clickable-marker"
+          href="https://github.com/taku-hu/profile/blob/master/README.md"
+        >Profile
+        </a>
         on
-        <a class="about__clickable-marker" href="https://github.com/taku-hu">GitHub</a>. 
+        <a
+          class="about__clickable-marker"
+          href="https://github.com/taku-hu"
+          >GitHub
+        </a>.
       </p>
       <h3 class="about__subheading">
-        New feature of {{ state.now.month }}  {{ state.now.day }}{{ suffix }} {{ state.now.year }}
+        New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }}
+        {{ state.now.year }}
       </h3>
       <ul class="about__list">
         <li>
           <span class="about__clickable-marker" @click="iconClick">
             Change color theme
           </span>
-          &nbsp;-&nbsp;
-          By clicking the gear icon in the lower left, you can change the color theme of the site.
+          &nbsp;-&nbsp; By clicking the gear icon in the lower left, you can
+          change the color theme of the site.
         </li>
       </ul>
     </div>
@@ -45,77 +52,101 @@
 </template>
 
 <script>
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive, computed, onBeforeMount } from 'vue';
 
 export default defineComponent({
-  setup() {
+  setup(_, context) {
+    onBeforeMount(() => {
+      context.emit('set-route-name');
+    });
+
     const state = reactive({
       now: {
-        year: '', month: '', day: ''
+        year: '',
+        month: '',
+        day: '',
       },
       profileData: [
-        { 
+        {
           title: 'Name',
           information: 'Takeuchi Takuto',
-          link: null
+          link: null,
         },
-        { 
+        {
           title: 'Background',
           information: 'Bachelor of International Economics / Hosei University',
-          link: null
+          link: null,
         },
         {
           title: 'Qiita',
           information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
-          link: 'https://qiita.com/taku-hu'
+          link: 'https://qiita.com/taku-hu',
         },
         {
           title: 'Github',
           information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
-          link: 'https://github.com/taku-hu'
+          link: 'https://github.com/taku-hu',
         },
-        { 
+        {
           title: 'wantedly',
-          information: '<i class="fas fa-mouse-pointer"></i>&nbsp;Takeuchi Takuto', 
-          link: 'https://www.wantedly.com/users/124833407'
+          information:
+            '<i class="fas fa-mouse-pointer"></i>&nbsp;Takeuchi Takuto',
+          link: 'https://www.wantedly.com/users/124833407',
         },
-        { 
+        {
           title: 'Contact',
-          information: 'hs.tm.ec.a.tt@gmail.com', 
-          link: null 
-        }
-      ]
+          information: 'hs.tm.ec.a.tt@gmail.com',
+          link: null,
+        },
+      ],
     });
 
     const suffix = computed(() => {
       const date = state.now.day;
-      if([1, 21, 31].includes(date)) {
+      if ([1, 21, 31].includes(date)) {
         return 'st';
-      } else if([2, 22].includes(date)) {
+      } else if ([2, 22].includes(date)) {
         return 'nd';
-      } else if([3, 23].includes(date)) {
+      } else if ([3, 23].includes(date)) {
         return 'rd';
       } else {
-        return 'th'
+        return 'th';
       }
-    })
+    });
 
-    const monthNames = ['Janualy', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const date = new Date();
-    state.now.year = date.getFullYear();
-    state.now.month = monthNames[date.getMonth()]; 
-    state.now.day = date.getDate();
+    const setDate = () => {
+      const monthNames = [
+        'Janualy',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+      const date = new Date();
+      state.now.year = date.getFullYear();
+      state.now.month = monthNames[date.getMonth()];
+      state.now.day = date.getDate();
+    };
+    setDate();
 
-    const iconClick = () => {
-      document.querySelector('.left-bar__settings').click();
-    }
+    const changeTheme = () => {
+      context.emit('change-theme');
+    };
 
     return {
+      onBeforeMount,
       state,
       suffix,
-      iconClick
-    }
-  }
+      changeTheme,
+    };
+  },
 });
 </script>
 

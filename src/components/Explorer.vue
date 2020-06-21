@@ -1,17 +1,23 @@
 <template>
-  <div class="explorer" :class="{'explorer--theme-changed' : isThemeChanged}">
+  <div class="explorer" :class="{ 'explorer--theme-changed': isThemeChanged }">
     <div class="explorer__heading">EXPLORER</div>
-    <div class="accordion" v-for="accordion in state.accordions" :key="accordion.labelName">
+    <div
+      class="accordion"
+      v-for="accordion in state.accordions"
+      :key="accordion.labelName"
+    >
       <div
         class="accordion__label"
-        :class="{'accordion__label--opened': accordion.open, 'accordion__label--theme-changed' : isThemeChanged}"
-        @click="toggleExplorer(accordion)"
+        :class="{
+          'accordion__label--opened': accordion.isOpen,
+          'accordion__label--theme-changed': isThemeChanged,
+        }"
       >
-        <i class="fas fa-angle-down" :class="{close : !accordion.open}" ></i>
+        <i class="fas fa-angle-down" :class="{ close: !accordion.isOpen }"></i>
         {{ accordion.labelName }}
       </div>
       <transition name="open">
-        <div class="accordion__body" v-show="accordion.open">
+        <div class="accordion__body" v-show="accordion.isOpen">
           <a :href="accordion.link" target="_blank">
             <span v-html="accordion.icon"></span>
             {{ accordion.item }}
@@ -23,13 +29,18 @@
     <div class="accordion">
       <div
         class="accordion__label"
-        :class="{'accordion__label--opened': state.linksOpen, 'accordion__label--theme-changed' : isThemeChanged}"
-        @click="state.linksOpen = !state.linksOpen"
+        :class="{
+          'accordion__label--opened': state.isLinksOpen,
+          'accordion__label--theme-changed': isThemeChanged,
+        }"
       >
-        <i class="accordion__icon fas fa-angle-down" :class="{'accordion__icon--close' : !state.linksOpen}"></i>
+        <i
+          class="accordion__icon fas fa-angle-down"
+          :class="{ 'accordion__icon--close': !state.isLinksOpen }"
+        ></i>
         pages
       </div>
-      <div class="accordion__body" v-show="state.linksOpen">
+      <div class="accordion__body" v-show="state.isLinksOpen">
         <nav class="accordion__links">
           <ul>
             <li v-for="link in state.links" :key="link.name">
@@ -50,7 +61,7 @@ import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
   },
   setup() {
     const state = reactive({
@@ -60,36 +71,54 @@ export default defineComponent({
           icon: '<i class="fab fa-vuejs"></i>',
           item: 'portfolio-site',
           link: 'https://github.com/taku-hu/portfolio-site',
-          open: true
+          isOpen: true,
         },
         {
           labelName: 'blog',
           icon: '<i class="fab fa-quora"></i>',
           item: 'Qiita',
           link: 'https://qiita.com/taku-hu',
-          open: true
+          isOpen: true,
         },
       ],
       links: [
-        {icon: '<i class="fas fa-home">', name: 'HOME', path: '/'},
-        {icon: '<i class="fas fa-user-circle">', name: 'ABOUT', path: '/about'},
-        {icon: '<i class="fas fa-wrench"></i>', name: 'SKILLS', path: '/skills'},
-        {icon: '<i class="far fa-address-card"></i>', name: 'WORKS', path: '/works'}
+        {
+          icon: '<i class="fas fa-home">',
+          name: 'HOME',
+          path: '/',
+        },
+        {
+          icon: '<i class="fas fa-user-circle">',
+          name: 'ABOUT',
+          path: '/about',
+        },
+        {
+          icon: '<i class="fas fa-wrench"></i>',
+          name: 'SKILLS',
+          path: '/skills',
+        },
+        {
+          icon: '<i class="far fa-address-card"></i>',
+          name: 'WORKS',
+          path: '/works',
+        },
       ],
-      linksOpen: true
-    })
+      isLinksOpen: true,
+    });
 
-    const toggleExplorer = (accordion)  => {
-      const selected = state.accordions.find(accordions => accordions.labelName === accordion.labelName);
-      selected.open = !selected.open;
-    }
+    const toggleExplorer = (accordion) => {
+      const selected = state.accordions.find(
+        (accordions) => accordions.labelName === accordion.labelName
+      );
+      selected.isOpen = !selected.isOpen;
+    };
 
     return {
       state,
       toggleExplorer,
-    }
-  }
-})
+    };
+  },
+});
 </script>
 
 <style lang="scss">
@@ -98,7 +127,7 @@ export default defineComponent({
 .explorer {
   width: 10rem;
   height: 100%;
-  background-color: #21222C;
+  background-color: #21222c;
   font-size: 0.8rem;
   box-sizing: border-box;
   user-select: none;
@@ -126,7 +155,7 @@ export default defineComponent({
       &--theme-changed {
         background-color: #383838;
       }
-    &__icon {
+      &__icon {
         transition: 0.2s;
         &--close {
           transform: rotate(-90deg);
@@ -152,13 +181,13 @@ export default defineComponent({
         }
       }
       .fa-vuejs {
-        color: #41B883;
+        color: #41b883;
       }
       .fa-quora {
-        color: #55C500;
+        color: #55c500;
       }
       .fa-file {
-        color: #0D79CC;
+        color: #0d79cc;
       }
     }
     &__links {

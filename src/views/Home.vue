@@ -7,7 +7,6 @@
       <p v-for="n in 100" :key="n">{{ n }}</p>
     </div>
     <div class="home__body">
-      <pre><code class="language-typescript" v-html="state.comment"></code></pre>
       <pre><code class="language-typescript" v-html="state.code"></code></pre>
     </div>
   </section>
@@ -31,10 +30,10 @@ export default defineComponent({
     });
 
     const state = reactive({
-      comment: `//Thank you for visiting.
+      code: `//Thank you for visiting.
 //This is my portfolio site.
-      `,
-      code: `console.log('Hello Hackers!');
+
+console.log('Hello Hackers!');
 
 class Profile {
   constructor(readonly name: string, readonly gender: 'male' | 'female', private age?: number) {
@@ -61,7 +60,6 @@ console.log('Have a nice day!');
       `,
     });
 
-    state.comment = hljs.highlightAuto(state.comment).value;
     state.code = hljs.highlightAuto(state.code).value;
 
     const copyedCode = state.code;
@@ -88,6 +86,7 @@ console.log('Have a nice day!');
   width: 100%;
   height: 100%;
   font-size: 0.8rem;
+  overflow-x: scroll;
   overflow: hidden;
   &__lines {
     color: #374178;
@@ -102,9 +101,15 @@ console.log('Have a nice day!');
     }
   }
   &__body {
+    width: 100%;
+    height: 100%;
     pre,
     code {
+      width: 100%;
+      height: 100%;
+      font-size: 0.8rem!important;
       line-height: 1.2rem;
+      overflow-x: scroll;
     }
   }
 }

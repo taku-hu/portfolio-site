@@ -40,7 +40,7 @@
       </h3>
       <ul class="about__list">
         <li>
-          <span class="about__clickable-marker" @click="iconClick">
+          <span class="about__clickable-marker" @click="changeTheme">
             Change color theme
           </span>
           &nbsp;-&nbsp; By clicking the gear icon in the lower left, you can

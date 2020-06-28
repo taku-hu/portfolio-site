@@ -17,7 +17,7 @@
         <li v-for="data in state.profileData" :key="data.title">
           <span class="about__marker">{{ data.title }}</span>
           &nbsp;-&nbsp;
-          <a :href="data.link" target="_blnak" v-html="data.information"> </a>
+          <a :class="{ 'about__link': data.link}" @click="openLink(data)" v-html="data.information"></a>
         </li>
       </ul>
       <p class="about__bar">
@@ -25,18 +25,15 @@
         <a
           class="about__clickable-marker"
           href="https://github.com/taku-hu/profile/blob/master/README.md"
-        >Profile
+          >Profile
         </a>
         on
-        <a
-          class="about__clickable-marker"
-          href="https://github.com/taku-hu"
-          >GitHub
+        <a class="about__clickable-marker" href="https://github.com/taku-hu">
+          GitHub 
         </a>.
       </p>
       <h3 class="about__subheading">
-        New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }}
-        {{ state.now.year }}
+        New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }}
       </h3>
       <ul class="about__list">
         <li>
@@ -64,43 +61,42 @@ export default defineComponent({
       now: {
         year: '',
         month: '',
-        day: '',
+        day: ''
       },
       profileData: [
         {
           title: 'Name',
           information: 'Takeuchi Takuto',
-          link: null,
+          link: null
         },
         {
           title: 'Background',
           information: 'Bachelor of International Economics / Hosei University',
-          link: null,
+          link: null
         },
         {
           title: 'Qiita',
           information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
-          link: 'https://qiita.com/taku-hu',
+          link: 'https://qiita.com/taku-hu'
         },
         {
           title: 'Github',
           information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
-          link: 'https://github.com/taku-hu',
+          link: 'https://github.com/taku-hu'
         },
         {
           title: 'wantedly',
           information:
             '<i class="fas fa-mouse-pointer"></i>&nbsp;Takeuchi Takuto',
-          link: 'https://www.wantedly.com/users/124833407',
+          link: 'https://www.wantedly.com/users/124833407'
         },
         {
           title: 'Contact',
           information: 'hs.tm.ec.a.tt@gmail.com',
-          link: null,
-        },
-      ],
+          link: null
+        }
+      ]
     });
-
     const suffix = computed(() => {
       const date = state.now.day;
       if ([1, 21, 31].includes(date)) {
@@ -127,26 +123,31 @@ export default defineComponent({
         'September',
         'October',
         'November',
-        'December',
+        'December'
       ];
       const date = new Date();
       state.now.year = date.getFullYear();
       state.now.month = monthNames[date.getMonth()];
       state.now.day = date.getDate();
     };
-    setDate();
-
     const changeTheme = () => {
       context.emit('change-theme');
     };
+    const openLink = data => {
+      if(!data.link) return;
+      open(data.link, '_blank');
+    }
+
+    setDate();
 
     return {
       onBeforeMount,
       state,
       suffix,
       changeTheme,
+      openLink
     };
-  },
+  }
 });
 </script>
 
@@ -167,10 +168,13 @@ export default defineComponent({
     color: #3790f6;
     font-weight: bold;
   }
+  &__link {
+    cursor: pointer;
+    text-decoration: underline #fff;
+  }
   &__clickable-marker {
     @extend .about__marker;
-    text-decoration: underline #fff;
-    cursor: pointer;
+    @extend .about__link;
   }
   &__heading {
     width: 100%;

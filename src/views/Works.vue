@@ -58,7 +58,7 @@ export default defineComponent({
             私が初めて作ったもので、私のポートフォリオサイトです。<br>
             コーディングに慣れるために、あえてほぼフルスクラッチで実装しました。
             最近Vue3 + compositionAPI + TypeScriptにリプレイスしました。
-          `,
+          `
         },
         {
           name: 'Online Bookshelf',
@@ -68,7 +68,7 @@ export default defineComponent({
             私が勉強したての時に初めて作ったウェブアプリケーションです。<br>
             Vue2 + GoogleBooksAPI + Firebaseで動いています。<br>
             現在Vueの部分をReact + Hooks + TSXでリプレイス作業中。
-          `,
+          `
         },
         {
           name: 'Typing Game',
@@ -77,16 +77,16 @@ export default defineComponent({
           description: `
             Vueの理解を深めるために作ったタイピングゲームです。<br>
             JavaScript自体の理解も深めたいと思い、あえてフルスクラッチでより多くのコードを書きました。
-          `,
-        },
+          `
+        }
       ],
       modal: {
         data: '',
-        isActive: false,
-      },
+        isActive: false
+      }
     });
 
-    const openModal = (work) => {
+    const openModal = work => {
       state.modal.data = work;
       state.modal.isActive = true;
     };
@@ -98,9 +98,9 @@ export default defineComponent({
       onBeforeMount,
       state,
       openModal,
-      closeModal,
+      closeModal
     };
-  },
+  }
 });
 </script>
 

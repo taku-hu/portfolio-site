@@ -14,7 +14,10 @@
         <i class="fas fa-exclamation-triangle"></i>
         0
       </span>
-      <span class="items"> <i class="fas fa-tools"></i>1 </span>
+      <span class="items">
+        <i class="fas fa-tools"></i>
+        1
+      </span>
     </div>
 
     <div class="footer__right">
@@ -46,19 +49,19 @@ import { defineComponent, reactive, computed } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean,
+    isThemeChanged: Boolean
   },
   setup(props) {
     const state = reactive({
       colorTheme: computed(() =>
         props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula'
-      ),
+      )
     });
 
     return {
-      state,
+      state
     };
-  },
+  }
 });
 </script>
 

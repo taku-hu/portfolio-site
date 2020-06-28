@@ -8,32 +8,40 @@
         version
       </h2>
       <p class="about__sentence">
-        Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }}
-        {{ state.now.year }} release of My Portfolio Site. There are a lot of
-        information in this version that we hope you will like, some of the key
-        highlights include:
+        Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
       </p>
       <ul class="about__list">
         <li v-for="data in state.profileData" :key="data.title">
           <span class="about__marker">{{ data.title }}</span>
           &nbsp;-&nbsp;
-          <a :class="{ 'about__link': data.link}" @click="openLink(data)" v-html="data.information"></a>
+          <a
+            :class="{ about__link: data.link }"
+            @click="openLink(data)"
+            v-html="data.information"
+          ></a>
         </li>
       </ul>
       <p class="about__bar">
         If you'd like to know more about me go to
         <a
           class="about__clickable-marker"
-          href="https://github.com/taku-hu/profile/blob/master/README.md"
-          >Profile
+          href="https://www.wantedly.com/users/124833407"
+          target="_blank"
+        >
+          Profile
         </a>
         on
-        <a class="about__clickable-marker" href="https://github.com/taku-hu">
-          GitHub 
+        <a 
+          class="about__clickable-marker"
+          href="https://github.com/taku-hu"
+          target="_blank"
+        >
+          GitHub
         </a>.
       </p>
       <h3 class="about__subheading">
-        New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }}
+        New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }}
+        {{ state.now.year }}
       </h3>
       <ul class="about__list">
         <li>
@@ -49,14 +57,10 @@
 </template>
 
 <script>
-import { defineComponent, reactive, computed, onBeforeMount } from 'vue';
+import { defineComponent, reactive, computed } from 'vue';
 
 export default defineComponent({
   setup(_, context) {
-    onBeforeMount(() => {
-      context.emit('set-route-name');
-    });
-
     const state = reactive({
       now: {
         year: '',
@@ -134,14 +138,13 @@ export default defineComponent({
       context.emit('change-theme');
     };
     const openLink = data => {
-      if(!data.link) return;
+      if (!data.link) return;
       open(data.link, '_blank');
-    }
+    };
 
     setDate();
 
     return {
-      onBeforeMount,
       state,
       suffix,
       changeTheme,

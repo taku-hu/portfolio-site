@@ -40,14 +40,10 @@
 </template>
 
 <script>
-import { defineComponent, reactive, onBeforeMount } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
-  setup(_, context) {
-    onBeforeMount(() => {
-      context.emit('set-route-name');
-    });
-
+  setup() {
     const state = reactive({
       works: [
         {
@@ -95,7 +91,6 @@ export default defineComponent({
     };
 
     return {
-      onBeforeMount,
       state,
       openModal,
       closeModal

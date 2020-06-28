@@ -1,8 +1,7 @@
 <template>
   <section class="home">
     <div
-      class="home__lines"
-      :class="{ 'home__lines--theme-changed': isThemeChanged }"
+      :class="['home__lines', { 'home__lines--theme-changed': isThemeChanged }]"
     >
       <p v-for="n in 100" :key="n">{{ n }}</p>
     </div>
@@ -13,7 +12,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, onBeforeMount } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript';
@@ -24,11 +23,7 @@ export default defineComponent({
   props: {
     isThemeChanged: Boolean
   },
-  setup(props, context) {
-    onBeforeMount(() => {
-      context.emit('set-route-name');
-    });
-
+  setup() {
     const state = reactive({
       code: ''
     });
@@ -71,7 +66,6 @@ console.log('Nice to meet you!');`
     });
 
     return {
-      onBeforeMount,
       state
     };
   }

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" :class="{ 'footer--theme-changed': isThemeChanged }">
+  <footer :class="['footer', { 'footer--theme-changed': isThemeChanged }]">
     <div class="footer__left">
       <span class="items">
         <i class="fas fa-code-branch"></i>

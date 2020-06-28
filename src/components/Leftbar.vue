@@ -1,8 +1,10 @@
 <template>
-  <div class="left-bar" :class="{ 'left-bar--theme-changed': isThemeChanged }">
+  <div :class="['left-bar', { 'left-bar--theme-changed': isThemeChanged }]">
     <div
-      class="left-bar__icons"
-      :class="{ 'left-bar__icons--theme-changed': isThemeChanged }"
+      :class="[
+        'left-bar__icons',
+        { 'left-bar__icons--theme-changed': isThemeChanged }
+      ]"
       v-for="menuIcon in state.menuIcons"
       :key="menuIcon"
     >

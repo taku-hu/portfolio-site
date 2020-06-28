@@ -6,30 +6,33 @@
         @change-theme="changeTheme"
       />
 
-      <explorer-component :isThemeChanged="state.isThemeChanged" />
+      <explorer-component
+        :isThemeChanged="state.isThemeChanged"
+        :currentPage="state.currentPage"
+      />
 
-      <main
-        class="code"
-        :class="{ 'code--theme-changed': state.isThemeChanged }"
-      >
+      <main :class="['code', { 'code--theme-changed': state.isThemeChanged }]">
         <div
-          class="code__tag"
-          :class="{ 'code__tag--theme-changed': state.isThemeChanged }"
+          :class="[
+            'code__tag',
+            { 'code__tag--theme-changed': state.isThemeChanged }
+          ]"
         >
           <i class="fab fa-vuejs"></i>
-          {{ state.pageName }}.vue
+          {{ state.currentPage }}.vue
           <span @click="closeTab">
             <i class="fas fa-times"></i>
           </span>
         </div>
         <div
-          class="code__field"
-          :class="{ 'code__field--theme-changed': state.isThemeChanged }"
+          :class="[
+            'code__field',
+            { 'code__field--theme-changed': state.isThemeChanged }
+          ]"
         >
           <router-view
             :isThemeChanged="state.isThemeChanged"
             @change-theme="changeTheme"
-            @set-route-name="setRouteName"
           />
         </div>
       </main>
@@ -40,8 +43,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
-import { useRoute } from 'vue-router';
+import { defineComponent, reactive, computed } from 'vue';
+import router from '@/router';
 
 import LeftbarComponent from '@/components/Leftbar.vue';
 import ExplorerComponent from '@/components/Explorer.vue';
@@ -65,12 +68,8 @@ export default defineComponent({
 
     const state = reactive({
       isThemeChanged: false,
-      pageName: ''
+      currentPage: computed(() => router.currentRoute.value.name)
     });
-
-    const setRouteName = () => {
-      state.pageName = String(useRoute().name);
-    };
 
     const changeTheme = () => {
       const response = confirm('Change color theme?');
@@ -94,8 +93,7 @@ export default defineComponent({
     return {
       state,
       closeTab,
-      changeTheme,
-      setRouteName
+      changeTheme
     };
   }
 });
@@ -169,7 +167,7 @@ a {
       cursor: pointer;
       margin-left: 0.6rem;
     }
-  }
+  } //__tag
   &__field {
     width: 100%;
     height: calc(100% - 2.3rem);
@@ -179,7 +177,7 @@ a {
       background-color: #1e1e1e;
     }
   }
-} //header
+} //.code
 
 //スクロールバーのカスタマイズ
 ::-webkit-scrollbar {

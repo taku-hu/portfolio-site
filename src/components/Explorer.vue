@@ -1,5 +1,5 @@
 <template>
-  <div class="explorer" :class="{ 'explorer--theme-changed': isThemeChanged }">
+  <div :class="['explorer', { 'explorer--theme-changed': isThemeChanged }]">
     <div class="explorer__heading">EXPLORER</div>
 
     <div
@@ -8,22 +8,31 @@
       :key="accordion.labelName"
     >
       <div
-        class="accordion__label"
-        :class="{
-          'accordion__label--opened': accordion.isOpen,
-          'accordion__label--theme-changed': isThemeChanged
-        }"
+        :class="[
+          'accordion__label',
+          {
+            'accordion__label--opened': accordion.isOpen,
+            'accordion__label--theme-changed': isThemeChanged
+          }
+        ]"
         @click="toggleAccordion(accordion)"
       >
         <i
-          class="accordion__icon fas fa-angle-down"
-          :class="{ 'accordion__icon--close': !accordion.isOpen }"
+          :class="[
+            'accordion__icon',
+            'fas',
+            'fa-angle-down',
+            { 'accordion__icon--close': !accordion.isOpen }
+          ]"
         ></i>
         {{ accordion.labelName }}
       </div>
       <div class="accordion__body" v-show="accordion.isOpen">
         <a
-          class="accordion__links"
+          :class="[
+            'accordion__links',
+            { 'accordion__links--active': path.name === currentPage }
+          ]"
           v-for="path in accordion.paths"
           :key="path.name"
           @click="transitionPage(accordion, path)"
@@ -42,7 +51,8 @@ import router from '@/router';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
+    currentPage: String
   },
   setup() {
     const state = reactive({
@@ -106,12 +116,12 @@ export default defineComponent({
     };
 
     const transitionPage = (accordion, path) => {
-      if(accordion.labelName === 'pages') {
+      if (accordion.labelName === 'pages') {
         router.push({ path: path.link });
       } else {
         open(path.link, '_blank');
       }
-    }
+    };
 
     return {
       state,
@@ -198,11 +208,11 @@ export default defineComponent({
       &:hover {
         background-color: #313341;
       }
-    }
-    .router-link-exact-active {
-      background-color: #44475a;
-      &:hover {
+      &--active {
         background-color: #44475a;
+        &:hover {
+          background-color: #44475a;
+        }
       }
     }
   } //.accordion

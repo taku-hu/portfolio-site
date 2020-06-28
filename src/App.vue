@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div class="wrapper">
+  <div class="wrapper">
+    <div class="wrapper__inner">
       <leftbar-component
         :isThemeChanged="state.isThemeChanged"
         @change-theme="changeTheme"
@@ -51,7 +51,7 @@ export default defineComponent({
   components: {
     LeftbarComponent,
     ExplorerComponent,
-    FooterComponent,
+    FooterComponent
   },
   setup() {
     const getInnerVh = () => {
@@ -65,7 +65,7 @@ export default defineComponent({
 
     const state = reactive({
       isThemeChanged: false,
-      pageName: '',
+      pageName: ''
     });
 
     const setRouteName = () => {
@@ -95,9 +95,9 @@ export default defineComponent({
       state,
       closeTab,
       changeTheme,
-      setRouteName,
+      setRouteName
     };
-  },
+  }
 });
 </script>
 
@@ -114,20 +114,21 @@ a {
   color: #fff;
   text-decoration: none;
 }
-#app {
+
+.wrapper {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   color: #fff;
   overflow: hidden;
-}
-.wrapper {
-  width: 100%;
-  height: calc(100% - 1.5rem);
-  display: flex;
-  overflow: hidden;
+  &__inner {
+    width: 100%;
+    height: calc(100% - 1.5rem);
+    display: flex;
+    overflow: hidden;
+  }
 }
 .code {
-  width: calc(100% - 13rem);
+  width: calc(100% - 12rem);
   height: 100%;
   background-color: #191a21;
   box-shadow: 0 -1px 2px #000;
@@ -137,8 +138,8 @@ a {
   &__tag {
     position: relative;
     display: inline-block;
-    height: 2.5rem;
-    line-height: 2.5rem;
+    height: 2.3rem;
+    line-height: 2.3rem;
     font-size: 0.8rem;
     background-color: #282a35;
     text-align: center;
@@ -171,7 +172,7 @@ a {
   }
   &__field {
     width: 100%;
-    height: calc(100% - 2.5rem);
+    height: calc(100% - 2.3rem);
     background-color: #282a35;
     overflow-y: scroll;
     &--theme-changed {
@@ -197,7 +198,7 @@ a {
 //メディアクエリ
 @include media-query($bp-mobile) {
   .code {
-    width: calc(100% - 10rem);
+    width: calc(100% - 9rem);
     //スクロールバーのカスタマイズ
     ::-webkit-scrollbar {
       width: 0.5rem;

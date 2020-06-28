@@ -19,7 +19,7 @@ import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean,
+    isThemeChanged: Boolean
   },
   setup(_, context) {
     const state = reactive({
@@ -29,8 +29,8 @@ export default defineComponent({
         '<i class="fas fa-code-branch"></i>',
         '<i class="fab fa-git-alt"></i>',
         '<i class="fas fa-bug"></i>',
-        '<i class="fas fa-th-large"></i>',
-      ],
+        '<i class="fas fa-th-large"></i>'
+      ]
     });
 
     const changeTheme = () => {
@@ -39,9 +39,9 @@ export default defineComponent({
 
     return {
       state,
-      changeTheme,
+      changeTheme
     };
-  },
+  }
 });
 </script>
 
@@ -61,7 +61,7 @@ export default defineComponent({
   &__icons {
     @include center-styling;
     width: 100%;
-    height: 3.5rem;
+    height: 3rem;
     color: #536694;
     cursor: not-allowed;
     &:first-child {
@@ -97,7 +97,7 @@ export default defineComponent({
   &__settings {
     @include center-styling;
     width: 100%;
-    height: 3.5rem;
+    height: 3rem;
     position: absolute;
     left: 0;
     bottom: 0;

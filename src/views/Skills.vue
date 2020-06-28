@@ -73,16 +73,16 @@ export default defineComponent({
         {
           name: 'Vue.js',
           details: `
-            現在業務でメインで使っているフレームワークです。
-            WORKSに載せているポートフォリオも全てVue.jsで開発しました。
+            現在業務でメインで使っているフレームワークです。<br>
+            WORKSに載せているポートフォリオも全てVue.jsで開発しました。<br>
             最近はVue3に備えて、Vue3 beta + compositionAPIも触っています。
           `
         },
         {
           name: 'React',
           details: `
-            最近最も関心を持っているライブラリです。
-            Vue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。
+            最近最も関心を持っているライブラリです。<br>
+            Vue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。<br>
             現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。
           `
         },

@@ -22,7 +22,7 @@ import 'highlight.js/styles/dracula.css';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean,
+    isThemeChanged: Boolean
   },
   setup(props, context) {
     onBeforeMount(() => {
@@ -30,13 +30,18 @@ export default defineComponent({
     });
 
     const state = reactive({
-      code: `//Thank you for visiting.
+      code: ''
+    });
+
+    const code = hljs.highlightAuto(
+      `//Thank you for visiting.
 //This is my portfolio site.
 
 console.log('Hello Hackers!');
 
 class Profile {
-  constructor(readonly name: string, readonly gender: 'male' | 'female', private age?: number) {
+  private age?: number;
+  constructor(readonly name: string, readonly gender: 'male' | 'female') {
   }
 
   getAge(this: Profile, birthYear: number) {
@@ -56,15 +61,10 @@ const me = new Profile(
 
 me.getAge(1993);
 
-console.log('Have a nice day!');
-      `,
-    });
+console.log('Nice to meet you!');`
+    ).value;
 
-    state.code = hljs.highlightAuto(state.code).value;
-
-    const copyedCode = state.code;
-    state.code = '';
-    [...copyedCode].forEach((string, index) => {
+    [...code].forEach((string, index) => {
       setTimeout(() => {
         state.code += string;
       }, 10 * index);
@@ -72,9 +72,9 @@ console.log('Have a nice day!');
 
     return {
       onBeforeMount,
-      state,
+      state
     };
-  },
+  }
 });
 </script>
 
@@ -107,7 +107,6 @@ console.log('Have a nice day!');
     code {
       width: 100%;
       height: 100%;
-      font-size: 0.8rem!important;
       line-height: 1.2rem;
       overflow-x: scroll;
     }

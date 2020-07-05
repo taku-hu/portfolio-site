@@ -1,17 +1,27 @@
 <template>
-  <div class="wrapper">
-    <div class="wrapper__inner">
+  <template v-if="!state.isShowIcon">
+    <div class="wrapper">
       <leftbar-component
         :isThemeChanged="state.isThemeChanged"
+        :isCollapsed="state.isCollapsed"
         @change-theme="changeTheme"
       />
 
       <explorer-component
         :isThemeChanged="state.isThemeChanged"
+        :isCollapsed="state.isCollapsed"
         :currentPage="state.currentPage"
       />
 
-      <main :class="['code', { 'code--theme-changed': state.isThemeChanged }]">
+      <main
+        :class="[
+          'code',
+          {
+            'code--theme-changed': state.isThemeChanged,
+            'code--collapsed': state.isCollapsed
+          }
+        ]"
+      >
         <div
           :class="[
             'code__tag',
@@ -38,23 +48,35 @@
       </main>
     </div>
 
-    <footer-component :isThemeChanged="state.isThemeChanged" />
-  </div>
+    <footer-component
+      :isThemeChanged="state.isThemeChanged"
+      :isCollapsed="state.isCollapsed"
+    />
+  </template>
+
+  <template v-else>
+    <desktop-icon-component
+      :isShowIcon="state.isShowIcon"
+      @open-editor="openEditor"
+    />
+  </template>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive, computed, watch } from 'vue';
 import router from '@/router';
 
 import LeftbarComponent from '@/components/Leftbar.vue';
 import ExplorerComponent from '@/components/Explorer.vue';
 import FooterComponent from '@/components/Footer.vue';
+import DesktopIconComponent from '@/components/DesktopIcon.vue';
 
 export default defineComponent({
   components: {
     LeftbarComponent,
     ExplorerComponent,
-    FooterComponent
+    FooterComponent,
+    DesktopIconComponent
   },
   setup() {
     const getInnerVh = () => {
@@ -68,8 +90,11 @@ export default defineComponent({
 
     const state = reactive({
       isThemeChanged: false,
+      isCollapsed: false,
+      isShowIcon: false,
       currentPage: computed(() => router.currentRoute.value.name)
     });
+
 
     const changeTheme = () => {
       const response = confirm('Change color theme?');
@@ -80,20 +105,38 @@ export default defineComponent({
 
     const closeTab = () => {
       const response = confirm(
-        'Do you want to save the changes you made to Home.vue?'
+        `Do you want to save the changes you made to ${String(state.currentPage)}.vue?`
       );
       if (response) {
-        const temporaryOpen = window.open('about:blank', '_self');
-        if (temporaryOpen) {
-          temporaryOpen.close();
-        }
+        state.isCollapsed = true;
       }
     };
+    watch(
+      () => state.isCollapsed,
+      () => {
+        if(state.isCollapsed) {
+          setTimeout(() => {
+            state.isShowIcon = true;
+          }, 2000)
+        }
+      }
+    )
+    const openEditor = () => {
+      const response = confirm(
+        `Do you want to open My-Portfolio-Site in Visual Studio Code?`
+      );
+      if (response) {
+        state.isCollapsed = false;
+        state.isShowIcon = false;
+        router.push({path: '/'});
+      }
+    }
 
     return {
       state,
       closeTab,
-      changeTheme
+      openEditor,
+      changeTheme,
     };
   }
 });
@@ -101,29 +144,28 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/assets/styles/_parts.scss';
+
 html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
-  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ',
-    Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  color: #fff;
 }
 a {
   color: #fff;
   text-decoration: none;
 }
 
-.wrapper {
+#app {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  color: #fff;
   overflow: hidden;
-  &__inner {
-    width: 100%;
-    height: calc(100% - 1.5rem);
-    display: flex;
-    overflow: hidden;
-  }
+}
+.wrapper {
+  width: 100%;
+  height: calc(100% - 1.5rem);
+  display: flex;
 }
 .code {
   width: calc(100% - 12rem);
@@ -132,6 +174,9 @@ a {
   box-shadow: 0 -1px 2px #000;
   &--theme-changed {
     background-color: #2d2d2d;
+  }
+  &--collapsed {
+    @include animated-hinge(top, left);
   }
   &__tag {
     position: relative;

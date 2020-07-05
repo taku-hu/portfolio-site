@@ -1,5 +1,12 @@
 <template>
-  <div :class="['explorer', { 'explorer--theme-changed': isThemeChanged }]">
+  <div :class="[
+      'explorer',
+      {
+        'explorer--theme-changed': isThemeChanged,
+        'explorer--collapsed': isCollapsed
+      }
+    ]"
+  >
     <div class="explorer__heading">EXPLORER</div>
 
     <div
@@ -45,13 +52,27 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from 'vue';
 import router from '@/router';
+
+type PathType = {
+  icon: string;
+  name: string;
+  link: string;
+}
+type AccordionType = {
+  labelName: string;
+  isOpen: boolean;
+  paths: [
+    ...PathType[]
+  ];
+}
 
 export default defineComponent({
   props: {
     isThemeChanged: Boolean,
+    isCollapsed: Boolean,
     currentPage: String
   },
   setup() {
@@ -108,14 +129,16 @@ export default defineComponent({
       ]
     });
 
-    const toggleAccordion = accordion => {
+    const toggleAccordion = (accordion: AccordionType) => {
       const selected = state.accordions.find(
         accordions => accordions.labelName === accordion.labelName
       );
-      selected.isOpen = !selected.isOpen;
+      if(selected) {
+        selected.isOpen = !selected.isOpen;
+      }
     };
 
-    const transitionPage = (accordion, path) => {
+    const transitionPage = (accordion: AccordionType, path: PathType) => {
       if (accordion.labelName === 'pages') {
         router.push({ path: path.link });
       } else {
@@ -145,6 +168,9 @@ export default defineComponent({
   padding: 0 2px;
   &--theme-changed {
     background-color: #252526;
+  }
+  &--collapsed {
+    @include animated-hinge(bottom, left);
   }
   &__heading {
     height: 2.3rem;

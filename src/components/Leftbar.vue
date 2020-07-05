@@ -1,5 +1,13 @@
 <template>
-  <div :class="['left-bar', { 'left-bar--theme-changed': isThemeChanged }]">
+  <div
+    :class="[
+      'left-bar',
+      {
+        'left-bar--theme-changed': isThemeChanged,
+        'left-bar--collapsed': isCollapsed,
+      }
+    ]
+  ">
     <div
       :class="[
         'left-bar__icons',
@@ -16,12 +24,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
+    isCollapsed: Boolean
   },
   setup(_, context) {
     const state = reactive({
@@ -59,6 +68,9 @@ export default defineComponent({
   box-shadow: 0 1px 2px #000;
   &--theme-changed {
     background-color: #333;
+  }
+  &--collapsed {
+    @include animated-hinge(top, right);
   }
   &__icons {
     @include center-styling;

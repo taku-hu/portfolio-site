@@ -56,27 +56,33 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, computed } from 'vue';
+
+type ProfileType = {
+  title: string;
+  information: string;
+  link: string;
+}
 
 export default defineComponent({
   setup(_, context) {
     const state = reactive({
       now: {
-        year: '',
+        year: 0,
         month: '',
-        day: ''
+        day: 0
       },
       profileData: [
         {
           title: 'Name',
           information: 'Takeuchi Takuto',
-          link: null
+          link: ''
         },
         {
           title: 'Background',
           information: 'Bachelor of International Economics / Hosei University',
-          link: null
+          link: ''
         },
         {
           title: 'Qiita',
@@ -97,7 +103,7 @@ export default defineComponent({
         {
           title: 'Contact',
           information: 'hs.tm.ec.a.tt@gmail.com',
-          link: null
+          link: ''
         }
       ]
     });
@@ -137,7 +143,7 @@ export default defineComponent({
     const changeTheme = () => {
       context.emit('change-theme');
     };
-    const openLink = data => {
+    const openLink = (data: ProfileType) => {
       if (!data.link) return;
       open(data.link, '_blank');
     };

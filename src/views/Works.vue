@@ -39,8 +39,15 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from 'vue';
+
+type WorkType = {
+  name: string;
+  title: string;
+  link: string;
+  description: string;
+}
 
 export default defineComponent({
   setup() {
@@ -77,12 +84,12 @@ export default defineComponent({
         }
       ],
       modal: {
-        data: '',
+        data: {} as WorkType,
         isActive: false
       }
     });
 
-    const openModal = work => {
+    const openModal = (work: WorkType) => {
       state.modal.data = work;
       state.modal.isActive = true;
     };

@@ -11,7 +11,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive } from 'vue';
 
 import hljs from 'highlight.js/lib/core';

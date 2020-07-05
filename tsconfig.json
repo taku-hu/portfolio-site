@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "vue-sweetalert2"
+      "highlight.js"
     ],
     "paths": {
       "@/*": [

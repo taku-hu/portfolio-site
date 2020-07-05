@@ -1,5 +1,13 @@
 <template>
-  <footer :class="['footer', { 'footer--theme-changed': isThemeChanged }]">
+  <footer
+    :class="[
+      'footer',
+      {
+        'footer--theme-changed': isThemeChanged,
+        'footer--collapsed': isCollapsed
+      }
+    ]"
+  >
     <div class="footer__left">
       <span class="items">
         <i class="fas fa-code-branch"></i>
@@ -44,12 +52,13 @@
   </footer>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, computed } from 'vue';
 
 export default defineComponent({
   props: {
-    isThemeChanged: Boolean
+    isThemeChanged: Boolean,
+    isCollapsed: Boolean
   },
   setup(props) {
     const state = reactive({
@@ -79,6 +88,9 @@ export default defineComponent({
   user-select: none;
   &--theme-changed {
     background-color: $base-blue;
+  }
+  &--collapsed {
+    @include animated-hinge(bottom, right);
   }
   &__left {
     margin-left: 1rem;

@@ -9,7 +9,7 @@
     "typesync": "typesync"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "highlight.js": "^10.1.1",
     "reset-css": "^5.0.1",
     "typeface-open-sans": "0.0.75",

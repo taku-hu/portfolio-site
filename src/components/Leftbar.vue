@@ -65,7 +65,7 @@ export default defineComponent({
   height: 100%;
   font-size: 1.5rem;
   background-color: #343746;
-  box-shadow: 0 1px 2px #000;
+  box-shadow: 0 1px 2px -1px #000;
   &--theme-changed {
     background-color: #333;
   }

@@ -75,7 +75,7 @@ export default defineComponent({
     isCollapsed: Boolean,
     currentPage: String
   },
-  setup() {
+  setup(_, context) {
     const state = reactive({
       accordions: [
         {
@@ -110,7 +110,7 @@ export default defineComponent({
               link: '/'
             },
             {
-              icon: '<i class="fas fa-user-circle">',
+              icon: '<i class="far fa-address-card"></i>',
               name: 'About',
               link: '/about'
             },
@@ -120,9 +120,14 @@ export default defineComponent({
               link: '/skills'
             },
             {
-              icon: '<i class="far fa-address-card"></i>',
+              icon: '<i class="fas fa-briefcase"></i>',
               name: 'Works',
               link: '/works'
+            },
+            {
+              icon: '<i class="fas fa-mail-bulk"></i>',
+              name: 'Contact',
+              link: ''
             }
           ]
         }
@@ -140,7 +145,11 @@ export default defineComponent({
 
     const transitionPage = (accordion: AccordionType, path: PathType) => {
       if (accordion.labelName === 'pages') {
-        router.push({ path: path.link });
+        if(path.name === 'Contact') {
+          context.emit('toggle-contact-form');
+        } else {
+          router.push({ path: path.link });
+        }
       } else {
         open(path.link, '_blank');
       }
@@ -203,27 +212,28 @@ export default defineComponent({
       height: 1.3rem;
       line-height: 1.3rem;
       font-size: 0.7rem;
-      .fa-vuejs {
-        color: #41b883;
-      }
       .fa-quora {
         color: #55c500;
       }
-      .fa-file {
-        color: #0d79cc;
+      .fa-vuejs {
+        color: #41b883;
       }
       .fa-home {
-        color: #ff4500;
-      }
-      .fa-user-circle {
-        color: #0d79cc;
-      }
-      .fa-wrench {
-        color: #ffd700;
+        color: #F0675F;
       }
       .fa-address-card {
-        color: #32cd32;
+        color: #108FB7;
       }
+      .fa-wrench {
+        color: #FFED39;
+      }
+      .fa-briefcase {
+        color: #29A7A3;
+      }
+      .fa-mail-bulk {
+        color: #287DC0;
+      }
+      
     } //__body
     &__links {
       @include button-sizing;

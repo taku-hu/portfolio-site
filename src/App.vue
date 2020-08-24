@@ -11,6 +11,7 @@
         :isThemeChanged="state.isThemeChanged"
         :isCollapsed="state.isCollapsed"
         :currentPage="state.currentPage"
+        @toggle-contact-form="toggleContactForm"
       />
 
       <main
@@ -48,6 +49,11 @@
       </main>
     </div>
 
+    <contact-form-component
+      :isFormOpen="state.isFormOpen"
+      @toggle-contact-form="toggleContactForm"
+    />
+
     <footer-component
       :isThemeChanged="state.isThemeChanged"
       :isCollapsed="state.isCollapsed"
@@ -70,13 +76,15 @@ import LeftbarComponent from '@/components/Leftbar.vue';
 import ExplorerComponent from '@/components/Explorer.vue';
 import FooterComponent from '@/components/Footer.vue';
 import DesktopIconComponent from '@/components/DesktopIcon.vue';
+import ContactFormComponent from '@/components/ContactForm.vue';
 
 export default defineComponent({
   components: {
     LeftbarComponent,
     ExplorerComponent,
     FooterComponent,
-    DesktopIconComponent
+    DesktopIconComponent,
+    ContactFormComponent
   },
   setup() {
     const getInnerVh = () => {
@@ -92,9 +100,13 @@ export default defineComponent({
       isThemeChanged: false,
       isCollapsed: false,
       isShowIcon: false,
+      isFormOpen: false,
       currentPage: computed(() => router.currentRoute.value.name)
     });
 
+    const toggleContactForm = () => {
+      state.isFormOpen = !state.isFormOpen;
+    };
 
     const changeTheme = () => {
       const response = confirm('Change color theme?');
@@ -105,7 +117,9 @@ export default defineComponent({
 
     const closeTab = () => {
       const response = confirm(
-        `Do you want to save the changes you made to ${String(state.currentPage)}.vue?`
+        `Do you want to save the changes you made to ${String(
+          state.currentPage
+        )}.vue?`
       );
       if (response) {
         state.isCollapsed = true;
@@ -114,13 +128,13 @@ export default defineComponent({
     watch(
       () => state.isCollapsed,
       () => {
-        if(state.isCollapsed) {
+        if (state.isCollapsed) {
           setTimeout(() => {
             state.isShowIcon = true;
-          }, 2000)
+          }, 2000);
         }
       }
-    )
+    );
     const openEditor = () => {
       const response = confirm(
         `Do you want to open My-Portfolio-Site in Visual Studio Code?`
@@ -128,15 +142,16 @@ export default defineComponent({
       if (response) {
         state.isCollapsed = false;
         state.isShowIcon = false;
-        router.push({path: '/'});
+        router.push({ path: '/' });
       }
-    }
+    };
 
     return {
       state,
+      toggleContactForm,
       closeTab,
       openEditor,
-      changeTheme,
+      changeTheme
     };
   }
 });
@@ -149,7 +164,8 @@ html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
-  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ',
+    Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
   color: #fff;
 }
 a {
@@ -171,7 +187,7 @@ a {
   width: calc(100% - 12rem);
   height: 100%;
   background-color: #191a21;
-  box-shadow: 0 -1px 2px #000;
+  box-shadow: 0 -1px 2px -1px #000;
   &--theme-changed {
     background-color: #2d2d2d;
   }

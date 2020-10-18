@@ -75,7 +75,7 @@ export default defineComponent({
     isCollapsed: Boolean,
     currentPage: String
   },
-  setup(_, context) {
+  setup() {
     const state = reactive({
       accordions: [
         {
@@ -90,9 +90,14 @@ export default defineComponent({
           ]
         },
         {
-          labelName: 'blog',
+          labelName: 'posts',
           isOpen: true,
           paths: [
+            {
+              icon: '<i class="fas fa-blog"></i>',
+              name: 'blog',
+              link: 'https://taku-hu-blog.netlify.app/'
+            },
             {
               icon: '<i class="fab fa-quora"></i>',
               name: 'Qiita',
@@ -123,11 +128,6 @@ export default defineComponent({
               icon: '<i class="fas fa-briefcase"></i>',
               name: 'Works',
               link: '/works'
-            },
-            {
-              icon: '<i class="fas fa-mail-bulk"></i>',
-              name: 'Contact',
-              link: ''
             }
           ]
         }
@@ -135,9 +135,7 @@ export default defineComponent({
     });
 
     const toggleAccordion = (accordion: AccordionType) => {
-      const selected = state.accordions.find(
-        accordions => accordions.labelName === accordion.labelName
-      );
+      const selected = state.accordions.find(accordions => accordions.labelName === accordion.labelName);
       if(selected) {
         selected.isOpen = !selected.isOpen;
       }
@@ -145,11 +143,7 @@ export default defineComponent({
 
     const transitionPage = (accordion: AccordionType, path: PathType) => {
       if (accordion.labelName === 'pages') {
-        if(path.name === 'Contact') {
-          context.emit('toggle-contact-form');
-        } else {
-          router.push({ path: path.link });
-        }
+        router.push({ path: path.link });
       } else {
         open(path.link, '_blank');
       }
@@ -212,6 +206,9 @@ export default defineComponent({
       height: 1.3rem;
       line-height: 1.3rem;
       font-size: 0.7rem;
+      .fa-blog {
+        color: #287dc0
+      }
       .fa-quora {
         color: #55c500;
       }

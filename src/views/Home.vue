@@ -1,20 +1,21 @@
 <template>
   <section class="home">
-    <div
-      :class="['home__lines', { 'home__lines--theme-changed': isThemeChanged }]"
-    >
+    <div :class="['home__lines', { 'home__lines--theme-changed': isThemeChanged }]">
       <p v-for="n in 100" :key="n">{{ n }}</p>
     </div>
     <div class="home__body">
-      <pre><code class="language-typescript" v-html="state.code"></code></pre>
+      <pre>
+        <code class="language-typescript" v-html="state.code" />
+      </pre>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, onMounted } from 'vue';
 
-import hljs from 'highlight.js/lib/core';
+
+import hljs from 'highlight.js';
 import typescript from 'highlight.js/lib/languages/typescript';
 hljs.registerLanguage('typescript', typescript);
 import 'highlight.js/styles/dracula.css';
@@ -27,9 +28,8 @@ export default defineComponent({
     const state = reactive({
       code: ''
     });
-
-    const code = hljs.highlightAuto(
-      `//Thank you for visiting.
+    const code = hljs.highlightAuto(`
+//Thank you for visiting.
 //This is my portfolio site.
 
 console.log('Hello Hackers!');
@@ -56,14 +56,18 @@ const me = new Profile(
 
 me.getAge(1993);
 
-console.log('Nice to meet you!');`
-    ).value;
+console.log('Nice to meet you!');
+    `).value;
 
-    [...code].forEach((string, index) => {
-      setTimeout(() => {
-        state.code += string;
-      }, 10 * index);
-    });
+    const typingCode = () => {
+      [...code].forEach((string, index) => {
+        setTimeout(() => {
+          state.code += string;
+        }, 10 * index);
+      });
+    }
+
+    onMounted(typingCode);
 
     return {
       state
@@ -80,7 +84,6 @@ console.log('Nice to meet you!');`
   width: 100%;
   height: 100%;
   font-size: 0.8rem;
-  overflow-x: scroll;
   overflow: hidden;
   &__lines {
     color: #374178;
@@ -97,12 +100,12 @@ console.log('Nice to meet you!');`
   &__body {
     width: 100%;
     height: 100%;
+    overflow-x: auto;
     pre,
     code {
       width: 100%;
       height: 100%;
       line-height: 1.2rem;
-      overflow-x: scroll;
     }
   }
 }

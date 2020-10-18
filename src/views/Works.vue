@@ -1,13 +1,13 @@
 <template>
   <section class="works">
-    <h2 class="works__heading">My WORKS</h2>
+    <CommonPageHeading class="works__heading">My WORKS</CommonPageHeading>
 
     <div class="works__wrapper">
       <div class="work" v-for="work in state.works" :key="work.name">
         <h2 class="work__name">{{ work.name }}</h2>
         <img
           class="work__image"
-          :src="require(`@/assets/images/${work.title}.png`)"
+          :src="require(`@/assets/images/${work.image}.png`)"
           @click="openModal(work)"
         />
       </div>
@@ -25,7 +25,7 @@
             >
               <img
                 class="modal__image"
-                :src="require(`@/assets/images/${state.modal.data.title}.png`)"
+                :src="require(`@/assets/images/${state.modal.data.image}.png`)"
               />
             </a>
             <p
@@ -42,6 +42,8 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+
 type WorkType = {
   name: string;
   title: string;
@@ -50,22 +52,34 @@ type WorkType = {
 }
 
 export default defineComponent({
+  components: {
+    CommonPageHeading
+  },
   setup() {
     const state = reactive({
       works: [
         {
           name: 'Portfolio Site',
-          title: 'Portfolio-site',
+          image: 'portfolio-site',
           link: 'https://github.com/taku-hu/portfolio-site',
           description: `
             私が初めて作ったもので、私のポートフォリオサイトです。<br>
-            コーディングに慣れるために、あえてほぼフルスクラッチで実装しました。
+            コーディングに慣れるために、あえてほぼフルスクラッチで実装しました。<br>
             最近Vue3 + compositionAPI + TypeScriptにリプレイスしました。
           `
         },
         {
+          name: 'Tech Blog',
+          image: 'blog',
+          link: 'https://taku-hu-blog.netlify.app/',
+          description: `
+            Nuxt + TypeScript + Tailwind + Contentfulで作ったブログです。<br>
+            SSGで開発しているため、PageSpeed Insightsの結果はモバイル99点・PC100点でした。
+          `
+        },
+        {
           name: 'Online Bookshelf',
-          title: 'Bookshelf',
+          image: 'bookshelf',
           link: 'https://book-manager-app-9ae82.firebaseapp.com/',
           description: `
             私が勉強したての時に初めて作ったウェブアプリケーションです。<br>
@@ -75,7 +89,7 @@ export default defineComponent({
         },
         {
           name: 'Typing Game',
-          title: 'Typing-app',
+          image: 'typing-app',
           link: 'https://taku-hu.github.io/typing-app/',
           description: `
             Vueの理解を深めるために作ったタイピングゲームです。<br>
@@ -115,11 +129,7 @@ export default defineComponent({
   text-align: center;
   &__heading {
     width: 65%;
-    font-size: 2.5rem;
-    font-family: 'Open Sans', sans-serif;
-    border-bottom: 2px solid #4f505a;
     text-align: left;
-    padding: 3rem 0 1rem;
     margin: 0 auto 1.5rem;
   }
   &__wrapper {

@@ -1,35 +1,31 @@
 <template>
   <section class="skills">
     <div class="skills__wrapper">
-      <h2 class="skills__heading">My SKILLS</h2>
+      <CommonPageHeading>
+        My SKILLS
+      </CommonPageHeading>
       <p class="skills__sentence">
         現在の私のスキルです。<br />
         フロントエンドのJS周りがコアスキルです。
       </p>
-      <p class="skills__bar">
-        <a
-          class="skills__clickable-marker"
-          href="https://github.com/taku-hu"
-          target="_blank"
-        >
+      <CommonLabel>
+        <a class="skills__clickable-marker" href="https://github.com/taku-hu" target="_blank">
           GitHub
         </a>
         にコードを公開しているので、よければ御覧ください。
-      </p>
+      </CommonLabel>
       <ul class="skills__list">
         <li
           class="skills__list-item"
           v-for="skill in state.skills"
           :key="skill.name"
-          :style="{
-            backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})`
-          }"
+          :style="{ backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})` }"
         >
           <span class="skills__marker">
             {{ skill.name }}
           </span>
           &nbsp;-&nbsp;
-          <span v-html="skill.details"></span>
+          <span v-html="skill.details" />
         </li>
       </ul>
     </div>
@@ -39,7 +35,14 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 
+import CommonLabel from '@/components/common/CommonLabel.vue';
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+
 export default defineComponent({
+  components: {
+    CommonLabel,
+    CommonPageHeading
+  },
   setup() {
     const state = reactive({
       skills: [
@@ -47,7 +50,8 @@ export default defineComponent({
           name: 'HTML・CSS',
           details: `
             両方共に問題なく扱えます。<br>
-            BEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。
+            BEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。<br>
+            使用経験のあるUIフレームワーク： Bootstrap・Bulma・Vuetify・Material UI・Tailwind
           `
         },
         {
@@ -67,15 +71,21 @@ export default defineComponent({
           name: 'TypeScript',
           details: `
             現在業務でメインで使っており、最も関心のある言語です。<br>
-            業務ではVue + TypeScriptでの開発を行っています。
+            業務ではVue(Nuxt) + TypeScriptでの開発をメインに行っています。
           `
         },
         {
           name: 'Vue.js',
           details: `
             現在業務でメインで使っているフレームワークです。<br>
-            WORKSに載せているポートフォリオも全てVue.jsで開発しました。<br>
-            最近はVue3に備えて、Vue3 beta + compositionAPIも触っています。
+            最近は業務で使うときに備えてvue3をちょこちょこ触っています。
+          `
+        },
+        {
+          name: 'Nuxt.js',
+          details: `
+            現在業務でメインで使っているフレームワークです。<br>
+            WORKSに載せているブログはNuxt.jsを用いて開発しました。<br>
           `
         },
         {
@@ -84,6 +94,20 @@ export default defineComponent({
             最近最も関心を持っているライブラリです。<br>
             Vue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。<br>
             現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。
+          `
+        },
+        {
+          name: 'Dart',
+          details: `
+            会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。<br>
+            JavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えたと思います。
+          `
+        },
+        {
+          name: 'Flutter',
+          details: `
+            会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。<br>
+            単機能のみのプロトタイプアプリでしたが、一応Google Play・App Storeにてリリースまでこぎつけました。<br>
           `
         },
         {
@@ -137,13 +161,6 @@ export default defineComponent({
     text-decoration: underline #fff;
     cursor: pointer;
   }
-  &__heading {
-    width: 100%;
-    font-size: 2.5rem;
-    border-bottom: 2px solid #4f505a;
-    padding: 3rem 0 1rem;
-    margin-bottom: 1.5rem;
-  }
   &__sentence {
     width: 100%;
     line-height: 1.5;
@@ -162,15 +179,6 @@ export default defineComponent({
     box-sizing: border-box;
     padding-left: 1.8rem;
     margin-bottom: 0.8rem;
-  }
-  &__bar {
-    width: 100%;
-    font-size: 1rem;
-    background-color: #31333d;
-    border-left: 5px solid $base-blue;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    margin-bottom: 2rem;
   }
 }
 

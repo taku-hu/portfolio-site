@@ -55,9 +55,8 @@
 
 <div class="url">
   <h1>URL</h1>
-  <a href="https://taku-hu.firebaseapp.com" target="_blank">
-    https://taku-hu.firebaseapp.com
-  </a>
+  <a href="https://taku-hu.web.app/" target="_blank">
+    https://taku-hu.web.app/  </a>
 </div>
 
 <br>
@@ -67,7 +66,7 @@
 <div class="author">
   <h1>Author</h1> 
   <p>
-    <a href="https://taku-hu.firebaseapp.com/" target="_blank">・Website</a>
+    <a href="https://taku-hu.web.app/" target="_blank">・Website</a>
   </p>
   <p>
     <a href="https://github.com/taku-hu" target="_blank">・GitHub</a></p>

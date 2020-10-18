@@ -1,12 +1,9 @@
 <template>
   <section class="about">
     <div class="about__wrapper">
-      <h2 class="about__heading">
-        {{ state.now.month }}
-        {{ state.now.day }}{{ suffix }}
-        {{ state.now.year }}
-        version
-      </h2>
+      <CommonPageHeading>
+        {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} version
+      </CommonPageHeading>
       <p class="about__sentence">
         Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
       </p>
@@ -21,24 +18,16 @@
           ></a>
         </li>
       </ul>
-      <p class="about__bar">
+      <CommonLabel>
         If you'd like to know more about me go to
-        <a
-          class="about__clickable-marker"
-          href="https://www.wantedly.com/users/124833407"
-          target="_blank"
-        >
+        <a class="about__clickable-marker" href="https://www.wantedly.com/users/124833407" target="_blank">
           Profile
         </a>
         on
-        <a 
-          class="about__clickable-marker"
-          href="https://github.com/taku-hu"
-          target="_blank"
-        >
+        <a class="about__clickable-marker" href="https://github.com/taku-hu" target="_blank">
           GitHub
-        </a>.
-      </p>
+        </a>
+      </CommonLabel>
       <h3 class="about__subheading">
         New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }}
         {{ state.now.year }}
@@ -59,6 +48,9 @@
 <script lang="ts">
 import { defineComponent, reactive, computed } from 'vue';
 
+import CommonLabel from '@/components/common/CommonLabel.vue';
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+
 type ProfileType = {
   title: string;
   information: string;
@@ -66,6 +58,10 @@ type ProfileType = {
 }
 
 export default defineComponent({
+  components: {
+    CommonLabel,
+    CommonPageHeading
+  },
   setup(_, context) {
     const state = reactive({
       now: {
@@ -185,13 +181,6 @@ export default defineComponent({
     @extend .about__marker;
     @extend .about__link;
   }
-  &__heading {
-    width: 100%;
-    font-size: 2.5rem;
-    border-bottom: 2px solid #4f505a;
-    padding: 3rem 0 1rem;
-    margin-bottom: 1.5rem;
-  }
   &__sentence {
     width: 100%;
     line-height: 1.5;
@@ -205,15 +194,6 @@ export default defineComponent({
       line-height: 1.5;
       margin-bottom: 0.5rem;
     }
-  }
-  &__bar {
-    width: 100%;
-    font-size: 1rem;
-    background-color: #31333d;
-    border-left: 5px solid $base-blue;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-    margin-bottom: 2rem;
   }
   &__subheading {
     width: 100%;

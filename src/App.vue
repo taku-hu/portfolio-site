@@ -49,11 +49,6 @@
       </main>
     </div>
 
-    <contact-form-component
-      :isFormOpen="state.isFormOpen"
-      @toggle-contact-form="toggleContactForm"
-    />
-
     <footer-component
       :isThemeChanged="state.isThemeChanged"
       :isCollapsed="state.isCollapsed"
@@ -69,44 +64,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, watch } from 'vue';
+import { defineComponent, reactive, computed, watch, onMounted } from 'vue';
 import router from '@/router';
 
 import LeftbarComponent from '@/components/Leftbar.vue';
 import ExplorerComponent from '@/components/Explorer.vue';
 import FooterComponent from '@/components/Footer.vue';
 import DesktopIconComponent from '@/components/DesktopIcon.vue';
-import ContactFormComponent from '@/components/ContactForm.vue';
 
 export default defineComponent({
   components: {
     LeftbarComponent,
     ExplorerComponent,
     FooterComponent,
-    DesktopIconComponent,
-    ContactFormComponent
+    DesktopIconComponent
   },
   setup() {
     const getInnerVh = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
-    getInnerVh();
-    window.addEventListener('resize', () => {
+
+    onMounted(() => {
       getInnerVh();
+      window.addEventListener('resize', () => {
+        getInnerVh();
+      });
     });
 
     const state = reactive({
       isThemeChanged: false,
       isCollapsed: false,
       isShowIcon: false,
-      isFormOpen: false,
       currentPage: computed(() => router.currentRoute.value.name)
     });
-
-    const toggleContactForm = () => {
-      state.isFormOpen = !state.isFormOpen;
-    };
 
     const changeTheme = () => {
       const response = confirm('Change color theme?');
@@ -125,6 +116,7 @@ export default defineComponent({
         state.isCollapsed = true;
       }
     };
+
     watch(
       () => state.isCollapsed,
       () => {
@@ -139,7 +131,7 @@ export default defineComponent({
       const response = confirm(
         `Do you want to open My-Portfolio-Site in Visual Studio Code?`
       );
-      if (response) {
+      if(response) {
         state.isCollapsed = false;
         state.isShowIcon = false;
         router.push({ path: '/' });
@@ -148,7 +140,6 @@ export default defineComponent({
 
     return {
       state,
-      toggleContactForm,
       closeTab,
       openEditor,
       changeTheme
@@ -233,7 +224,7 @@ a {
     width: 100%;
     height: calc(100% - 2.3rem);
     background-color: #282a35;
-    overflow-y: scroll;
+    overflow-y: auto;
     &--theme-changed {
       background-color: #1e1e1e;
     }

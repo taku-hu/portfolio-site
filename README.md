@@ -1,13 +1,13 @@
 <div class="image">
   <p align="center">
-    <a href="https://taku-hu.firebaseapp.com">
+    <a href="https://taku-hu.web.app">
       <img src="https://user-images.githubusercontent.com/54551190/78898044-1a28c880-7aae-11ea-9551-c1ec5dc3b1d6.png" width="300">
     </a>
   </p>
   <br>
   <p align="center">
-    <a href="https://taku-hu.firebaseapp.com" target="_blank">
-      https://taku-hu.firebaseapp.com
+    <a href="https://taku-hu.web.app" target="_blank">
+      https://taku-hu.web.app
     </a>
   </p>
 </div>
@@ -65,12 +65,18 @@
 
 <div class="author">
   <h1>Author</h1> 
-  <p>
-    <a href="https://taku-hu.web.app/" target="_blank">・Website</a>
-  </p>
-  <p>
-    <a href="https://github.com/taku-hu" target="_blank">・GitHub</a></p>
-  <p>
-    <a href="https://qiita.com/taku-hu" target="_blank">・Qiita</a>
-  </p>
+  <ul>
+    <li>
+      <a href="https://taku-hu.web.app/" target="_blank">Website</a>
+    </li>
+    <li>
+      <a href="https://taku-hu.netlify.app/" target="_blank">Blog</a>
+    </li>
+    <li>
+      <a href="https://github.com/taku-hu" target="_blank">GitHub</a>
+    </li>
+    <li>
+      <a href="https://qiita.com/taku-hu" target="_blank">Qiita</a>
+    </li>
+  </ul>
 </div>

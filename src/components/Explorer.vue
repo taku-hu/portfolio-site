@@ -30,8 +30,8 @@
             'fas',
             'fa-angle-down',
             { 'accordion__icon--close': !accordion.isOpen }
-          ]"
-        ></i>
+          ]" 
+        />
         {{ accordion.labelName }}
       </div>
       <div class="accordion__body" v-show="accordion.isOpen">
@@ -203,8 +203,6 @@ export default defineComponent({
       }
     }
     &__body {
-      height: 1.3rem;
-      line-height: 1.3rem;
       font-size: 0.7rem;
       .fa-blog {
         color: #287dc0
@@ -230,11 +228,12 @@ export default defineComponent({
       .fa-mail-bulk {
         color: #287DC0;
       }
-      
     } //__body
     &__links {
       @include button-sizing;
       display: block;
+      height: 1.3rem;
+      line-height: 1.3rem;
       box-sizing: border-box;
       cursor: pointer;
       padding-left: 1.5rem;

@@ -11,7 +11,6 @@
         :isThemeChanged="state.isThemeChanged"
         :isCollapsed="state.isCollapsed"
         :currentPage="state.currentPage"
-        @toggle-contact-form="toggleContactForm"
       />
 
       <main

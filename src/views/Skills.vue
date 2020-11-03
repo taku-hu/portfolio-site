@@ -21,7 +21,7 @@
       <ul :class="$style.skills__list">
         <li
           :class="$style['skills__list-item']"
-          v-for="skill in state.skills"
+          v-for="skill in skills"
           :key="skill.name"
           :style="{ backgroundImage: `url(${require(`@/assets/images/${skill.name}.png`)})` }"
         >
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 
 import CommonLabel from '@/components/common/CommonLabel.vue';
 import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
@@ -48,81 +48,59 @@ export default defineComponent({
     CommonPageHeading
   },
   setup() {
-    const state = reactive({
-      skills: [
-        {
-          name: 'HTML・CSS',
-          details: `両方共に問題なく扱えます。
-BEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。
-使用経験のあるUIフレームワーク： Bootstrap・Vuetify・Material UI・Tailwind
-          `
-        },
-        {
-          name: 'Sass',
-          details: '開発に必要な機能は十分に理解しています。'
-        },
-        {
-          name: 'JavaScript',
-          details: `私が最も得意としている言語です。
-当然ES6以降の文法も十分に理解しています。
-          `
-        },
-        {
-          name: 'TypeScript',
-          details: `現在業務でメインで使っており、最も関心のある言語です。
-業務ではVue(Nuxt) + TypeScriptでの開発をメインに行っています。
-          `
-        },
-        {
-          name: 'Vue.js',
-          details: `現在業務でメインで使っているフレームワークです。
-最近は業務で使うときに備えてvue3をちょこちょこ触っています。
-          `
-        },
-        {
-          name: 'Nuxt.js',
-          details: `現在業務でメインで使っているフレームワークです。
-WORKSに載せているブログはNuxt.jsを用いて開発しました。
-          `
-        },
-        {
-          name: 'React',
-          details: `最近最も関心を持っているライブラリです。
-Vue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。
-現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。
-          `
-        },
-        {
-          name: 'Dart',
-          details: `会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。
-JavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えたと思います。
-          `
-        },
-        {
-          name: 'Flutter',
-          details: `会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。
-単機能のみのプロトタイプアプリでしたが、一応Google Play・App Storeにてリリースまでこぎつけました。
-          `
-        },
-        {
-          name: 'Firebase',
-          details: `本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。
-概要は理解していますが、より使いこなせるように更なる学習を重ねています。
-          `
-        },
-        {
-          name: 'Git・Github',
-          details: 'Git Flow・Github Flowを理解しており、git・githubを用いた複数人での開発が行えます。'
-        },
-        {
-          name: 'webpack',
-          details: '主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。'
-        }
-      ]
-    });
+    const skills = [
+      {
+        name: 'HTML・CSS',
+        details: '両方共に問題なく扱えます。\nBEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。'
+      },
+      {
+        name: 'Sass',
+        details: '開発に必要な機能は十分に理解しています。'
+      },
+      {
+        name: 'JavaScript',
+        details: '私が最も得意としている言語です。\n当然ES6以降の文法も十分に理解しています。'
+      },
+      {
+        name: 'TypeScript',
+        details: '現在業務でメインで使っており、最も関心のある言語です。\n業務ではVue(Nuxt) + TypeScriptでの開発をメインに行っています。'
+      },
+      {
+        name: 'Vue.js',
+        details: '現在業務でメインで使っているフレームワークです。\nバージョンは2と3(composition api)両方とも扱えます。'
+      },
+      {
+        name: 'Nuxt.js',
+        details: '現在業務でメインで使っているフレームワークです。\nWORKSに載せているブログはNuxt.jsを用いて開発しました。'
+      },
+      {
+        name: 'React',
+        details: '最近最も関心を持っているライブラリです。\nVue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。\n現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。'
+      },
+      {
+        name: 'Dart',
+        details: '会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。\nJavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えたと思います。'
+      },
+      {
+        name: 'Flutter',
+        details: '会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。\n単機能のみのプロトタイプアプリでしたが、一応Google Play・App Storeにてリリースまでこぎつけました。'
+      },
+      {
+        name: 'Firebase',
+        details: '本棚アプリにて、Cloud Firestoreを使用したデータベースの機能と、Authenticationを使用したグーグルアカウントでのログイン機能を実装するのに使用しました。\n概要は理解していますが、より使いこなせるように更なる学習を重ねています。'
+      },
+      {
+        name: 'Git・Github',
+        details: 'Git Flow・Github Flowを理解しており、git・githubを用いた複数人での開発が行えます。'
+      },
+      {
+        name: 'webpack',
+        details: '主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。'
+      }
+    ];
 
     return {
-      state
+      skills
     };
   }
 });

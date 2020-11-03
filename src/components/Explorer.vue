@@ -11,7 +11,7 @@
 
     <div
       :class="$style.accordion"
-      v-for="accordion in state.accordions"
+      v-for="accordion in accordions"
       :key="accordion.labelName"
     >
       <div
@@ -81,77 +81,75 @@ export default defineComponent({
     currentPage: String
   },
   setup() {
-    const state = reactive({
-      accordions: [
-        {
-          labelName: 'OPEN EDITORS',
-          isOpen: true,
-          paths: [
-            {
-              icon: faVuejs,
-              color: '#41b883',
-              name: 'MySite',
-              link: 'https://github.com/taku-hu/portfolio-site'
-            }
-          ]
-        },
-        {
-          labelName: 'posts',
-          isOpen: true,
-          paths: [
-            {
-              icon: faBlog,
-              color: '#287dc0',
-              name: 'blog',
-              link: 'https://taku-hu-blog.netlify.app/'
-            },
-            {
-              icon: faQuora,
-              color: '#55c500',
-              name: 'Qiita',
-              link: 'https://qiita.com/taku-hu'
-            }
-          ]
-        },
-        {
-          labelName: 'pages',
-          isOpen: true,
-          paths: [
-            {
-              icon: faHome,
-              color: '#F0675F',
-              name: 'Home',
-              link: '/'
-            },
-            {
-              icon: faAddressCard,
-              color: '#108FB7',
-              name: 'About',
-              link: '/about'
-            },
-            {
-              icon: faWrench,
-              color: '#FFED39',
-              name: 'Skills',
-              link: '/skills'
-            },
-            {
-              icon: faBriefcase,
-              color: '#29A7A3',
-              name: 'Works',
-              link: '/works'
-            }
-          ]
-        }
-      ]
-    });
+    const accordions = reactive([
+      {
+        labelName: 'OPEN EDITORS',
+        isOpen: true,
+        paths: [
+          {
+            icon: faVuejs,
+            color: '#41b883',
+            name: 'MySite',
+            link: 'https://github.com/taku-hu/portfolio-site'
+          }
+        ]
+      },
+      {
+        labelName: 'posts',
+        isOpen: true,
+        paths: [
+          {
+            icon: faBlog,
+            color: '#287dc0',
+            name: 'blog',
+            link: 'https://taku-hu-blog.netlify.app/'
+          },
+          {
+            icon: faQuora,
+            color: '#55c500',
+            name: 'Qiita',
+            link: 'https://qiita.com/taku-hu'
+          }
+        ]
+      },
+      {
+        labelName: 'pages',
+        isOpen: true,
+        paths: [
+          {
+            icon: faHome,
+            color: '#F0675F',
+            name: 'Home',
+            link: '/'
+          },
+          {
+            icon: faAddressCard,
+            color: '#108FB7',
+            name: 'About',
+            link: '/about'
+          },
+          {
+            icon: faWrench,
+            color: '#FFED39',
+            name: 'Skills',
+            link: '/skills'
+          },
+          {
+            icon: faBriefcase,
+            color: '#29A7A3',
+            name: 'Works',
+            link: '/works'
+          }
+        ]
+      }
+    ]);
 
     const icons = {
       faAngleDown
     }
 
     const toggleAccordion = (accordion: AccordionType) => {
-      const selected = state.accordions.find(accordions => accordions.labelName === accordion.labelName);
+      const selected = accordions.find(accordions => accordions.labelName === accordion.labelName);
       if(selected) {
         selected.isOpen = !selected.isOpen;
       }
@@ -166,7 +164,7 @@ export default defineComponent({
     };
 
     return {
-      state,
+      accordions,
       icons,
       toggleAccordion,
       transitionPage

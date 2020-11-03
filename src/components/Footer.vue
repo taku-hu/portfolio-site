@@ -29,7 +29,7 @@
     </div>
 
     <div :class="$style.footer__right">
-      <span :class="$style.footer__items"> Theme: {{ state.colorTheme }} </span>
+      <span :class="$style.footer__items"> Theme: {{ colorTheme }} </span>
       <span :class="$style.footer__items">UTF-8</span>
       <span :class="$style.footer__items">CRLF</span>
       <span :class="$style.footer__items">TypeScript</span>
@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { faCodeBranch, faCloudUploadAlt, faTimesCircle, faExclamationTriangle, faTools, faChalkboardTeacher, faBell } from '@fortawesome/free-solid-svg-icons'
 
 export default defineComponent({
@@ -54,11 +54,7 @@ export default defineComponent({
     isCollapsed: Boolean
   },
   setup(props) {
-    const state = reactive({
-      colorTheme: computed(() =>
-        props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula'
-      )
-    });
+    const colorTheme = computed(() => props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula')
 
     const icons = {
       faCodeBranch,
@@ -71,7 +67,7 @@ export default defineComponent({
     }
 
     return {
-      state,
+      colorTheme,
       icons
     };
   }

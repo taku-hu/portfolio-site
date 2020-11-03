@@ -2,14 +2,14 @@
   <section :class="$style.about">
     <div :class="$style.about__wrapper">
       <CommonPageHeading>
-        {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} version
+        {{ now.month }} {{ now.day }}{{ suffix }} {{ now.year }} version
       </CommonPageHeading>
       <p :class="$style.about__sentence">
-        Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
+        Welcome to the {{ now.month }} {{ now.day }}{{ suffix }} {{ now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
       </p>
       <ul :class="$style.about__list">
         <li
-          v-for="data in state.profileData"
+          v-for="data in profileData"
           :key="data.title"
         >
           <span :class="$style.about__marker">{{ data.title }}</span>
@@ -48,8 +48,8 @@
         </a>
       </CommonLabel>
       <h3 :class="$style.about__subheading">
-        New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }}
-        {{ state.now.year }}
+        New feature of {{ now.month }} {{ now.day }}{{ suffix }}
+        {{ now.year }}
       </h3>
       <ul :class="$style.about__list">
         <li>
@@ -85,50 +85,53 @@ export default defineComponent({
     CommonLabel,
     CommonPageHeading
   },
-  setup(_, context) {
-    const state = reactive({
-      now: {
-        year: 0,
-        month: '',
-        day: 0
+  setup(_, { emit }) {
+    const profileData = reactive([
+      {
+        title: 'Name',
+        information: 'Takeuchi Takuto',
+        link: ''
       },
-      profileData: [
-        {
-          title: 'Name',
-          information: 'Takeuchi Takuto',
-          link: ''
-        },
-        {
-          title: 'Background',
-          information: 'Bachelor of International Economics / Hosei University',
-          link: ''
-        },
-        {
-          title: 'Qiita',
-          information: 'taku-hu',
-          link: 'https://qiita.com/taku-hu'
-        },
-        {
-          title: 'Github',
-          information: 'taku-hu',
-          link: 'https://github.com/taku-hu'
-        },
-        {
-          title: 'wantedly',
-          information:
-            'Takeuchi Takuto',
-          link: 'https://www.wantedly.com/users/124833407'
-        },
-        {
-          title: 'Contact',
-          information: 'hs.tm.ec.a.tt@gmail.com',
-          link: ''
-        }
-      ]
+      {
+        title: 'Background',
+        information: 'Bachelor of International Economics / Hosei University',
+        link: ''
+      },
+      {
+        title: 'Qiita',
+        information: 'taku-hu',
+        link: 'https://qiita.com/taku-hu'
+      },
+      {
+        title: 'Github',
+        information: 'taku-hu',
+        link: 'https://github.com/taku-hu'
+      },
+      {
+        title: 'wantedly',
+        information:
+          'Takeuchi Takuto',
+        link: 'https://www.wantedly.com/users/124833407'
+      },
+      {
+        title: 'Contact',
+        information: 'hs.tm.ec.a.tt@gmail.com',
+        link: ''
+      }
+    ]);
+
+    const icons = {
+      faMousePointer
+    }
+
+    const now = reactive({
+      year: 0,
+      month: '',
+      day: 0
     });
     const suffix = computed(() => {
-      const date = state.now.day;
-      if ([1, 21, 31].includes(date)) {
+      const date = now.day;
+      if([1, 21, 31].includes(date)) {
         return 'st';
       } else if ([2, 22].includes(date)) {
         return 'nd';
@@ -138,11 +141,6 @@ export default defineComponent({
         return 'th';
       }
     });
-
-    const icons = {
-      faMousePointer
-    }
-
     const setDate = () => {
       const monthNames = [
         'Janualy',
@@ -159,20 +157,21 @@ export default defineComponent({
         'December'
       ];
       const date = new Date();
-      state.now.year = date.getFullYear();
-      state.now.month = monthNames[date.getMonth()];
-      state.now.day = date.getDate();
+      now.year = date.getFullYear();
+      now.month = monthNames[date.getMonth()];
+      now.day = date.getDate();
     };
-    const changeTheme = () => {
-      context.emit('change-theme');
-    };
-
     setDate();
 
+    const changeTheme = () => {
+      emit('change-theme');
+    };
+
     return {
-      state,
-      suffix,
+      profileData,
       icons,
+      now,
+      suffix,
       changeTheme
     };
   }

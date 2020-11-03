@@ -26,17 +26,18 @@ import { defineComponent } from 'vue';
 import { faHandPointRight } from '@fortawesome/free-regular-svg-icons'
 
 export default defineComponent({
-  setup(_, context) {
-    const openEditor = () => {
-      context.emit('open-editor');
-    }
+  setup(_, { emit }) {
     const icons = {
       faHandPointRight
     }
 
+    const openEditor = () => {
+      emit('open-editor');
+    }
+
     return {
-      openEditor,
-      icons
+      icons,
+      openEditor
     }
   }
 })
@@ -47,9 +48,12 @@ export default defineComponent({
 
 .icon {
   @include center-styling;
-  width: 100%;
-  height: 100%;
-  text-align: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
   &__space {
     @include center-styling;
     position: relative;

@@ -1,13 +1,13 @@
 <template>
   <template v-if="!state.isShowIcon">
-    <div class="wrapper">
-      <leftbar-component
+    <div :class="$style.wrapper">
+      <LeftbarComponent
         :isThemeChanged="state.isThemeChanged"
         :isCollapsed="state.isCollapsed"
         @change-theme="changeTheme"
       />
 
-      <explorer-component
+      <ExplorerComponent
         :isThemeChanged="state.isThemeChanged"
         :isCollapsed="state.isCollapsed"
         :currentPage="state.currentPage"
@@ -15,29 +15,35 @@
 
       <main
         :class="[
-          'code',
+          $style.code,
           {
-            'code--theme-changed': state.isThemeChanged,
-            'code--collapsed': state.isCollapsed
+            [$style['code--theme-changed']]: state.isThemeChanged,
+            [$style['code--collapsed']]: state.isCollapsed
           }
         ]"
       >
         <div
           :class="[
-            'code__tag',
-            { 'code__tag--theme-changed': state.isThemeChanged }
+            $style.code__tag,
+            { [$style['code__tag--theme-changed']]: state.isThemeChanged }
           ]"
         >
-          <i class="fab fa-vuejs"></i>
+          <fa
+            :class="$style['tag-icon--vue']"
+            :icon="icons.faVuejs"
+          />
           {{ state.currentPage }}.vue
           <span @click="closeTab">
-            <i class="fas fa-times"></i>
+            <fa
+              :class="$style['tag-icon--times']"
+              :icon="icons.faTimes"
+            />
           </span>
         </div>
         <div
           :class="[
-            'code__field',
-            { 'code__field--theme-changed': state.isThemeChanged }
+            $style.code__field,
+            { [$style['code__field--theme-changed']]: state.isThemeChanged }
           ]"
         >
           <router-view
@@ -48,22 +54,21 @@
       </main>
     </div>
 
-    <footer-component
+    <FooterComponent
       :isThemeChanged="state.isThemeChanged"
       :isCollapsed="state.isCollapsed"
     />
   </template>
 
   <template v-else>
-    <desktop-icon-component
-      :isShowIcon="state.isShowIcon"
-      @open-editor="openEditor"
-    />
+    <DesktopIconComponent @open-editor="openEditor" />
   </template>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, computed, watch, onMounted } from 'vue';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faVuejs } from '@fortawesome/free-brands-svg-icons'
 import router from '@/router';
 
 import LeftbarComponent from '@/components/Leftbar.vue';
@@ -97,6 +102,11 @@ export default defineComponent({
       isShowIcon: false,
       currentPage: computed(() => router.currentRoute.value.name)
     });
+
+    const icons = {
+      faVuejs,
+      faTimes
+    }
 
     const changeTheme = () => {
       const response = confirm('Change color theme?');
@@ -139,6 +149,7 @@ export default defineComponent({
 
     return {
       state,
+      icons,
       closeTab,
       openEditor,
       changeTheme
@@ -148,8 +159,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/_parts.scss';
-
 html {
   font-size: calc(62.5% + 0.5vw);
 }
@@ -166,11 +175,16 @@ a {
 #app {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  overflow: hidden;
 }
+</style>
+
+<style lang="scss" module>
+@import '@/assets/styles/_parts.scss';
+
 .wrapper {
   width: 100%;
   height: calc(100% - 1.5rem);
+  overflow: hidden;
   display: flex;
 }
 .code {
@@ -209,12 +223,12 @@ a {
         display: none;
       }
     }
-    .fa-vuejs {
+    .tag-icon--vue {
       font-size: 1.1rem;
       color: #41b883;
       margin-right: 0.2rem;
     }
-    .fa-times {
+    .tag-icon--times {
       cursor: pointer;
       margin-left: 0.6rem;
     }

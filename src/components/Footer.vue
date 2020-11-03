@@ -1,52 +1,44 @@
 <template>
   <footer
     :class="[
-      'footer',
+      $style.footer,
       {
-        'footer--theme-changed': isThemeChanged,
-        'footer--collapsed': isCollapsed
+        [$style['footer--theme-changed']]: isThemeChanged,
+        [$style['footer--collapsed']]: isCollapsed
       }
     ]"
   >
     <div class="footer__left">
-      <span class="items">
-        <i class="fas fa-code-branch"></i>
+      <span :class="$style.footer__items">
+        <fa :icon="icons.faCodeBranch" />
         master
       </span>
-      <span class="items">
-        <i class="fas fa-cloud-upload-alt"></i>
+      <span :class="$style.footer__items">
+        <fa :icon="icons.faCloudUploadAlt" />
       </span>
-      <span class="items">
-        <i class="far fa-times-circle"></i>
+      <span :class="$style.footer__items">
+        <fa :icon="icons.faTimesCircle" />
         0
-        <i class="fas fa-exclamation-triangle"></i>
+        <fa :icon="icons.faExclamationTriangle" />
         0
       </span>
-      <span class="items">
-        <i class="fas fa-tools"></i>
+      <span :class="$style.footer__items">
+        <fa :icon="icons.faTools" />
         1
       </span>
     </div>
 
-    <div class="footer__right">
-      <span class="items"> Theme: {{ state.colorTheme }} </span>
-      <span class="items">
-        UTF-8
+    <div :class="$style.footer__right">
+      <span :class="$style.footer__items"> Theme: {{ state.colorTheme }} </span>
+      <span :class="$style.footer__items">UTF-8</span>
+      <span :class="$style.footer__items">CRLF</span>
+      <span :class="$style.footer__items">TypeScript</span>
+      <span :class="$style.footer__items">Prettier</span>
+      <span :class="$style.footer__items">
+        <fa :icon="icons.faChalkboardTeacher" />
       </span>
-      <span class="items">
-        CRLF
-      </span>
-      <span class="items">
-        JavaScript
-      </span>
-      <span class="items">
-        Prettier
-      </span>
-      <span class="items">
-        <i class="fas fa-chalkboard-teacher"></i>
-      </span>
-      <span class="items">
-        <i class="far fa-bell"></i>
+      <span :class="$style.footer__items">
+        <fa :icon="icons.faBell" />
       </span>
     </div>
   </footer>
@@ -54,6 +46,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, computed } from 'vue';
+import { faCodeBranch, faCloudUploadAlt, faTimesCircle, faExclamationTriangle, faTools, faChalkboardTeacher, faBell } from '@fortawesome/free-solid-svg-icons'
 
 export default defineComponent({
   props: {
@@ -67,14 +60,25 @@ export default defineComponent({
       )
     });
 
+    const icons = {
+      faCodeBranch,
+      faCloudUploadAlt,
+      faTimesCircle,
+      faExclamationTriangle,
+      faTools,
+      faChalkboardTeacher,
+      faBell
+    }
+
     return {
-      state
+      state,
+      icons
     };
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .footer {
@@ -86,23 +90,16 @@ export default defineComponent({
   background-color: #191a21;
   overflow: hidden;
   user-select: none;
+  box-sizing: border-box;
+  padding: 0 0.5rem;
   &--theme-changed {
     background-color: $base-blue;
   }
   &--collapsed {
     @include animated-hinge(bottom, right);
   }
-  &__left {
-    margin-left: 1rem;
-    .items {
-      margin-right: 0.5rem;
-    }
-  }
-  &__right {
-    margin-right: 1rem;
-    .items {
-      margin-left: 1rem;
-    }
+  &__items {
+    margin: 0 0.5rem;
   }
 }
 </style>

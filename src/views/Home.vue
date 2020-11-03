@@ -1,11 +1,19 @@
 <template>
-  <section class="home">
-    <div :class="['home__lines', { 'home__lines--theme-changed': isThemeChanged }]">
-      <p v-for="n in 100" :key="n">{{ n }}</p>
+  <section :class="$style.home">
+    <div :class="[$style.home__lines, { [$style['home__lines--theme-changed']]: isThemeChanged }]">
+      <p
+        v-for="n in 100"
+        :key="n"
+      >
+        {{ n }}
+      </p>
     </div>
-    <div class="home__body">
+    <div :class="$style.home__body">
       <pre>
-        <code class="language-typescript" v-html="state.code" />
+        <code
+          :class="$style['language-typescript']"
+          v-html="state.code"
+        />
       </pre>
     </div>
   </section>
@@ -76,7 +84,7 @@ console.log('Nice to meet you!');
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .home {

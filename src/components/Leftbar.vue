@@ -1,31 +1,40 @@
 <template>
   <div
     :class="[
-      'left-bar',
+      $style['left-bar'],
       {
-        'left-bar--theme-changed': isThemeChanged,
-        'left-bar--collapsed': isCollapsed,
+        [$style['left-bar--theme-changed']]: isThemeChanged,
+        [$style['left-bar--collapsed']]: isCollapsed,
       }
-    ]
-  ">
+    ]"
+  >
     <div
       :class="[
-        'left-bar__icons',
-        { 'left-bar__icons--theme-changed': isThemeChanged }
+        $style['left-bar__icons'],
+        { 
+          [$style['left-bar__icons--theme-changed']]: isThemeChanged,
+          [$style['left-bar__icons--search']]: icon === manuIcons.faSearch
+        }
       ]"
-      v-for="menuIcon in state.menuIcons"
-      :key="menuIcon"
+      v-for="icon in manuIcons"
+      :key="icon"
     >
-      <span v-html="menuIcon"></span>
+      <fa :icon="icon" />
     </div>
-    <div class="left-bar__settings" @click="changeTheme">
-      <i class="fas fa-cog"></i>
+    <div
+      :class="$style['left-bar__settings']"
+      @click="changeTheme"
+    >
+      <fa :icon="icons.faCog" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
+import { faSearch, faCodeBranch, faBug, faThLarge, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCopy } from '@fortawesome/free-regular-svg-icons'
+import { faGitAlt } from '@fortawesome/free-brands-svg-icons'
 
 export default defineComponent({
   props: {
@@ -33,30 +42,33 @@ export default defineComponent({
     isCollapsed: Boolean
   },
   setup(_, context) {
-    const state = reactive({
-      menuIcons: [
-        '<i class="far fa-copy"></i>',
-        '<i class="fas fa-search"></i>',
-        '<i class="fas fa-code-branch"></i>',
-        '<i class="fab fa-git-alt"></i>',
-        '<i class="fas fa-bug"></i>',
-        '<i class="fas fa-th-large"></i>'
-      ]
-    });
+    const manuIcons = {
+      faCopy,
+      faSearch,
+      faCodeBranch,
+      faGitAlt,
+      faBug,
+      faThLarge
+    }
+
+    const icons = {
+      faCog
+    }
 
     const changeTheme = () => {
       context.emit('change-theme');
     };
 
     return {
-      state,
+      manuIcons,
+      icons,
       changeTheme
     };
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .left-bar {
@@ -93,6 +105,9 @@ export default defineComponent({
         background-color: #9e5b8b;
       }
     }
+    &--search {
+      transform: rotateY(180deg);
+    }
     &--theme-changed {
       color: #858585;
       &:first-child {
@@ -103,9 +118,6 @@ export default defineComponent({
           background-color: #fff;
         }
       }
-    }
-    .fa-search {
-      transform: rotateY(180deg);
     }
   }
   &__settings {

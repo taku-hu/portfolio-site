@@ -1,40 +1,62 @@
 <template>
-  <section class="about">
-    <div class="about__wrapper">
+  <section :class="$style.about">
+    <div :class="$style.about__wrapper">
       <CommonPageHeading>
         {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} version
       </CommonPageHeading>
-      <p class="about__sentence">
+      <p :class="$style.about__sentence">
         Welcome to the {{ state.now.month }} {{ state.now.day }}{{ suffix }} {{ state.now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
       </p>
-      <ul class="about__list">
-        <li v-for="data in state.profileData" :key="data.title">
-          <span class="about__marker">{{ data.title }}</span>
+      <ul :class="$style.about__list">
+        <li
+          v-for="data in state.profileData"
+          :key="data.title"
+        >
+          <span :class="$style.about__marker">{{ data.title }}</span>
           &nbsp;-&nbsp;
-          <a
-            :class="{ about__link: data.link }"
-            @click="openLink(data)"
-            v-html="data.information"
-          ></a>
+          <template v-if="data.link">
+            <a
+              :class="$style.about__link"
+              :href="data.link"
+              target="_blank"
+            >
+              <fa :icon="icons.faMousePointer" />
+              {{ data.information }}
+            </a>
+          </template>
+          <template v-else>
+            {{ data.information }}
+          </template>
         </li>
       </ul>
       <CommonLabel>
         If you'd like to know more about me go to
-        <a class="about__clickable-marker" href="https://www.wantedly.com/users/124833407" target="_blank">
+        <a
+          :class="$style['about__clickable-marker']"
+          href="https://www.wantedly.com/users/124833407"
+          target="_blank"
+        >
           Profile
         </a>
         on
-        <a class="about__clickable-marker" href="https://github.com/taku-hu" target="_blank">
+        <a
+          :class="$style['about__clickable-marker']"
+          href="https://github.com/taku-hu"
+          target="_blank"
+        >
           GitHub
         </a>
       </CommonLabel>
-      <h3 class="about__subheading">
+      <h3 :class="$style.about__subheading">
         New feature of {{ state.now.month }} {{ state.now.day }}{{ suffix }}
         {{ state.now.year }}
       </h3>
-      <ul class="about__list">
+      <ul :class="$style.about__list">
         <li>
-          <span class="about__clickable-marker" @click="changeTheme">
+          <span
+            :class="$style['about__clickable-marker']"
+            @click="changeTheme"
+          >
             Change color theme
           </span>
           &nbsp;-&nbsp; By clicking the gear icon in the lower left, you can
@@ -47,6 +69,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, computed } from 'vue';
+import { faMousePointer } from '@fortawesome/free-solid-svg-icons'
 
 import CommonLabel from '@/components/common/CommonLabel.vue';
 import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
@@ -82,18 +105,18 @@ export default defineComponent({
         },
         {
           title: 'Qiita',
-          information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
+          information: 'taku-hu',
           link: 'https://qiita.com/taku-hu'
         },
         {
           title: 'Github',
-          information: '<i class="fas fa-mouse-pointer"></i>&nbsp;taku-hu',
+          information: 'taku-hu',
           link: 'https://github.com/taku-hu'
         },
         {
           title: 'wantedly',
           information:
-            '<i class="fas fa-mouse-pointer"></i>&nbsp;Takeuchi Takuto',
+            'Takeuchi Takuto',
           link: 'https://www.wantedly.com/users/124833407'
         },
         {
@@ -115,6 +138,10 @@ export default defineComponent({
         return 'th';
       }
     });
+
+    const icons = {
+      faMousePointer
+    }
 
     const setDate = () => {
       const monthNames = [
@@ -139,31 +166,26 @@ export default defineComponent({
     const changeTheme = () => {
       context.emit('change-theme');
     };
-    const openLink = (data: ProfileType) => {
-      if (!data.link) return;
-      open(data.link, '_blank');
-    };
 
     setDate();
 
     return {
       state,
       suffix,
-      changeTheme,
-      openLink
+      icons,
+      changeTheme
     };
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .about {
   width: 100%;
   height: 100%;
   font-size: 0.9rem;
-  font-family: 'Open Sans', sans-serif;
   &__wrapper {
     width: 65%;
     height: 100%;

@@ -13,11 +13,14 @@
         $style['left-bar__icons'],
         { 
           [$style['left-bar__icons--theme-changed']]: isThemeChanged,
+          [$style['left-bar__icons--close-explorer']]: !isOpenExplorer,
+          [$style['left-bar__icons--close-and-theme-changed']]: isThemeChanged && !isOpenExplorer,
           [$style['left-bar__icons--search']]: icon === manuIcons.faSearch
         }
       ]"
       v-for="icon in manuIcons"
       :key="icon"
+      @click="toggleExplorer(icon)"
     >
       <fa :icon="icon" />
     </div>
@@ -32,6 +35,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faSearch, faCodeBranch, faBug, faThLarge, faCog } from '@fortawesome/free-solid-svg-icons'
 import { faCopy } from '@fortawesome/free-regular-svg-icons'
 import { faGitAlt } from '@fortawesome/free-brands-svg-icons'
@@ -39,9 +43,10 @@ import { faGitAlt } from '@fortawesome/free-brands-svg-icons'
 export default defineComponent({
   props: {
     isThemeChanged: Boolean,
-    isCollapsed: Boolean
+    isCollapsed: Boolean,
+    isOpenExplorer: Boolean
   },
-  setup(_, context) {
+  setup(_, { emit }) {
     const manuIcons = {
       faCopy,
       faSearch,
@@ -56,13 +61,21 @@ export default defineComponent({
     }
 
     const changeTheme = () => {
-      context.emit('change-theme');
+      emit('change-theme');
     };
+
+    const toggleExplorer = (icon: IconDefinition) => {
+      if(icon !== manuIcons.faCopy) {
+        return;
+      }
+      emit('toggle-explorer');
+    }
 
     return {
       manuIcons,
       icons,
-      changeTheme
+      changeTheme,
+      toggleExplorer
     };
   }
 });
@@ -90,11 +103,14 @@ export default defineComponent({
     height: 3rem;
     color: #536694;
     cursor: not-allowed;
+    &:hover {
+      color: #fff;
+    }
     &:first-child {
       position: relative;
       color: #fff;
       background-color: #3c3d51;
-      cursor: default;
+      cursor: pointer;
       &:before {
         content: '';
         position: absolute;
@@ -108,6 +124,16 @@ export default defineComponent({
     &--search {
       transform: rotateY(180deg);
     }
+    &--close-explorer {
+      &:first-child {
+        position: relative;
+        color: #536694;
+        background-color: transparent;
+        &:before {
+          display: none;
+        }
+      }
+    }
     &--theme-changed {
       color: #858585;
       &:first-child {
@@ -117,6 +143,11 @@ export default defineComponent({
         &:before {
           background-color: #fff;
         }
+      }
+    }
+    &--close-and-theme-changed {
+      &:first-child {
+        color: #858585;
       }
     }
   }

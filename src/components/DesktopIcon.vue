@@ -1,47 +1,59 @@
 <template>
-  <div class="icon" v-if="isShowIcon">
+  <div :class="$style.icon">
     <div
-      class="icon__space"
+      :class="$style.icon__space"
       @click="openEditor"
       ontouchstart=""
     >
-      <span class="icon__pointer">
-        <i class="point far fa-hand-point-right"></i>
-        <span class="text">click!</span>
+      <span :class="$style.icon__pointer">
+        <fa
+          :class="$style.point"
+          :icon="icons.faHandPointRight"
+        />
+        <span :class="$style.text">click!</span>
       </span>
-      <img class="icon__image" :src="require('@/assets/images/vscode.png')">
-      <p class="icon__title">Visula Studio Code</p>
+      <img
+        :class="$style.icon__image"
+        :src="require('@/assets/images/vscode.png')"
+      >
+      <p :class="$style.icon__title">Visula Studio Code</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { faHandPointRight } from '@fortawesome/free-regular-svg-icons'
 
 export default defineComponent({
-  props: {
-    isShowIcon: Boolean
-  },
-  setup(_, context) {
+  setup(_, { emit }) {
+    const icons = {
+      faHandPointRight
+    }
+
     const openEditor = () => {
-      context.emit('open-editor');
+      emit('open-editor');
     }
 
     return {
+      icons,
       openEditor
     }
   }
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .icon {
   @include center-styling;
-  width: 100%;
-  height: 100%;
-  text-align: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
   &__space {
     @include center-styling;
     position: relative;

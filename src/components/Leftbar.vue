@@ -1,62 +1,87 @@
 <template>
   <div
     :class="[
-      'left-bar',
+      $style['left-bar'],
       {
-        'left-bar--theme-changed': isThemeChanged,
-        'left-bar--collapsed': isCollapsed,
+        [$style['left-bar--theme-changed']]: isThemeChanged,
+        [$style['left-bar--collapsed']]: isCollapsed,
       }
-    ]
-  ">
+    ]"
+  >
     <div
       :class="[
-        'left-bar__icons',
-        { 'left-bar__icons--theme-changed': isThemeChanged }
+        $style['left-bar__icons'],
+        { 
+          [$style['left-bar__icons--theme-changed']]: isThemeChanged,
+          [$style['left-bar__icons--close-explorer']]: !isOpenExplorer,
+          [$style['left-bar__icons--close-and-theme-changed']]: isThemeChanged && !isOpenExplorer,
+          [$style['left-bar__icons--search']]: icon === manuIcons.faSearch
+        }
       ]"
-      v-for="menuIcon in state.menuIcons"
-      :key="menuIcon"
+      v-for="icon in manuIcons"
+      :key="icon"
+      @click="toggleExplorer(icon)"
     >
-      <span v-html="menuIcon"></span>
+      <fa :icon="icon" />
     </div>
-    <div class="left-bar__settings" @click="changeTheme">
-      <i class="fas fa-cog"></i>
+    <div
+      :class="$style['left-bar__settings']"
+      @click="changeTheme"
+    >
+      <fa :icon="icons.faCog" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faSearch, faCodeBranch, faBug, faThLarge, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCopy } from '@fortawesome/free-regular-svg-icons'
+import { faGitAlt } from '@fortawesome/free-brands-svg-icons'
 
 export default defineComponent({
   props: {
     isThemeChanged: Boolean,
-    isCollapsed: Boolean
+    isCollapsed: Boolean,
+    isOpenExplorer: Boolean
   },
-  setup(_, context) {
-    const state = reactive({
-      menuIcons: [
-        '<i class="far fa-copy"></i>',
-        '<i class="fas fa-search"></i>',
-        '<i class="fas fa-code-branch"></i>',
-        '<i class="fab fa-git-alt"></i>',
-        '<i class="fas fa-bug"></i>',
-        '<i class="fas fa-th-large"></i>'
-      ]
-    });
+  setup(_, { emit }) {
+    const manuIcons = {
+      faCopy,
+      faSearch,
+      faCodeBranch,
+      faGitAlt,
+      faBug,
+      faThLarge
+    }
+
+    const icons = {
+      faCog
+    }
 
     const changeTheme = () => {
-      context.emit('change-theme');
+      emit('change-theme');
     };
 
+    const toggleExplorer = (icon: IconDefinition) => {
+      if(icon !== manuIcons.faCopy) {
+        return;
+      }
+      emit('toggle-explorer');
+    }
+
     return {
-      state,
-      changeTheme
+      manuIcons,
+      icons,
+      changeTheme,
+      toggleExplorer
     };
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .left-bar {
@@ -78,11 +103,14 @@ export default defineComponent({
     height: 3rem;
     color: #536694;
     cursor: not-allowed;
+    &:hover {
+      color: #fff;
+    }
     &:first-child {
       position: relative;
       color: #fff;
       background-color: #3c3d51;
-      cursor: default;
+      cursor: pointer;
       &:before {
         content: '';
         position: absolute;
@@ -91,6 +119,19 @@ export default defineComponent({
         width: 2px;
         height: 100%;
         background-color: #9e5b8b;
+      }
+    }
+    &--search {
+      transform: rotateY(180deg);
+    }
+    &--close-explorer {
+      &:first-child {
+        position: relative;
+        color: #536694;
+        background-color: transparent;
+        &:before {
+          display: none;
+        }
       }
     }
     &--theme-changed {
@@ -104,8 +145,10 @@ export default defineComponent({
         }
       }
     }
-    .fa-search {
-      transform: rotateY(180deg);
+    &--close-and-theme-changed {
+      &:first-child {
+        color: #858585;
+      }
     }
   }
   &__settings {

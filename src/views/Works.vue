@@ -1,37 +1,36 @@
 <template>
-  <section class="works">
-    <CommonPageHeading class="works__heading">My WORKS</CommonPageHeading>
+  <section :class="$style.works">
+    <CommonPageHeading :class="$style.works__heading">My WORKS</CommonPageHeading>
 
-    <div class="works__wrapper">
-      <div class="work" v-for="work in state.works" :key="work.name">
-        <h2 class="work__name">{{ work.name }}</h2>
+    <div :class="$style.works__wrapper">
+      <div :class="$style.work" v-for="work in works" :key="work.name">
+        <h2 :class="$style.work__name">{{ work.name }}</h2>
         <img
-          class="work__image"
+          :class="$style.work__image"
           :src="require(`@/assets/images/${work.image}.png`)"
           @click="openModal(work)"
         />
       </div>
     </div>
 
-    <div class="modal" v-if="state.modal.isActive">
-      <div class="modal__overlay" @click="closeModal">
-        <div class="modal__contents" @click.stop>
-          <h3 class="modal__title">{{ state.modal.data.name }}</h3>
-          <div class="modal__inner-wrapper">
+    <div :class="$style.modal" v-if="modal.isActive">
+      <div :class="$style.modal__overlay" @click="closeModal">
+        <div :class="$style.modal__contents" @click.stop>
+          <h3 :class="$style.modal__title">{{ modal.data.name }}</h3>
+          <div :class="$style['modal__inner-wrapper']">
             <a
-              class="modal__link"
-              :href="state.modal.data.link"
+              :class="$style.modal__link"
+              :href="modal.data.link"
               target="_blank"
             >
               <img
-                class="modal__image"
-                :src="require(`@/assets/images/${state.modal.data.image}.png`)"
+                :class="$style.modal__image"
+                :src="require(`@/assets/images/${modal.data.image}.png`)"
               />
             </a>
-            <p
-              class="modal__description"
-              v-html="state.modal.data.description"
-            ></p>
+            <p :class="$style.modal__description">     
+              {{ modal.data.description }}
+            </p>
           </div>
         </div>
       </div>
@@ -56,63 +55,48 @@ export default defineComponent({
     CommonPageHeading
   },
   setup() {
-    const state = reactive({
-      works: [
-        {
-          name: 'Portfolio Site',
-          image: 'portfolio-site',
-          link: 'https://github.com/taku-hu/portfolio-site',
-          description: `
-            私が初めて作ったもので、私のポートフォリオサイトです。<br>
-            コーディングに慣れるために、あえてほぼフルスクラッチで実装しました。<br>
-            最近Vue3 + compositionAPI + TypeScriptにリプレイスしました。
-          `
-        },
-        {
-          name: 'Tech Blog',
-          image: 'blog',
-          link: 'https://taku-hu-blog.netlify.app/',
-          description: `
-            Nuxt + TypeScript + Tailwind + Contentfulで作ったブログです。<br>
-            SSGで開発しているため、PageSpeed Insightsの結果はモバイル99点・PC100点でした。
-          `
-        },
-        {
-          name: 'Online Bookshelf',
-          image: 'bookshelf',
-          link: 'https://book-manager-app-9ae82.firebaseapp.com/',
-          description: `
-            私が勉強したての時に初めて作ったウェブアプリケーションです。<br>
-            Vue2 + GoogleBooksAPI + Firebaseで動いています。<br>
-            現在Vueの部分をReact + Hooks + TSXでリプレイス作業中。
-          `
-        },
-        {
-          name: 'Typing Game',
-          image: 'typing-app',
-          link: 'https://taku-hu.github.io/typing-app/',
-          description: `
-            Vueの理解を深めるために作ったタイピングゲームです。<br>
-            JavaScript自体の理解も深めたいと思い、あえてフルスクラッチでより多くのコードを書きました。
-          `
-        }
-      ],
-      modal: {
-        data: {} as WorkType,
-        isActive: false
+    const works = [
+      {
+        name: 'Portfolio Site',
+        image: 'portfolio-site',
+        link: 'https://github.com/taku-hu/portfolio-site',
+        description: '私が初めて作ったもので、私のポートフォリオサイトです。\nコーディングに慣れるために、あえてほぼフルスクラッチで実装しました。\n最近Vue3 + compositionAPI + TypeScriptにリプレイスしました。'
+      },
+      {
+        name: 'Tech Blog',
+        image: 'blog',
+        link: 'https://taku-hu-blog.netlify.app/',
+        description: 'Nuxt + TypeScript + Tailwind + Contentfulで作ったブログです。\nSSGで開発しているため、PageSpeed Insightsの結果はモバイル99点・PC100点でした。'
+      },
+      {
+        name: 'Online Bookshelf',
+        image: 'bookshelf',
+        link: 'https://book-manager-app-9ae82.firebaseapp.com/',
+        description: '私が勉強したての時に初めて作ったウェブアプリケーションです。\nVue2 + GoogleBooksAPI + Firebaseで動いています。現在Vueの部分をReact + Hooks + TSXでリプレイス作業中。'
+      },
+      {
+        name: 'Typing Game',
+        image: 'typing-app',
+        link: 'https://taku-hu.github.io/typing-app/',
+        description: 'Vueの理解を深めるために作ったタイピングゲームです。\nJavaScript自体の理解も深めたいと思い、あえてフルスクラッチでより多くのコードを書きました。'
       }
-    });
+    ]
 
+    const modal= reactive({
+      data: {} as WorkType,
+      isActive: false
+    });
     const openModal = (work: WorkType) => {
-      state.modal.data = work;
-      state.modal.isActive = true;
+      modal.data = work;
+      modal.isActive = true;
     };
     const closeModal = () => {
-      state.modal.isActive = false;
+      modal.isActive = false;
     };
 
     return {
-      state,
+      works,
+      modal,
       openModal,
       closeModal
     };
@@ -120,7 +104,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .works {
@@ -201,6 +185,7 @@ export default defineComponent({
     &__description {
       width: 50%;
       line-height: 1.5;
+      white-space: pre-wrap;
       font-weight: bold;
       text-align: left;
       margin: 0 auto;

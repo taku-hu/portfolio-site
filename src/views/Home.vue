@@ -1,18 +1,26 @@
 <template>
-  <section class="home">
-    <div :class="['home__lines', { 'home__lines--theme-changed': isThemeChanged }]">
-      <p v-for="n in 100" :key="n">{{ n }}</p>
+  <section :class="$style.home">
+    <div :class="[$style.home__lines, { [$style['home__lines--theme-changed']]: isThemeChanged }]">
+      <p
+        v-for="n in 100"
+        :key="n"
+      >
+        {{ n }}
+      </p>
     </div>
-    <div class="home__body">
+    <div :class="$style.home__body">
       <pre>
-        <code class="language-typescript" v-html="state.code" />
+        <code
+          :class="$style['language-typescript']"
+          v-html="styledCode"
+        />
       </pre>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 
 
 import hljs from 'highlight.js';
@@ -25,9 +33,7 @@ export default defineComponent({
     isThemeChanged: Boolean
   },
   setup() {
-    const state = reactive({
-      code: ''
-    });
+    const styledCode = ref('');
     const code = hljs.highlightAuto(`
 //Thank you for visiting.
 //This is my portfolio site.
@@ -58,25 +64,23 @@ me.getAge(1993);
 
 console.log('Nice to meet you!');
     `).value;
-
     const typingCode = () => {
       [...code].forEach((string, index) => {
         setTimeout(() => {
-          state.code += string;
+          styledCode.value += string;
         }, 10 * index);
       });
     }
-
     onMounted(typingCode);
 
     return {
-      state
+      styledCode
     };
   }
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .home {
@@ -100,7 +104,7 @@ console.log('Nice to meet you!');
   &__body {
     width: 100%;
     height: 100%;
-    overflow-x: auto;
+    overflow: auto;
     pre,
     code {
       width: 100%;

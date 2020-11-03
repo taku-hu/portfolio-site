@@ -1,10 +1,10 @@
 <template>
-  <div class="common-label">
+  <div :class="$style['common-label']">
     <slot />
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .common-label {

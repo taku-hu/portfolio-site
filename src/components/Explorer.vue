@@ -1,50 +1,52 @@
 <template>
   <div :class="[
-      'explorer',
+      $style.explorer,
       {
-        'explorer--theme-changed': isThemeChanged,
-        'explorer--collapsed': isCollapsed
+        [$style['explorer--theme-changed']]: isThemeChanged,
+        [$style['explorer--collapsed']]: isCollapsed
       }
     ]"
   >
-    <div class="explorer__heading">EXPLORER</div>
+    <div :class="$style.explorer__heading">EXPLORER</div>
 
     <div
-      class="accordion"
-      v-for="accordion in state.accordions"
+      :class="$style.accordion"
+      v-for="accordion in accordions"
       :key="accordion.labelName"
     >
       <div
         :class="[
-          'accordion__label',
+          $style.accordion__label,
           {
-            'accordion__label--opened': accordion.isOpen,
-            'accordion__label--theme-changed': isThemeChanged
+            [$style['accordion__label--opened']]: accordion.isOpen,
+            [$style['accordion__label--theme-changed']]: isThemeChanged
           }
         ]"
         @click="toggleAccordion(accordion)"
       >
-        <i
+        <fa
+          :icon="icons.faAngleDown"
           :class="[
-            'accordion__icon',
-            'fas',
-            'fa-angle-down',
-            { 'accordion__icon--close': !accordion.isOpen }
+            $style.accordion__icon,
+            { [$style['accordion__icon--close']]: !accordion.isOpen }
           ]" 
         />
         {{ accordion.labelName }}
       </div>
-      <div class="accordion__body" v-show="accordion.isOpen">
+      <div :class="$style.accordion__body" v-show="accordion.isOpen">
         <a
           :class="[
-            'accordion__links',
-            { 'accordion__links--active': path.name === currentPage }
+            $style.accordion__links,
+            { [$style['accordion__links--active']]: path.name === currentPage }
           ]"
           v-for="path in accordion.paths"
           :key="path.name"
           @click="transitionPage(accordion, path)"
         >
-          <span v-html="path.icon"></span>
+          <fa
+            :icon="path.icon"
+            :style="{ color: path.color }"
+          />
           {{ path.name }}
         </a>
       </div>
@@ -54,10 +56,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faBlog, faHome, faAddressCard, faWrench, faBriefcase, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faVuejs, faQuora } from '@fortawesome/free-brands-svg-icons'
 import router from '@/router';
 
 type PathType = {
-  icon: string;
+  icon: IconDefinition;
   name: string;
   link: string;
 }
@@ -76,66 +81,75 @@ export default defineComponent({
     currentPage: String
   },
   setup() {
-    const state = reactive({
-      accordions: [
-        {
-          labelName: 'OPEN EDITORS',
-          isOpen: true,
-          paths: [
-            {
-              icon: '<i class="fab fa-vuejs"></i>',
-              name: 'My portfolio Site',
-              link: 'https://github.com/taku-hu/portfolio-site'
-            }
-          ]
-        },
-        {
-          labelName: 'posts',
-          isOpen: true,
-          paths: [
-            {
-              icon: '<i class="fas fa-blog"></i>',
-              name: 'blog',
-              link: 'https://taku-hu-blog.netlify.app/'
-            },
-            {
-              icon: '<i class="fab fa-quora"></i>',
-              name: 'Qiita',
-              link: 'https://qiita.com/taku-hu'
-            }
-          ]
-        },
-        {
-          labelName: 'pages',
-          isOpen: true,
-          paths: [
-            {
-              icon: '<i class="fas fa-home">',
-              name: 'Home',
-              link: '/'
-            },
-            {
-              icon: '<i class="far fa-address-card"></i>',
-              name: 'About',
-              link: '/about'
-            },
-            {
-              icon: '<i class="fas fa-wrench"></i>',
-              name: 'Skills',
-              link: '/skills'
-            },
-            {
-              icon: '<i class="fas fa-briefcase"></i>',
-              name: 'Works',
-              link: '/works'
-            }
-          ]
-        }
-      ]
-    });
+    const accordions = reactive([
+      {
+        labelName: 'OPEN EDITORS',
+        isOpen: true,
+        paths: [
+          {
+            icon: faVuejs,
+            color: '#41b883',
+            name: 'MySite',
+            link: 'https://github.com/taku-hu/portfolio-site'
+          }
+        ]
+      },
+      {
+        labelName: 'posts',
+        isOpen: true,
+        paths: [
+          {
+            icon: faBlog,
+            color: '#287dc0',
+            name: 'blog',
+            link: 'https://taku-hu-blog.netlify.app/'
+          },
+          {
+            icon: faQuora,
+            color: '#55c500',
+            name: 'Qiita',
+            link: 'https://qiita.com/taku-hu'
+          }
+        ]
+      },
+      {
+        labelName: 'pages',
+        isOpen: true,
+        paths: [
+          {
+            icon: faHome,
+            color: '#F0675F',
+            name: 'Home',
+            link: '/'
+          },
+          {
+            icon: faAddressCard,
+            color: '#108FB7',
+            name: 'About',
+            link: '/about'
+          },
+          {
+            icon: faWrench,
+            color: '#FFED39',
+            name: 'Skills',
+            link: '/skills'
+          },
+          {
+            icon: faBriefcase,
+            color: '#29A7A3',
+            name: 'Works',
+            link: '/works'
+          }
+        ]
+      }
+    ]);
+
+    const icons = {
+      faAngleDown
+    }
 
     const toggleAccordion = (accordion: AccordionType) => {
-      const selected = state.accordions.find(accordions => accordions.labelName === accordion.labelName);
+      const selected = accordions.find(accordions => accordions.labelName === accordion.labelName);
       if(selected) {
         selected.isOpen = !selected.isOpen;
       }
@@ -150,7 +164,8 @@ export default defineComponent({
     };
 
     return {
-      state,
+      accordions,
+      icons,
       toggleAccordion,
       transitionPage
     };
@@ -158,7 +173,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 @import '@/assets/styles/_parts.scss';
 
 .explorer {
@@ -198,36 +213,13 @@ export default defineComponent({
     }
     &__icon {
       transition: 0.2s;
+      margin-right: 0.1rem;
       &--close {
         transform: rotate(-90deg);
       }
     }
     &__body {
       font-size: 0.7rem;
-      .fa-blog {
-        color: #287dc0
-      }
-      .fa-quora {
-        color: #55c500;
-      }
-      .fa-vuejs {
-        color: #41b883;
-      }
-      .fa-home {
-        color: #F0675F;
-      }
-      .fa-address-card {
-        color: #108FB7;
-      }
-      .fa-wrench {
-        color: #FFED39;
-      }
-      .fa-briefcase {
-        color: #29A7A3;
-      }
-      .fa-mail-bulk {
-        color: #287DC0;
-      }
     } //__body
     &__links {
       @include button-sizing;

@@ -1,69 +1,79 @@
 <template>
-  <template v-if="!state.isShowIcon">
-    <div class="wrapper">
-      <leftbar-component
-        :isThemeChanged="state.isThemeChanged"
-        :isCollapsed="state.isCollapsed"
+  <template v-if="!isShowIcon">
+    <div :class="$style.wrapper">
+      <LeftbarComponent
+        :isThemeChanged="isThemeChanged"
+        :isCollapsed="isCollapsed"
+        :isOpenExplorer="isOpenExplorer"
         @change-theme="changeTheme"
+        @toggle-explorer="toggleExplorer"
       />
 
-      <explorer-component
-        :isThemeChanged="state.isThemeChanged"
-        :isCollapsed="state.isCollapsed"
-        :currentPage="state.currentPage"
-      />
+      <template v-if="isOpenExplorer">
+        <ExplorerComponent
+          :isThemeChanged="isThemeChanged"
+          :isCollapsed="isCollapsed"
+          :currentPage="currentPage"
+        />
+      </template>
 
       <main
         :class="[
-          'code',
+          $style.code,
           {
-            'code--theme-changed': state.isThemeChanged,
-            'code--collapsed': state.isCollapsed
+            [$style['code--theme-changed']]: isThemeChanged,
+            [$style['code--collapsed']]: isCollapsed,
+            [$style['code--close-explorer']]: !isOpenExplorer
           }
         ]"
       >
         <div
           :class="[
-            'code__tag',
-            { 'code__tag--theme-changed': state.isThemeChanged }
+            $style.code__tag,
+            { [$style['code__tag--theme-changed']]: isThemeChanged }
           ]"
         >
-          <i class="fab fa-vuejs"></i>
-          {{ state.currentPage }}.vue
+          <fa
+            :class="$style['tag-icon--vue']"
+            :icon="icons.faVuejs"
+          />
+          {{ currentPage }}.vue
           <span @click="closeTab">
-            <i class="fas fa-times"></i>
+            <fa
+              :class="$style['tag-icon--times']"
+              :icon="icons.faTimes"
+            />
           </span>
         </div>
         <div
           :class="[
-            'code__field',
-            { 'code__field--theme-changed': state.isThemeChanged }
+            $style.code__field,
+            { [$style['code__field--theme-changed']]: isThemeChanged }
           ]"
         >
           <router-view
-            :isThemeChanged="state.isThemeChanged"
+            :isThemeChanged="isThemeChanged"
             @change-theme="changeTheme"
           />
         </div>
       </main>
     </div>
 
-    <footer-component
-      :isThemeChanged="state.isThemeChanged"
-      :isCollapsed="state.isCollapsed"
+    <FooterComponent
+      :isThemeChanged="isThemeChanged"
+      :isCollapsed="isCollapsed"
     />
   </template>
 
   <template v-else>
-    <desktop-icon-component
-      :isShowIcon="state.isShowIcon"
-      @open-editor="openEditor"
-    />
+    <DesktopIconComponent @open-editor="openEditor" />
   </template>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, watch, onMounted } from 'vue';
+import { defineComponent, ref, computed, watch, onMounted } from 'vue';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faVuejs } from '@fortawesome/free-brands-svg-icons'
 import router from '@/router';
 
 import LeftbarComponent from '@/components/Leftbar.vue';
@@ -91,65 +101,67 @@ export default defineComponent({
       });
     });
 
-    const state = reactive({
-      isThemeChanged: false,
-      isCollapsed: false,
-      isShowIcon: false,
-      currentPage: computed(() => router.currentRoute.value.name)
-    });
+    const currentPage = computed(() => router.currentRoute.value.name)
 
+    const icons = {
+      faVuejs,
+      faTimes
+    }
+
+    const isThemeChanged = ref(false);
     const changeTheme = () => {
       const response = confirm('Change color theme?');
-      if (response) {
-        state.isThemeChanged = !state.isThemeChanged;
-      }
-    };
-
-    const closeTab = () => {
-      const response = confirm(
-        `Do you want to save the changes you made to ${String(
-          state.currentPage
-        )}.vue?`
-      );
-      if (response) {
-        state.isCollapsed = true;
-      }
-    };
-
-    watch(
-      () => state.isCollapsed,
-      () => {
-        if (state.isCollapsed) {
-          setTimeout(() => {
-            state.isShowIcon = true;
-          }, 2000);
-        }
-      }
-    );
-    const openEditor = () => {
-      const response = confirm(
-        `Do you want to open My-Portfolio-Site in Visual Studio Code?`
-      );
       if(response) {
-        state.isCollapsed = false;
-        state.isShowIcon = false;
+        isThemeChanged.value = !isThemeChanged.value;
+      }
+    };
+
+    const isShowIcon = ref(false);
+    const isCollapsed = ref(false);
+    const closeTab = () => {
+      const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`);
+      if(response) {
+        isCollapsed.value = true;
+      }
+    };
+    watch(() => isCollapsed.value, () => {
+      if (isCollapsed.value) {
+        setTimeout(() => {
+          isShowIcon.value = true;
+        }, 2000);
+      }
+    });
+    const openEditor = () => {
+      const response = confirm('Do you want to open My-Portfolio-Site in Visual Studio Code?');
+      if(response) {
+        isCollapsed.value = false;
+        isShowIcon.value = false;
         router.push({ path: '/' });
       }
     };
 
+    const isOpenExplorer = ref(true);
+    const toggleExplorer = () => {
+      isOpenExplorer.value = !isOpenExplorer.value;
+    }
+
     return {
-      state,
+      currentPage,
+      icons,
+      isShowIcon,
+      isCollapsed,
       closeTab,
       openEditor,
-      changeTheme
+      isThemeChanged,
+      changeTheme,
+      isOpenExplorer,
+      toggleExplorer
     };
   }
 });
 </script>
 
-<style lang="scss">
-@import '@/assets/styles/_parts.scss';
-
+<style>
 html {
   font-size: calc(62.5% + 0.5vw);
 }
@@ -168,14 +180,19 @@ a {
   height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
 }
+</style>
+
+<style lang="scss" module>
+@import '@/assets/styles/_parts.scss';
+
 .wrapper {
   width: 100%;
   height: calc(100% - 1.5rem);
   display: flex;
 }
 .code {
+  flex-grow: 1;
   width: calc(100% - 12rem);
-  height: 100%;
   background-color: #191a21;
   box-shadow: 0 -1px 2px -1px #000;
   &--theme-changed {
@@ -183,6 +200,9 @@ a {
   }
   &--collapsed {
     @include animated-hinge(top, left);
+  }
+  &--closeExplorer {
+    width: calc(100% - 3rem);
   }
   &__tag {
     position: relative;
@@ -209,12 +229,12 @@ a {
         display: none;
       }
     }
-    .fa-vuejs {
+    .tag-icon--vue {
       font-size: 1.1rem;
       color: #41b883;
       margin-right: 0.2rem;
     }
-    .fa-times {
+    .tag-icon--times {
       cursor: pointer;
       margin-left: 0.6rem;
     }
@@ -223,7 +243,7 @@ a {
     width: 100%;
     height: calc(100% - 2.3rem);
     background-color: #282a35;
-    overflow-y: auto;
+    overflow: auto;
     &--theme-changed {
       background-color: #1e1e1e;
     }

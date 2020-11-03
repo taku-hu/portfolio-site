@@ -111,6 +111,9 @@ export default defineComponent({
       color: #fff;
       background-color: #3c3d51;
       cursor: pointer;
+      &:hover {
+        color: #fff;
+      }
       &:before {
         content: '';
         position: absolute;

@@ -1,73 +1,73 @@
 <template>
-  <template v-if="!isShowIcon">
+  <template v-if="!isCloseEditor">
     <div :class="$style.wrapper">
-      <LeftbarComponent
-        :isThemeChanged="isThemeChanged"
-        :isCollapsed="isCollapsed"
-        :isOpenExplorer="isOpenExplorer"
-        @change-theme="changeTheme"
-        @toggle-explorer="toggleExplorer"
-      />
-
-      <template v-if="isOpenExplorer">
-        <ExplorerComponent
+      <div :class="$style['innner-wrapper']">
+        <LeftbarComponent
           :isThemeChanged="isThemeChanged"
           :isCollapsed="isCollapsed"
-          :currentPage="currentPage"
+          :isOpenExplorer="isOpenExplorer"
+          @change-theme="changeTheme"
+          @toggle-explorer="toggleExplorer"
         />
-      </template>
 
-      <main
-        :class="[
-          $style.code,
-          {
-            [$style['code--theme-changed']]: isThemeChanged,
-            [$style['code--collapsed']]: isCollapsed,
-            [$style['code--close-explorer']]: !isOpenExplorer
-          }
-        ]"
-      >
-        <div
-          :class="[
-            $style.code__tag,
-            { [$style['code__tag--theme-changed']]: isThemeChanged }
-          ]"
-        >
-          <fa
-            :class="$style['tag-icon--vue']"
-            :icon="icons.faVuejs"
-          />
-          {{ currentPage }}.vue
-          <span @click="closeTab">
-            <fa
-              :class="$style['tag-icon--times']"
-              :icon="icons.faTimes"
-            />
-          </span>
-        </div>
-        <div
-          :class="[
-            $style.code__field,
-            { [$style['code__field--theme-changed']]: isThemeChanged }
-          ]"
-        >
-          <router-view
+        <template v-if="isOpenExplorer">
+          <ExplorerComponent
             :isThemeChanged="isThemeChanged"
-            @change-theme="changeTheme"
+            :isCollapsed="isCollapsed"
+            :currentPage="currentPage"
           />
-        </div>
-      </main>
+        </template>
+
+        <main
+          :class="[
+            $style.code,
+            {
+              [$style['code--theme-changed']]: isThemeChanged,
+              [$style['code--collapsed']]: isCollapsed,
+              [$style['code--close-explorer']]: !isOpenExplorer
+            }
+          ]"
+        >
+          <div
+            :class="[
+              $style.code__tag,
+              { [$style['code__tag--theme-changed']]: isThemeChanged }
+            ]"
+          >
+            <fa
+              :class="$style['tag-icon--vue']"
+              :icon="icons.faVuejs"
+            />
+            {{ currentPage }}.vue
+            <span @click="closeTab">
+              <fa
+                :class="$style['tag-icon--times']"
+                :icon="icons.faTimes"
+              />
+            </span>
+          </div>
+          <div
+            :class="[
+              $style.code__field,
+              { [$style['code__field--theme-changed']]: isThemeChanged }
+            ]"
+          >
+            <router-view
+              :isThemeChanged="isThemeChanged"
+              @change-theme="changeTheme"
+            />
+          </div>
+        </main>
+      </div>
+
+      <FooterComponent
+        :isThemeChanged="isThemeChanged"
+        :isCollapsed="isCollapsed"
+      />
     </div>
-
-    <FooterComponent
-      :isThemeChanged="isThemeChanged"
-      :isCollapsed="isCollapsed"
-    />
   </template>
 
-  <template v-else>
-    <DesktopIconComponent @open-editor="openEditor" />
-  </template>
+  <DesktopComponent @open-editor="openEditor" />
 </template>
 
 <script lang="ts">
@@ -79,14 +79,14 @@ import router from '@/router';
 import LeftbarComponent from '@/components/Leftbar.vue';
 import ExplorerComponent from '@/components/Explorer.vue';
 import FooterComponent from '@/components/Footer.vue';
-import DesktopIconComponent from '@/components/DesktopIcon.vue';
+import DesktopComponent from '@/components/Desktop.vue';
 
 export default defineComponent({
   components: {
     LeftbarComponent,
     ExplorerComponent,
     FooterComponent,
-    DesktopIconComponent
+    DesktopComponent
   },
   setup() {
     const getInnerVh = () => {
@@ -116,7 +116,7 @@ export default defineComponent({
       }
     };
 
-    const isShowIcon = ref(false);
+    const isCloseEditor = ref(false);
     const isCollapsed = ref(false);
     const closeTab = () => {
       const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`);
@@ -127,7 +127,7 @@ export default defineComponent({
     watch(() => isCollapsed.value, () => {
       if (isCollapsed.value) {
         setTimeout(() => {
-          isShowIcon.value = true;
+          isCloseEditor.value = true;
         }, 2000);
       }
     });
@@ -135,7 +135,7 @@ export default defineComponent({
       const response = confirm('Do you want to open My-Portfolio-Site in Visual Studio Code?');
       if(response) {
         isCollapsed.value = false;
-        isShowIcon.value = false;
+        isCloseEditor.value = false;
         router.push({ path: '/' });
       }
     };
@@ -148,7 +148,7 @@ export default defineComponent({
     return {
       currentPage,
       icons,
-      isShowIcon,
+      isCloseEditor,
       isCollapsed,
       closeTab,
       openEditor,
@@ -176,6 +176,7 @@ a {
 }
 
 #app {
+  position: relative;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
@@ -186,9 +187,19 @@ a {
 @import '@/assets/styles/_parts.scss';
 
 .wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+.innner-wrapper {
   width: 100%;
   height: calc(100% - 1.5rem);
   display: flex;
+  background-color: transparent;
 }
 .code {
   flex-grow: 1;
@@ -201,7 +212,7 @@ a {
   &--collapsed {
     @include animated-hinge(top, left);
   }
-  &--closeExplorer {
+  &--close-explorer {
     width: calc(100% - 3rem);
   }
   &__tag {

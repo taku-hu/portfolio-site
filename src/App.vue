@@ -67,9 +67,7 @@
     </div>
   </template>
 
-  <template v-if="isCollapsed">
-    <DesktopComponent @open-editor="openEditor" />
-  </template>
+  <DesktopComponent @open-editor="openEditor" />
 </template>
 
 <script lang="ts">

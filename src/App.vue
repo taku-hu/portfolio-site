@@ -1,71 +1,73 @@
 <template>
-  <template v-if="!isCloseEditor">
-    <div :class="$style.wrapper">
-      <div :class="$style['innner-wrapper']">
-        <LeftbarComponent
-          :isThemeChanged="isThemeChanged"
-          :isCollapsed="isCollapsed"
-          :isOpenExplorer="isOpenExplorer"
-          @change-theme="changeTheme"
-          @toggle-explorer="toggleExplorer"
-        />
-
-        <template v-if="isOpenExplorer">
-          <ExplorerComponent
+  <transition :enter-active-class="$style.fadeInBottomLeft">
+    <template v-if="!isCloseEditor">
+      <div :class="$style.wrapper">
+        <div :class="$style['innner-wrapper']">
+          <LeftbarComponent
             :isThemeChanged="isThemeChanged"
             :isCollapsed="isCollapsed"
-            :currentPage="currentPage"
+            :isOpenExplorer="isOpenExplorer"
+            @change-theme="changeTheme"
+            @toggle-explorer="toggleExplorer"
           />
-        </template>
 
-        <main
-          :class="[
-            $style.code,
-            {
-              [$style['code--theme-changed']]: isThemeChanged,
-              [$style['code--collapsed']]: isCollapsed,
-              [$style['code--close-explorer']]: !isOpenExplorer
-            }
-          ]"
-        >
-          <div
-            :class="[
-              $style.code__tag,
-              { [$style['code__tag--theme-changed']]: isThemeChanged }
-            ]"
-          >
-            <fa
-              :class="$style['tag-icon--vue']"
-              :icon="icons.faVuejs"
-            />
-            {{ currentPage }}.vue
-            <span @click="closeTab">
-              <fa
-                :class="$style['tag-icon--times']"
-                :icon="icons.faTimes"
-              />
-            </span>
-          </div>
-          <div
-            :class="[
-              $style.code__field,
-              { [$style['code__field--theme-changed']]: isThemeChanged }
-            ]"
-          >
-            <router-view
+          <template v-if="isOpenExplorer">
+            <ExplorerComponent
               :isThemeChanged="isThemeChanged"
-              @change-theme="changeTheme"
+              :isCollapsed="isCollapsed"
+              :currentPage="currentPage"
             />
-          </div>
-        </main>
-      </div>
+          </template>
 
-      <FooterComponent
-        :isThemeChanged="isThemeChanged"
-        :isCollapsed="isCollapsed"
-      />
-    </div>
-  </template>
+          <main
+            :class="[
+              $style.code,
+              {
+                [$style['code--theme-changed']]: isThemeChanged,
+                [$style['code--collapsed']]: isCollapsed,
+                [$style['code--close-explorer']]: !isOpenExplorer
+              }
+            ]"
+          >
+            <div
+              :class="[
+                $style.code__tag,
+                { [$style['code__tag--theme-changed']]: isThemeChanged }
+              ]"
+            >
+              <fa
+                :class="$style['tag-icon--vue']"
+                :icon="icons.faVuejs"
+              />
+              {{ currentPage }}.vue
+              <span @click="closeTab">
+                <fa
+                  :class="$style['tag-icon--times']"
+                  :icon="icons.faTimes"
+                />
+              </span>
+            </div>
+            <div
+              :class="[
+                $style.code__field,
+                { [$style['code__field--theme-changed']]: isThemeChanged }
+              ]"
+            >
+              <router-view
+                :isThemeChanged="isThemeChanged"
+                @change-theme="changeTheme"
+              />
+            </div>
+          </main>
+        </div>
+
+        <FooterComponent
+          :isThemeChanged="isThemeChanged"
+          :isCollapsed="isCollapsed"
+        />
+      </div>
+    </template>
+  </transition>
 
   <DesktopComponent @open-editor="openEditor" />
 </template>
@@ -240,14 +242,16 @@ a {
         display: none;
       }
     }
-    .tag-icon--vue {
-      font-size: 1.1rem;
-      color: #41b883;
-      margin-right: 0.2rem;
-    }
-    .tag-icon--times {
-      cursor: pointer;
-      margin-left: 0.6rem;
+    .tag-icon {
+      &--vue {
+        font-size: 1.1rem;
+        color: #41b883;
+        margin-right: 0.2rem;
+      }
+      &--times {
+        cursor: pointer;
+        margin-left: 0.6rem;
+      }
     }
   } //__tag
   &__field {
@@ -284,5 +288,21 @@ a {
       width: 0.5rem;
     }
   }
+}
+
+@keyframes fadeInBottomLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.fadeInBottomLeft {
+  animation-duration: 0.25s;
+  animation-fill-mode: both;
+  animation-name: fadeInBottomLeft;
 }
 </style>

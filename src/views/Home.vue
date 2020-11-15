@@ -112,5 +112,5 @@ console.log('Nice to meet you!');
       line-height: 1.2rem;
     }
   }
-}
+} // .home
 </style>

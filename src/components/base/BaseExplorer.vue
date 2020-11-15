@@ -210,17 +210,17 @@ export default defineComponent({
       &--theme-changed {
         background-color: #383838;
       }
-    }
+    } // __label
     &__icon {
       transition: 0.2s;
       margin-right: 0.1rem;
       &--close {
         transform: rotate(-90deg);
       }
-    }
+    } // __icon
     &__body {
       font-size: 0.7rem;
-    } //__body
+    } // __body
     &__links {
       @include button-sizing;
       display: block;
@@ -238,7 +238,7 @@ export default defineComponent({
           background-color: #44475a;
         }
       }
-    }
-  } //.accordion
-} //.explorer
+    } // __links
+  } // .accordion
+} // .explorer
 </style>

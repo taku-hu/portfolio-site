@@ -153,7 +153,7 @@ export default defineComponent({
         color: #858585;
       }
     }
-  }
+  } // __icons
   &__settings {
     @include center-styling;
     width: 100%;
@@ -169,9 +169,9 @@ export default defineComponent({
       animation: none;
     }
   }
-}
+} // .left-bar
 
-//点滅アニメーション
+// 点滅アニメーション
 @keyframes flashing {
   0% {
     opacity: 1;
@@ -184,7 +184,7 @@ export default defineComponent({
   }
 }
 
-//メディアクエリ
+// メディアクエリ
 @include media-query($bp-mobile) {
   .left-bar {
     display: none;

@@ -147,19 +147,13 @@ export default defineComponent({
     padding-left: 1.8rem;
     margin-bottom: 0.8rem;
   }
-}
+} // .skills
 
-//メディアクエリ
+// メディアクエリ
 @include media-query($bp-tablet) {
   .skills {
     &__wrapper {
       width: 85%;
-    }
-    &__heading {
-      margin-bottom: 2rem;
-    }
-    &__bar {
-      margin-bottom: 3rem;
     }
     &__subheading {
       margin-bottom: 2rem;
@@ -169,9 +163,6 @@ export default defineComponent({
 
 @include media-query($bp-mobile) {
   .skills {
-    &__heading {
-      font-size: 2rem;
-    }
     &__sentence {
       font-size: 0.8rem;
     }

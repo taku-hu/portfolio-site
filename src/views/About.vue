@@ -221,19 +221,13 @@ export default defineComponent({
     font-size: 2rem;
     margin-bottom: 1.5rem;
   }
-} //about
+} // .about
 
-//メディアクエリ
+// メディアクエリ
 @include media-query($bp-tablet) {
   .about {
     &__wrapper {
       width: 85%;
-    }
-    &__heading {
-      margin-bottom: 2rem;
-    }
-    &__bar {
-      margin-bottom: 3rem;
     }
     &__subheading {
       margin-bottom: 2rem;
@@ -243,9 +237,6 @@ export default defineComponent({
 
 @include media-query($bp-mobile) {
   .about {
-    &__heading {
-      font-size: 2rem;
-    }
     &__sentence {
       font-size: 0.8rem;
     }

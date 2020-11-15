@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/works',
     name: 'Works',
     component: () => import('../views/Works.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('../views/404.vue')
   }
 ];
 

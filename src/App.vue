@@ -1,9 +1,16 @@
 <template>
-  <transition :enter-active-class="$style.fadeInBottomLeft">
+  <transition :enter-active-class="$style['animated-fadein']">
     <template v-if="!isCloseEditor">
-      <div :class="$style.wrapper">
+      <div
+        :class="[
+          $style.wrapper,
+          {
+            [$style['wrapper--collapsed']]: isCollapsed
+          }
+        ]
+        ">
         <div :class="$style['innner-wrapper']">
-          <LeftbarComponent
+          <BaseLeftbar
             :isThemeChanged="isThemeChanged"
             :isCollapsed="isCollapsed"
             :isOpenExplorer="isOpenExplorer"
@@ -12,56 +19,28 @@
           />
 
           <template v-if="isOpenExplorer">
-            <ExplorerComponent
+            <BaseExplorer
               :isThemeChanged="isThemeChanged"
               :isCollapsed="isCollapsed"
               :currentPage="currentPage"
             />
           </template>
 
-          <main
-            :class="[
-              $style.code,
-              {
-                [$style['code--theme-changed']]: isThemeChanged,
-                [$style['code--collapsed']]: isCollapsed,
-                [$style['code--close-explorer']]: !isOpenExplorer
-              }
-            ]"
+          <BaseMain
+            :isThemeChanged="isThemeChanged"
+            :isCollapsed="isCollapsed"
+            :isOpenExplorer="isOpenExplorer"
+            @collapse-parts="collapseParts"
+            @close-editor="closeEditor"
           >
-            <div
-              :class="[
-                $style.code__tag,
-                { [$style['code__tag--theme-changed']]: isThemeChanged }
-              ]"
-            >
-              <fa
-                :class="$style['tag-icon--vue']"
-                :icon="icons.faVuejs"
-              />
-              {{ currentPage }}.vue
-              <span @click="closeTab">
-                <fa
-                  :class="$style['tag-icon--times']"
-                  :icon="icons.faTimes"
-                />
-              </span>
-            </div>
-            <div
-              :class="[
-                $style.code__field,
-                { [$style['code__field--theme-changed']]: isThemeChanged }
-              ]"
-            >
-              <router-view
-                :isThemeChanged="isThemeChanged"
-                @change-theme="changeTheme"
-              />
-            </div>
-          </main>
+            <router-view
+              :isThemeChanged="isThemeChanged"
+              @change-theme="changeTheme"
+            />
+          </BaseMain>
         </div>
 
-        <FooterComponent
+        <BaseFooter
           :isThemeChanged="isThemeChanged"
           :isCollapsed="isCollapsed"
         />
@@ -69,26 +48,28 @@
     </template>
   </transition>
 
-  <DesktopComponent @open-editor="openEditor" />
+  <BaseDesktop @open-editor="openEditor" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch, onMounted } from 'vue';
+import { defineComponent ,ref, computed, onMounted } from 'vue';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs } from '@fortawesome/free-brands-svg-icons'
 import router from '@/router';
 
-import LeftbarComponent from '@/components/Leftbar.vue';
-import ExplorerComponent from '@/components/Explorer.vue';
-import FooterComponent from '@/components/Footer.vue';
-import DesktopComponent from '@/components/Desktop.vue';
+import BaseLeftbar from '@/components/base/BaseLeftbar.vue';
+import BaseExplorer from '@/components/base/BaseExplorer.vue';
+import BaseMain from '@/components/base/BaseMain.vue';
+import BaseFooter from '@/components/base/BaseFooter.vue';
+import BaseDesktop from '@/components/base/BaseDesktop.vue';
 
 export default defineComponent({
   components: {
-    LeftbarComponent,
-    ExplorerComponent,
-    FooterComponent,
-    DesktopComponent
+    BaseLeftbar,
+    BaseExplorer,
+    BaseMain,
+    BaseFooter,
+    BaseDesktop
   },
   setup() {
     const getInnerVh = () => {
@@ -98,7 +79,7 @@ export default defineComponent({
 
     onMounted(() => {
       getInnerVh();
-      window.addEventListener('resize', () => {
+      document.addEventListener('resize', () => {
         getInnerVh();
       });
     });
@@ -118,28 +99,21 @@ export default defineComponent({
       }
     };
 
-    const isCloseEditor = ref(false);
     const isCollapsed = ref(false);
-    const closeTab = () => {
+    const collapseParts = () => {
       const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`);
       if(response) {
         isCollapsed.value = true;
       }
     };
-    watch(() => isCollapsed.value, () => {
-      if (isCollapsed.value) {
-        setTimeout(() => {
-          isCloseEditor.value = true;
-        }, 2000);
-      }
-    });
+    const isCloseEditor = ref(false);
+    const closeEditor = () => {
+      isCloseEditor.value = true
+    }
     const openEditor = () => {
-      const response = confirm('Do you want to open My-Portfolio-Site in Visual Studio Code?');
-      if(response) {
-        isCollapsed.value = false;
-        isCloseEditor.value = false;
-        router.push({ path: '/' });
-      }
+      isCollapsed.value = false;
+      isCloseEditor.value = false;
+      router.push({ path: '/' });
     };
 
     const isOpenExplorer = ref(true);
@@ -152,8 +126,9 @@ export default defineComponent({
       icons,
       isCloseEditor,
       isCollapsed,
-      closeTab,
+      collapseParts,
       openEditor,
+      closeEditor,
       isThemeChanged,
       changeTheme,
       isOpenExplorer,
@@ -196,13 +171,18 @@ a {
   width: 100%;
   height: 100%;
   background-color: transparent;
+  &--collapsed {
+    pointer-events: none;
+  }
 }
+
 .innner-wrapper {
   width: 100%;
   height: calc(100% - 1.5rem);
   display: flex;
   background-color: transparent;
 }
+
 .code {
   flex-grow: 1;
   width: calc(100% - 12rem);
@@ -253,7 +233,7 @@ a {
         margin-left: 0.6rem;
       }
     }
-  } //__tag
+  } // __tag
   &__field {
     width: 100%;
     height: calc(100% - 2.3rem);
@@ -263,9 +243,13 @@ a {
       background-color: #1e1e1e;
     }
   }
-} //.code
+} // .code
 
-//スクロールバーのカスタマイズ
+.animated-fadein {
+  @include animated-fadein;
+}
+
+// スクロールバーのカスタマイズ
 ::-webkit-scrollbar {
   width: 0.8rem;
   background-color: #2c2e38;
@@ -279,30 +263,14 @@ a {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
-//メディアクエリ
+// メディアクエリ
 @include media-query($bp-mobile) {
   .code {
     width: calc(100% - 9rem);
-    //スクロールバーのカスタマイズ
+    // スクロールバーのカスタマイズ
     ::-webkit-scrollbar {
       width: 0.5rem;
     }
   }
-}
-
-@keyframes fadeInBottomLeft {
-  from {
-    opacity: 0;
-    transform: translate3d(-100%, 100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-.fadeInBottomLeft {
-  animation-duration: 0.25s;
-  animation-fill-mode: both;
-  animation-name: fadeInBottomLeft;
 }
 </style>

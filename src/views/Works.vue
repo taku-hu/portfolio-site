@@ -191,9 +191,9 @@ export default defineComponent({
       margin: 0 auto;
     }
   }
-} //.works
+} // .works
 
-//メディアクエリ
+// メディアクエリ
 @include media-query($bp-tablet) {
   .works {
     &__heading {

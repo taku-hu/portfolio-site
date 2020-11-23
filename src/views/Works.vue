@@ -198,7 +198,6 @@ export default defineComponent({
   .works {
     &__heading {
       width: 85%;
-      font-size: 2rem;
     }
     .work {
       width: 85%;

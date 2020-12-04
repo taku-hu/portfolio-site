@@ -15,7 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
     "core-js": "^3.6.5",
-    "highlight.js": "^10.2.1",
+    "highlight.js": "^10.4.1",
     "reset-css": "^5.0.1",
     "typeface-open-sans": "^1.1.13",
     "typeface-orbitron": "^1.1.13",

@@ -55,11 +55,11 @@ export default defineComponent({
       },
       {
         name: 'Sass',
-        details: '開発に必要な機能は十分に理解しています。'
+        details: 'mixinや基本的な関数等、開発に必要な機能は十分に理解しています。'
       },
       {
         name: 'JavaScript',
-        details: '私が最も得意としている言語です。\n当然ES6以降の文法も十分に理解しています。'
+        details: '私が最も得意としている言語です。\n当然ES6以降の最新の文法も十分に理解しています。'
       },
       {
         name: 'TypeScript',
@@ -67,19 +67,19 @@ export default defineComponent({
       },
       {
         name: 'Vue.js',
-        details: '現在業務でメインで使っているフレームワークです。\nバージョンは2と3(composition api)両方とも扱えます。'
+        details: '現在業務でメインで使っているJSフレームワークです。\nバージョンは2と3(composition api)両方とも扱えます。'
       },
       {
         name: 'Nuxt.js',
-        details: '現在業務でメインで使っているフレームワークです。\nWORKSに載せているブログはNuxt.jsを用いて開発しました。'
+        details: '現在業務でメインで使っているJSフレームワークです。\nWORKSに載せているブログはNuxt.jsを用いて開発しました。'
       },
       {
         name: 'React',
-        details: '最近最も関心を持っているライブラリです。\nVue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。\n現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。'
+        details: '最近最も関心を持っているライブラリです。\nVue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。\nClass ComponentとHooks両方とも扱えます。'
       },
       {
         name: 'Dart',
-        details: '会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。\nJavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えたと思います。'
+        details: '会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。\nJavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えました。'
       },
       {
         name: 'Flutter',

@@ -37,29 +37,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue'
 
-import CommonLabel from '@/components/common/CommonLabel.vue';
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+import CommonLabel from '@/components/common/CommonLabel.vue'
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 export default defineComponent({
   components: {
     CommonLabel,
     CommonPageHeading
   },
-  setup() {
-    const skills = [
+  setup () {
+    const skills = computed(() => [
       {
         name: 'HTML・CSS',
         details: '両方共に問題なく扱えます。\nBEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。'
       },
       {
         name: 'Sass',
-        details: '開発に必要な機能は十分に理解しています。'
+        details: 'mixinや基本的な関数等、開発に必要な機能は十分に理解しています。'
       },
       {
         name: 'JavaScript',
-        details: '私が最も得意としている言語です。\n当然ES6以降の文法も十分に理解しています。'
+        details: '私が最も得意としている言語です。\n当然ES6以降の最新の文法も十分に理解しています。'
       },
       {
         name: 'TypeScript',
@@ -67,19 +67,19 @@ export default defineComponent({
       },
       {
         name: 'Vue.js',
-        details: '現在業務でメインで使っているフレームワークです。\nバージョンは2と3(composition api)両方とも扱えます。'
+        details: '現在業務でメインで使っているJSフレームワークです。\nバージョンは2と3(composition api)両方とも扱えます。'
       },
       {
         name: 'Nuxt.js',
-        details: '現在業務でメインで使っているフレームワークです。\nWORKSに載せているブログはNuxt.jsを用いて開発しました。'
+        details: '現在業務でメインで使っているJSフレームワークです。\nWORKSに載せているブログはNuxt.jsを用いて開発しました。'
       },
       {
         name: 'React',
-        details: '最近最も関心を持っているライブラリです。\nVue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。\n現在本棚アプリをReact + Hooks + TSXでリプレイス作業中です。'
+        details: '最近最も関心を持っているライブラリです。\nVue3のcompositionAPIに触れたことで、関数型の良さを知り、Vue3に影響を与えたReact Hooksに興味を持った事が始めたキッカケです。\nClass ComponentとHooks両方とも扱えます。'
       },
       {
         name: 'Dart',
-        details: '会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。\nJavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えたと思います。'
+        details: '会社でモバイルアプリ事業を始めるにあたっての技術選定の一環で触りました。\nJavaScriptライクな静的型付け言語だったため、TypeScriptの経験が活き、それなりに扱えました。'
       },
       {
         name: 'Flutter',
@@ -97,13 +97,13 @@ export default defineComponent({
         name: 'webpack',
         details: '主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。'
       }
-    ];
+    ])
 
     return {
       skills
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

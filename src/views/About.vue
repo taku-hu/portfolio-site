@@ -68,34 +68,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, computed } from 'vue'
 import { faMousePointer } from '@fortawesome/free-solid-svg-icons'
 
-import CommonLabel from '@/components/common/CommonLabel.vue';
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
-
-type ProfileType = {
-  title: string;
-  information: string;
-  link: string;
-}
+import CommonLabel from '@/components/common/CommonLabel.vue'
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 export default defineComponent({
   components: {
     CommonLabel,
     CommonPageHeading
   },
-  setup(_, { emit }) {
-    const profileData = reactive([
+  setup (_, { emit }) {
+    const profileData = computed(() => [
       {
         title: 'Name',
-        information: 'Takeuchi Takuto',
-        link: ''
+        information: 'Takeuchi Takuto'
       },
       {
         title: 'Background',
-        information: 'Bachelor of International Economics / Hosei University',
-        link: ''
+        information: 'Bachelor of International Economics / Hosei University'
       },
       {
         title: 'Qiita',
@@ -109,63 +101,51 @@ export default defineComponent({
       },
       {
         title: 'wantedly',
-        information:
-          'Takeuchi Takuto',
+        information: 'Takeuchi Takuto',
         link: 'https://www.wantedly.com/users/124833407'
       },
       {
         title: 'Contact',
-        information: 'hs.tm.ec.a.tt@gmail.com',
-        link: ''
+        information: 'hs.tm.ec.a.tt@gmail.com'
       }
-    ]);
+    ])
 
-    const icons = {
-      faMousePointer
-    }
+    const icons = computed(() => ({ faMousePointer }))
 
-    const now = reactive({
-      year: 0,
-      month: '',
-      day: 0
-    });
+    const monthNames = [
+      'Janualy',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+    const date = new Date()
+    const now = computed(() => ({
+      year: date.getFullYear(),
+      month: monthNames[date.getMonth()],
+      day: date.getDate()
+    }))
     const suffix = computed(() => {
-      const date = now.day;
-      if([1, 21, 31].includes(date)) {
-        return 'st';
+      const date = now.value.day
+      if ([1, 21, 31].includes(date)) {
+        return 'st'
       } else if ([2, 22].includes(date)) {
-        return 'nd';
+        return 'nd'
       } else if ([3, 23].includes(date)) {
-        return 'rd';
+        return 'rd'
       } else {
-        return 'th';
+        return 'th'
       }
-    });
-    const setDate = () => {
-      const monthNames = [
-        'Janualy',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ];
-      const date = new Date();
-      now.year = date.getFullYear();
-      now.month = monthNames[date.getMonth()];
-      now.day = date.getDate();
-    };
-    setDate();
+    })
 
-    const changeTheme = () => {
-      emit('change-theme');
-    };
+    const changeTheme = () => emit('change-theme')
 
     return {
       profileData,
@@ -173,9 +153,9 @@ export default defineComponent({
       now,
       suffix,
       changeTheme
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

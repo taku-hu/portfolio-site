@@ -1,10 +1,8 @@
 <template>
   <div :class="[
       $style.explorer,
-      {
-        [$style['explorer--theme-changed']]: isThemeChanged,
-        [$style['explorer--collapsed']]: isCollapsed
-      }
+      isThemeChanged ? $style['explorer--theme-changed'] : '',
+      isCollapsed ? $style['explorer--collapsed'] : ''
     ]"
   >
     <div :class="$style.explorer__heading">EXPLORER</div>
@@ -17,10 +15,8 @@
       <div
         :class="[
           $style.accordion__label,
-          {
-            [$style['accordion__label--opened']]: accordion.isOpen,
-            [$style['accordion__label--theme-changed']]: isThemeChanged
-          }
+          accordion.isOpen ? $style['accordion__label--opened'] : '',
+          isThemeChanged ? $style['accordion__label--theme-changed'] : ''
         ]"
         @click="toggleAccordion(accordion)"
       >
@@ -28,8 +24,8 @@
           :icon="icons.faAngleDown"
           :class="[
             $style.accordion__icon,
-            { [$style['accordion__icon--close']]: !accordion.isOpen }
-          ]" 
+            !accordion.isOpen ? $style['accordion__icon--close'] : ''
+          ]"
         />
         {{ accordion.labelName }}
       </div>
@@ -37,7 +33,7 @@
         <a
           :class="[
             $style.accordion__links,
-            { [$style['accordion__links--active']]: path.name === currentPage }
+            (path.name === currentPage) ? $style['accordion__links--active'] : ''
           ]"
           v-for="path in accordion.paths"
           :key="path.name"
@@ -55,24 +51,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
-import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { defineComponent, reactive, computed } from 'vue'
 import { faBlog, faHome, faAddressCard, faWrench, faBriefcase, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs, faQuora } from '@fortawesome/free-brands-svg-icons'
-import router from '@/router';
-
-type PathType = {
-  icon: IconDefinition;
-  name: string;
-  link: string;
-}
-type AccordionType = {
-  labelName: string;
-  isOpen: boolean;
-  paths: [
-    ...PathType[]
-  ];
-}
+import router from '@/router'
 
 export default defineComponent({
   props: {
@@ -80,7 +62,7 @@ export default defineComponent({
     isCollapsed: Boolean,
     currentPage: String
   },
-  setup() {
+  setup () {
     const accordions = reactive([
       {
         labelName: 'OPEN EDITORS',
@@ -142,35 +124,35 @@ export default defineComponent({
           }
         ]
       }
-    ]);
+    ])
+    type AccordionItem = typeof accordions[number]
+    type AccordionItemPath = AccordionItem['paths'][number]
 
-    const icons = {
-      faAngleDown
+    const icons = computed(() => ({ faAngleDown }))
+
+    const toggleAccordion = ({ labelName }: AccordionItem) => {
+      const selected = accordions.find(accordion => accordion.labelName === labelName)
+      if (selected) {
+        selected.isOpen = !selected.isOpen
+      }
     }
 
-    const toggleAccordion = (accordion: AccordionType) => {
-      const selected = accordions.find(accordions => accordions.labelName === accordion.labelName);
-      if(selected) {
-        selected.isOpen = !selected.isOpen;
-      }
-    };
-
-    const transitionPage = (accordion: AccordionType, path: PathType) => {
-      if (accordion.labelName === 'pages') {
-        router.push({ path: path.link });
+    const transitionPage = ({ labelName }: AccordionItem, { link }: AccordionItemPath) => {
+      if (labelName === 'pages') {
+        router.push({ path: link })
       } else {
-        open(path.link, '_blank');
+        open(link, '_blank')
       }
-    };
+    }
 
     return {
       accordions,
       icons,
       toggleAccordion,
       transitionPage
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

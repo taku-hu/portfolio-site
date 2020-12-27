@@ -28,7 +28,7 @@
                 :src="require(`@/assets/images/${modal.data.image}.png`)"
               />
             </a>
-            <p :class="$style.modal__description">     
+            <p :class="$style.modal__description">
               {{ modal.data.description }}
             </p>
           </div>
@@ -39,23 +39,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, computed } from 'vue'
 
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
-
-type WorkType = {
-  name: string;
-  title: string;
-  link: string;
-  description: string;
-}
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 export default defineComponent({
   components: {
     CommonPageHeading
   },
-  setup() {
-    const works = [
+  setup () {
+    const works = computed(() => [
       {
         name: 'Portfolio Site',
         image: 'portfolio-site',
@@ -80,28 +73,27 @@ export default defineComponent({
         link: 'https://taku-hu.github.io/typing-app/',
         description: 'Vueの理解を深めるために作ったタイピングゲームです。\nJavaScript自体の理解も深めたいと思い、あえてフルスクラッチでより多くのコードを書きました。'
       }
-    ]
+    ])
+    type WorkType = typeof works.value[number]
 
-    const modal= reactive({
+    const modal = reactive({
       data: {} as WorkType,
       isActive: false
-    });
+    })
     const openModal = (work: WorkType) => {
-      modal.data = work;
-      modal.isActive = true;
-    };
-    const closeModal = () => {
-      modal.isActive = false;
-    };
+      modal.data = work
+      modal.isActive = true
+    }
+    const closeModal = () => { modal.isActive = false }
 
     return {
       works,
       modal,
       openModal,
       closeModal
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

@@ -9,17 +9,22 @@
         ページは削除されたか、移動された可能性があります。
       </p>
       <CommonLabel>
-        <router-link :class="$style.error__link" to="/">ホームに戻る</router-link>
+        <router-link
+          :class="$style.error__link"
+          to="/"
+        >
+          ホームに戻る
+        </router-link>
       </CommonLabel>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import CommonLabel from '@/components/common/CommonLabel.vue';
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+import CommonLabel from '@/components/common/CommonLabel.vue'
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 export default defineComponent({
   components: {

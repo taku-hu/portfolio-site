@@ -2,20 +2,16 @@
   <main
     :class="[
       $style.code,
-      {
-        [$style['code--theme-changed']]: isThemeChanged,
-        [$style['code--collapsed']]: isCollapsed,
-        [$style['code--close-explorer']]: !isOpenExplorer
-      }
+      isThemeChanged ? $style['code--theme-changed'] : '',
+      isCollapsed ? $style['code--collapsed']: '',
+      !isOpenExplorer ? $style['code--close-explorer']: ''
     ]"
     @animationend="closeEditor"
   >
     <div
       :class="[
         $style.code__tag,
-        {
-          [$style['code__tag--theme-changed']]: isThemeChanged
-        }
+        isThemeChanged ? $style['code__tag--theme-changed']: ''
       ]"
     >
       <fa
@@ -23,20 +19,16 @@
         :icon="icons.faVuejs"
       />
       {{ currentPage }}.vue
-      <span @click="collapseParts">
-      
-        <fa
-          :class="$style['tag-icon--times']"
-          :icon="icons.faTimes"
-        />
-      </span>
+      <fa
+        :class="$style['tag-icon--times']"
+        :icon="icons.faTimes"
+        @click="collapseParts"
+      />
     </div>
     <div
       :class="[
         $style.code__field,
-        {
-          [$style['code__field--theme-changed']]: isThemeChanged
-        }
+        isThemeChanged ? $style['code__field--theme-changed']: ''
       ]"
     >
       <slot />
@@ -45,40 +37,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed } from 'vue'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs } from '@fortawesome/free-brands-svg-icons'
-import router from '@/router';
+import router from '@/router'
 
 export default defineComponent({
   props: {
     isThemeChanged: Boolean,
     isCollapsed: Boolean,
-    isOpenExplorer: Boolean,
+    isOpenExplorer: Boolean
   },
-  setup(_, { emit }) {
+  setup (_, { emit }) {
     const currentPage = computed(() => router.currentRoute.value.name)
 
-    const icons = {
+    const icons = computed(() => ({
       faVuejs,
       faTimes
-    }
+    }))
 
-    const collapseParts = () => {
-      emit('collapse-parts')
-    };
-    const closeEditor = () => {
-      emit('close-editor')
-    };
+    const collapseParts = () => emit('collapse-parts')
+    const closeEditor = () => emit('close-editor')
 
     return {
       currentPage,
       icons,
       collapseParts,
       closeEditor
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

@@ -1,7 +1,7 @@
 <div class="image">
   <p align="center">
     <a href="https://taku-hu.web.app">
-      <img src="https://user-images.githubusercontent.com/54551190/78898044-1a28c880-7aae-11ea-9551-c1ec5dc3b1d6.png" width="300">
+      <img src="https://user-images.githubusercontent.com/54551190/103175567-2b20a080-48ae-11eb-8a0d-6b185839e636.png" width="300">
     </a>
   </p>
   <br>
@@ -42,9 +42,9 @@
     <h2 align="center">--Responsive Web Design--</h2>
     <p align="center">タブレット・モバイル端末にも対応しています。</p>
     <p align="center">
-      <img src="https://user-images.githubusercontent.com/54551190/78896079-e13b2480-7aaa-11ea-8212-714498a74870.png" height="300">
+      <img src="https://user-images.githubusercontent.com/54551190/103175569-2cea6400-48ae-11eb-8448-fc005b9f5848.png" height="300">
       &nbsp;
-      <img src="https://user-images.githubusercontent.com/54551190/78895951-a2a56a00-7aaa-11ea-88f8-618129deee6b.png" height="300">
+      <img src="https://user-images.githubusercontent.com/54551190/103175562-2956dd00-48ae-11eb-919b-e66f88be7c1c.png" height="300">
     </p>
   </div>
 </div>
@@ -70,7 +70,10 @@
       <a href="https://taku-hu.web.app/" target="_blank">Website</a>
     </li>
     <li>
-      <a href="https://taku-hu.netlify.app/" target="_blank">Blog</a>
+      <a href="https://www.wantedly.com/users/124833407" target="_blank">Wantedly</a>
+    </li>
+    <li>
+      <a href="https://taku-hu.netlify.app/" target="_blank">Tech Blog</a>
     </li>
     <li>
       <a href="https://github.com/taku-hu" target="_blank">GitHub</a>

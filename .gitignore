@@ -5,6 +5,10 @@ node_modules
 .firebaserc
 firebase.json
 
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+
+
 # local env files
 .env.local
 .env.*.local
@@ -23,3 +27,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+

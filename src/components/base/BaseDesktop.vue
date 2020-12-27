@@ -1,13 +1,13 @@
 <template>
   <div :class="$style.desktop">
     <div
-      v-for="icon in icons"
+      v-for="icon in desktopIcons"
       :key="icon"
       :class="[
         $style.icon,
-        { [$style['icon--trash']]: icon.image === 'dustbox' }
+        (icon.image === 'dustbox') ? $style['icon--trash'] : ''
       ]"
-      @click="iconAction(icon.image)"
+      @click="iconAction(icon)"
       ontouchstart=""
     >
       <img
@@ -20,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue'
 
 export default defineComponent({
-  setup(_, { emit }) {
-    const icons = [
+  setup (_, { emit }) {
+    const desktopIcons = computed(() => [
       {
         image: 'dustbox',
         text: 'ゴミ箱'
@@ -37,17 +37,17 @@ export default defineComponent({
         image: 'vscode',
         text: 'Visual Studio Code'
       }
-    ]
-    const iconAction = (icon: string) => {
-      if(icon === 'chrome') {
-        window.open('https://www.google.com/', '_blank');
-      } else if (icon === 'vscode') {
-        emit('open-editor');
+    ])
+    const iconAction = ({ image }: typeof desktopIcons.value[number]) => {
+      if (image === 'chrome') {
+        window.open('https://www.google.com/', '_blank')
+      } else if (image === 'vscode') {
+        emit('open-editor')
       }
     }
 
     return {
-      icons,
+      desktopIcons,
       iconAction
     }
   }

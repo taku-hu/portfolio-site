@@ -37,17 +37,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import CommonLabel from '@/components/common/CommonLabel.vue';
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+import CommonLabel from '@/components/common/CommonLabel.vue'
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 export default defineComponent({
   components: {
     CommonLabel,
     CommonPageHeading
   },
-  setup() {
+  setup () {
     const skills = [
       {
         name: 'HTML・CSS',
@@ -97,13 +97,13 @@ export default defineComponent({
         name: 'webpack',
         details: '主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。'
       }
-    ];
+    ]
 
     return {
       skills
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

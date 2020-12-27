@@ -24,7 +24,7 @@
       />
       {{ currentPage }}.vue
       <span @click="collapseParts">
-      
+
         <fa
           :class="$style['tag-icon--times']"
           :icon="icons.faTimes"
@@ -45,18 +45,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed } from 'vue'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs } from '@fortawesome/free-brands-svg-icons'
-import router from '@/router';
+import router from '@/router'
 
 export default defineComponent({
   props: {
     isThemeChanged: Boolean,
     isCollapsed: Boolean,
-    isOpenExplorer: Boolean,
+    isOpenExplorer: Boolean
   },
-  setup(_, { emit }) {
+  setup (_, { emit }) {
     const currentPage = computed(() => router.currentRoute.value.name)
 
     const icons = {
@@ -66,19 +66,19 @@ export default defineComponent({
 
     const collapseParts = () => {
       emit('collapse-parts')
-    };
+    }
     const closeEditor = () => {
       emit('close-editor')
-    };
+    }
 
     return {
       currentPage,
       icons,
       collapseParts,
       closeEditor
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

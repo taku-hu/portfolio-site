@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import CommonLabel from '@/components/common/CommonLabel.vue';
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+import CommonLabel from '@/components/common/CommonLabel.vue'
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 export default defineComponent({
   components: {

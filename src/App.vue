@@ -52,16 +52,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent ,ref, computed, onMounted } from 'vue';
+import { defineComponent, ref, computed, onMounted } from 'vue'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs } from '@fortawesome/free-brands-svg-icons'
-import router from '@/router';
+import router from '@/router'
 
-import BaseLeftbar from '@/components/base/BaseLeftbar.vue';
-import BaseExplorer from '@/components/base/BaseExplorer.vue';
-import BaseMain from '@/components/base/BaseMain.vue';
-import BaseFooter from '@/components/base/BaseFooter.vue';
-import BaseDesktop from '@/components/base/BaseDesktop.vue';
+import BaseLeftbar from '@/components/base/BaseLeftbar.vue'
+import BaseExplorer from '@/components/base/BaseExplorer.vue'
+import BaseMain from '@/components/base/BaseMain.vue'
+import BaseFooter from '@/components/base/BaseFooter.vue'
+import BaseDesktop from '@/components/base/BaseDesktop.vue'
 
 export default defineComponent({
   components: {
@@ -71,18 +71,18 @@ export default defineComponent({
     BaseFooter,
     BaseDesktop
   },
-  setup() {
-    const getInnerVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
+  setup () {
     onMounted(() => {
-      getInnerVh();
+      const getInnerVh = () => {
+        const vh = window.innerHeight * 0.01
+        document.documentElement.style.setProperty('--vh', `${vh}px`)
+      }
+
+      getInnerVh()
       document.addEventListener('resize', () => {
-        getInnerVh();
-      });
-    });
+        getInnerVh()
+      })
+    })
 
     const currentPage = computed(() => router.currentRoute.value.name)
 
@@ -91,34 +91,34 @@ export default defineComponent({
       faTimes
     }
 
-    const isThemeChanged = ref(false);
+    const isThemeChanged = ref(false)
     const changeTheme = () => {
-      const response = confirm('Change color theme?');
-      if(response) {
-        isThemeChanged.value = !isThemeChanged.value;
+      const response = confirm('Change color theme?')
+      if (response) {
+        isThemeChanged.value = !isThemeChanged.value
       }
-    };
+    }
 
-    const isCollapsed = ref(false);
+    const isCollapsed = ref(false)
     const collapseParts = () => {
-      const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`);
-      if(response) {
-        isCollapsed.value = true;
+      const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`)
+      if (response) {
+        isCollapsed.value = true
       }
-    };
-    const isCloseEditor = ref(false);
+    }
+    const isCloseEditor = ref(false)
     const closeEditor = () => {
       isCloseEditor.value = true
     }
     const openEditor = () => {
-      isCollapsed.value = false;
-      isCloseEditor.value = false;
-      router.push({ path: '/' });
-    };
+      isCollapsed.value = false
+      isCloseEditor.value = false
+      router.push({ path: '/' })
+    }
 
-    const isOpenExplorer = ref(true);
+    const isOpenExplorer = ref(true)
     const toggleExplorer = () => {
-      isOpenExplorer.value = !isOpenExplorer.value;
+      isOpenExplorer.value = !isOpenExplorer.value
     }
 
     return {
@@ -133,9 +133,9 @@ export default defineComponent({
       changeTheme,
       isOpenExplorer,
       toggleExplorer
-    };
+    }
   }
-});
+})
 </script>
 
 <style>

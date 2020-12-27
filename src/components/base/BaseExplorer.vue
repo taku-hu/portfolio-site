@@ -29,7 +29,7 @@
           :class="[
             $style.accordion__icon,
             { [$style['accordion__icon--close']]: !accordion.isOpen }
-          ]" 
+          ]"
         />
         {{ accordion.labelName }}
       </div>
@@ -55,11 +55,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
-import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { defineComponent, reactive } from 'vue'
+import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 import { faBlog, faHome, faAddressCard, faWrench, faBriefcase, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs, faQuora } from '@fortawesome/free-brands-svg-icons'
-import router from '@/router';
+import router from '@/router'
 
 type PathType = {
   icon: IconDefinition;
@@ -80,7 +80,7 @@ export default defineComponent({
     isCollapsed: Boolean,
     currentPage: String
   },
-  setup() {
+  setup () {
     const accordions = reactive([
       {
         labelName: 'OPEN EDITORS',
@@ -142,35 +142,35 @@ export default defineComponent({
           }
         ]
       }
-    ]);
+    ])
 
     const icons = {
       faAngleDown
     }
 
     const toggleAccordion = (accordion: AccordionType) => {
-      const selected = accordions.find(accordions => accordions.labelName === accordion.labelName);
-      if(selected) {
-        selected.isOpen = !selected.isOpen;
+      const selected = accordions.find(accordions => accordions.labelName === accordion.labelName)
+      if (selected) {
+        selected.isOpen = !selected.isOpen
       }
-    };
+    }
 
     const transitionPage = (accordion: AccordionType, path: PathType) => {
       if (accordion.labelName === 'pages') {
-        router.push({ path: path.link });
+        router.push({ path: path.link })
       } else {
-        open(path.link, '_blank');
+        open(path.link, '_blank')
       }
-    };
+    }
 
     return {
       accordions,
       icons,
       toggleAccordion,
       transitionPage
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

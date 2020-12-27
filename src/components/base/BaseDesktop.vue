@@ -20,10 +20,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup(_, { emit }) {
+  setup (_, { emit }) {
     const icons = [
       {
         image: 'dustbox',
@@ -39,10 +39,10 @@ export default defineComponent({
       }
     ]
     const iconAction = (icon: string) => {
-      if(icon === 'chrome') {
-        window.open('https://www.google.com/', '_blank');
+      if (icon === 'chrome') {
+        window.open('https://www.google.com/', '_blank')
       } else if (icon === 'vscode') {
-        emit('open-editor');
+        emit('open-editor')
       }
     }
 

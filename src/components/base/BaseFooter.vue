@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed } from 'vue'
 import { faCodeBranch, faCloudUploadAlt, faTimesCircle, faExclamationTriangle, faTools, faChalkboardTeacher, faBell } from '@fortawesome/free-solid-svg-icons'
 
 export default defineComponent({
@@ -53,7 +53,7 @@ export default defineComponent({
     isThemeChanged: Boolean,
     isCollapsed: Boolean
   },
-  setup(props) {
+  setup (props) {
     const colorTheme = computed(() => props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula')
 
     const icons = {
@@ -69,9 +69,9 @@ export default defineComponent({
     return {
       colorTheme,
       icons
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

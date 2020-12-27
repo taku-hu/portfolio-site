@@ -20,20 +20,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue'
 
-
-import hljs from 'highlight.js';
-import typescript from 'highlight.js/lib/languages/typescript';
-hljs.registerLanguage('typescript', typescript);
-import 'highlight.js/styles/dracula.css';
+import hljs from 'highlight.js'
+import typescript from 'highlight.js/lib/languages/typescript'
+import 'highlight.js/styles/dracula.css'
+hljs.registerLanguage('typescript', typescript)
 
 export default defineComponent({
   props: {
     isThemeChanged: Boolean
   },
-  setup() {
-    const styledCode = ref('');
+  setup () {
+    const styledCode = ref('')
     const code = hljs.highlightAuto(`
 //Thank you for visiting.
 //This is my portfolio site.
@@ -63,21 +62,21 @@ const me = new Profile(
 me.getAge(1993);
 
 console.log('Nice to meet you!');
-    `).value;
+    `).value
     const typingCode = () => {
       [...code].forEach((string, index) => {
         setTimeout(() => {
-          styledCode.value += string;
-        }, 10 * index);
-      });
+          styledCode.value += string
+        }, 10 * index)
+      })
     }
-    onMounted(typingCode);
+    onMounted(typingCode)
 
     return {
       styledCode
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

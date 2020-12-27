@@ -68,11 +68,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue';
+import { defineComponent, reactive, computed } from 'vue'
 import { faMousePointer } from '@fortawesome/free-solid-svg-icons'
 
-import CommonLabel from '@/components/common/CommonLabel.vue';
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+import CommonLabel from '@/components/common/CommonLabel.vue'
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 type ProfileType = {
   title: string;
@@ -85,7 +85,7 @@ export default defineComponent({
     CommonLabel,
     CommonPageHeading
   },
-  setup(_, { emit }) {
+  setup (_, { emit }) {
     const profileData = reactive([
       {
         title: 'Name',
@@ -118,7 +118,7 @@ export default defineComponent({
         information: 'hs.tm.ec.a.tt@gmail.com',
         link: ''
       }
-    ]);
+    ])
 
     const icons = {
       faMousePointer
@@ -128,19 +128,19 @@ export default defineComponent({
       year: 0,
       month: '',
       day: 0
-    });
+    })
     const suffix = computed(() => {
-      const date = now.day;
-      if([1, 21, 31].includes(date)) {
-        return 'st';
+      const date = now.day
+      if ([1, 21, 31].includes(date)) {
+        return 'st'
       } else if ([2, 22].includes(date)) {
-        return 'nd';
+        return 'nd'
       } else if ([3, 23].includes(date)) {
-        return 'rd';
+        return 'rd'
       } else {
-        return 'th';
+        return 'th'
       }
-    });
+    })
     const setDate = () => {
       const monthNames = [
         'Janualy',
@@ -155,17 +155,17 @@ export default defineComponent({
         'October',
         'November',
         'December'
-      ];
-      const date = new Date();
-      now.year = date.getFullYear();
-      now.month = monthNames[date.getMonth()];
-      now.day = date.getDate();
-    };
-    setDate();
+      ]
+      const date = new Date()
+      now.year = date.getFullYear()
+      now.month = monthNames[date.getMonth()]
+      now.day = date.getDate()
+    }
+    setDate()
 
     const changeTheme = () => {
-      emit('change-theme');
-    };
+      emit('change-theme')
+    }
 
     return {
       profileData,
@@ -173,9 +173,9 @@ export default defineComponent({
       now,
       suffix,
       changeTheme
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

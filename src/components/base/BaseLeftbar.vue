@@ -11,7 +11,7 @@
     <div
       :class="[
         $style['left-bar__icons'],
-        { 
+        {
           [$style['left-bar__icons--theme-changed']]: isThemeChanged,
           [$style['left-bar__icons--close-explorer']]: !isOpenExplorer,
           [$style['left-bar__icons--close-and-theme-changed']]: isThemeChanged && !isOpenExplorer,
@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { defineComponent } from 'vue'
+import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 import { faSearch, faCodeBranch, faBug, faThLarge, faCog } from '@fortawesome/free-solid-svg-icons'
 import { faCopy } from '@fortawesome/free-regular-svg-icons'
 import { faGitAlt } from '@fortawesome/free-brands-svg-icons'
@@ -46,7 +46,7 @@ export default defineComponent({
     isCollapsed: Boolean,
     isOpenExplorer: Boolean
   },
-  setup(_, { emit }) {
+  setup (_, { emit }) {
     const manuIcons = {
       faCopy,
       faSearch,
@@ -61,14 +61,14 @@ export default defineComponent({
     }
 
     const changeTheme = () => {
-      emit('change-theme');
-    };
+      emit('change-theme')
+    }
 
     const toggleExplorer = (icon: IconDefinition) => {
-      if(icon !== manuIcons.faCopy) {
-        return;
+      if (icon !== manuIcons.faCopy) {
+        return
       }
-      emit('toggle-explorer');
+      emit('toggle-explorer')
     }
 
     return {
@@ -76,9 +76,9 @@ export default defineComponent({
       icons,
       changeTheme,
       toggleExplorer
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

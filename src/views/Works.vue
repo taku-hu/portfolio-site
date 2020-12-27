@@ -28,7 +28,7 @@
                 :src="require(`@/assets/images/${modal.data.image}.png`)"
               />
             </a>
-            <p :class="$style.modal__description">     
+            <p :class="$style.modal__description">
               {{ modal.data.description }}
             </p>
           </div>
@@ -39,9 +39,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive } from 'vue'
 
-import CommonPageHeading from '@/components/common/CommonPageHeading.vue';
+import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
 
 type WorkType = {
   name: string;
@@ -54,7 +54,7 @@ export default defineComponent({
   components: {
     CommonPageHeading
   },
-  setup() {
+  setup () {
     const works = [
       {
         name: 'Portfolio Site',
@@ -82,26 +82,26 @@ export default defineComponent({
       }
     ]
 
-    const modal= reactive({
+    const modal = reactive({
       data: {} as WorkType,
       isActive: false
-    });
+    })
     const openModal = (work: WorkType) => {
-      modal.data = work;
-      modal.isActive = true;
-    };
+      modal.data = work
+      modal.isActive = true
+    }
     const closeModal = () => {
-      modal.isActive = false;
-    };
+      modal.isActive = false
+    }
 
     return {
       works,
       modal,
       openModal,
       closeModal
-    };
+    }
   }
-});
+})
 </script>
 
 <style lang="scss" module>

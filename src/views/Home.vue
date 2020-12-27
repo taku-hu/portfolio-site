@@ -1,50 +1,47 @@
 <template>
   <section :class="$style.home">
-    <div :class="[$style.home__lines, { [$style['home__lines--theme-changed']]: isThemeChanged }]">
+    <div :class="[
+      $style.home__lines,
+      isThemeChanged ? $style['home__lines--theme-changed'] : ''
+    ]">
       <p
+        :class="$style.home__line"
         v-for="n in 100"
         :key="n"
       >
         {{ n }}
       </p>
     </div>
-    <div :class="$style.home__body">
-      <pre>
-        <code
-          :class="$style['language-typescript']"
-          v-html="styledCode"
-        />
-      </pre>
-    </div>
+    <code
+      :class="$style.home__code"
+      v-html="displayCode"
+    />
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-
+import { defineComponent, ref, computed, nextTick } from 'vue'
 import hljs from 'highlight.js'
 import typescript from 'highlight.js/lib/languages/typescript'
-import 'highlight.js/styles/dracula.css'
-hljs.registerLanguage('typescript', typescript)
+import 'highlight.js/scss/dracula.scss'
+hljs.registerLanguage('typecript', typescript)
 
 export default defineComponent({
   props: {
     isThemeChanged: Boolean
   },
   setup () {
-    const styledCode = ref('')
-    const code = hljs.highlightAuto(`
-//Thank you for visiting.
-//This is my portfolio site.
+    const displayCode = ref('')
+    const styledCode = computed(() => hljs.highlightAuto(`// Thank you for visiting.
+// This is my portfolio site.
 
 console.log('Hello Hackers!');
 
 class Profile {
   private age?: number;
-  constructor(readonly name: string, readonly gender: 'male' | 'female') {
-  }
+  constructor (readonly name: string, readonly gender: 'male' | 'female') {}
 
-  getAge(this: Profile, birthYear: number) {
+  getAge (this: Profile, birthYear: number) {
     const now = new Date();
     const thisYear = now.getFullYear();
 
@@ -62,18 +59,19 @@ const me = new Profile(
 me.getAge(1993);
 
 console.log('Nice to meet you!');
-    `).value
+    `).value)
     const typingCode = () => {
-      [...code].forEach((string, index) => {
+      [...styledCode.value].forEach((character, index) => {
         setTimeout(() => {
-          styledCode.value += string
-        }, 10 * index)
+          displayCode.value += character
+        }, ++index * 10)
       })
     }
-    onMounted(typingCode)
+
+    nextTick(typingCode)
 
     return {
-      styledCode
+      displayCode
     }
   }
 })
@@ -83,9 +81,8 @@ console.log('Nice to meet you!');
 @import '@/assets/styles/_parts.scss';
 
 .home {
+  max-height: 100%;
   display: flex;
-  width: 100%;
-  height: 100%;
   font-size: 0.8rem;
   overflow: hidden;
   &__lines {
@@ -94,22 +91,15 @@ console.log('Nice to meet you!');
     &--theme-changed {
       color: #858585;
     }
-    p {
-      width: 3rem;
-      line-height: 1.2rem;
-      padding-left: 0.5rem;
-    }
   }
-  &__body {
-    width: 100%;
-    height: 100%;
+  &__line {
+    line-height: 1.5;
+    padding: 0 1rem 0 0.5rem;
+  }
+  &__code {
+    line-height: 1.5;
     overflow: auto;
-    pre,
-    code {
-      width: 100%;
-      height: 100%;
-      line-height: 1.2rem;
-    }
+    white-space: pre;
   }
 } // .home
 </style>

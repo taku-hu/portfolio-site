@@ -2,21 +2,17 @@
   <div
     :class="[
       $style['left-bar'],
-      {
-        [$style['left-bar--theme-changed']]: isThemeChanged,
-        [$style['left-bar--collapsed']]: isCollapsed,
-      }
+      isThemeChanged ? $style['left-bar--theme-changed'] : '',
+      isCollapsed ? $style['left-bar--collapsed'] : '',
     ]"
   >
     <div
       :class="[
         $style['left-bar__icons'],
-        {
-          [$style['left-bar__icons--theme-changed']]: isThemeChanged,
-          [$style['left-bar__icons--close-explorer']]: !isOpenExplorer,
-          [$style['left-bar__icons--close-and-theme-changed']]: isThemeChanged && !isOpenExplorer,
-          [$style['left-bar__icons--search']]: icon === manuIcons.faSearch
-        }
+        isThemeChanged ? $style['left-bar__icons--theme-changed'] : '',
+        !isOpenExplorer ? $style['left-bar__icons--close-explorer'] : '',
+        (isThemeChanged && !isOpenExplorer) ? $style['left-bar__icons--close-and-theme-changed'] : '',
+        (icon === manuIcons.faSearch) ? $style['left-bar__icons--search']: ''
       ]"
       v-for="icon in manuIcons"
       :key="icon"
@@ -34,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 import { faSearch, faCodeBranch, faBug, faThLarge, faCog } from '@fortawesome/free-solid-svg-icons'
 import { faCopy } from '@fortawesome/free-regular-svg-icons'
@@ -56,18 +52,15 @@ export default defineComponent({
       faThLarge
     }
 
-    const icons = {
-      faCog
-    }
+    const icons = computed(() => ({ faCog }))
 
-    const changeTheme = () => {
-      emit('change-theme')
-    }
+    const changeTheme = () => emit('change-theme')
 
     const toggleExplorer = (icon: IconDefinition) => {
       if (icon !== manuIcons.faCopy) {
         return
       }
+
       emit('toggle-explorer')
     }
 

@@ -2,20 +2,16 @@
   <main
     :class="[
       $style.code,
-      {
-        [$style['code--theme-changed']]: isThemeChanged,
-        [$style['code--collapsed']]: isCollapsed,
-        [$style['code--close-explorer']]: !isOpenExplorer
-      }
+      isThemeChanged ? $style['code--theme-changed'] : '',
+      isCollapsed ? $style['code--collapsed']: '',
+      !isOpenExplorer ? $style['code--close-explorer']: ''
     ]"
     @animationend="closeEditor"
   >
     <div
       :class="[
         $style.code__tag,
-        {
-          [$style['code__tag--theme-changed']]: isThemeChanged
-        }
+        isThemeChanged ? $style['code__tag--theme-changed']: ''
       ]"
     >
       <fa
@@ -23,20 +19,16 @@
         :icon="icons.faVuejs"
       />
       {{ currentPage }}.vue
-      <span @click="collapseParts">
-
-        <fa
-          :class="$style['tag-icon--times']"
-          :icon="icons.faTimes"
-        />
-      </span>
+      <fa
+        :class="$style['tag-icon--times']"
+        :icon="icons.faTimes"
+        @click="collapseParts"
+      />
     </div>
     <div
       :class="[
         $style.code__field,
-        {
-          [$style['code__field--theme-changed']]: isThemeChanged
-        }
+        isThemeChanged ? $style['code__field--theme-changed']: ''
       ]"
     >
       <slot />
@@ -59,17 +51,13 @@ export default defineComponent({
   setup (_, { emit }) {
     const currentPage = computed(() => router.currentRoute.value.name)
 
-    const icons = {
+    const icons = computed(() => ({
       faVuejs,
       faTimes
-    }
+    }))
 
-    const collapseParts = () => {
-      emit('collapse-parts')
-    }
-    const closeEditor = () => {
-      emit('close-editor')
-    }
+    const collapseParts = () => emit('collapse-parts')
+    const closeEditor = () => emit('close-editor')
 
     return {
       currentPage,

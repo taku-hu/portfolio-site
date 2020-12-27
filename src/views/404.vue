@@ -9,7 +9,12 @@
         ページは削除されたか、移動された可能性があります。
       </p>
       <CommonLabel>
-        <router-link :class="$style.error__link" to="/">ホームに戻る</router-link>
+        <router-link
+          :class="$style.error__link"
+          to="/"
+        >
+          ホームに戻る
+        </router-link>
       </CommonLabel>
     </div>
   </section>

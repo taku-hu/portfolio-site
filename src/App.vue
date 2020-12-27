@@ -4,9 +4,7 @@
       <div
         :class="[
           $style.wrapper,
-          {
-            [$style['wrapper--collapsed']]: isCollapsed
-          }
+          isCollapsed ? $style['wrapper--collapsed'] : ''
         ]
         ">
         <div :class="$style['innner-wrapper']">
@@ -73,23 +71,18 @@ export default defineComponent({
   },
   setup () {
     onMounted(() => {
-      const getInnerVh = () => {
-        const vh = window.innerHeight * 0.01
-        document.documentElement.style.setProperty('--vh', `${vh}px`)
-      }
+      const getInnerVh = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`)
 
       getInnerVh()
-      document.addEventListener('resize', () => {
-        getInnerVh()
-      })
+      document.addEventListener('resize', getInnerVh)
     })
 
     const currentPage = computed(() => router.currentRoute.value.name)
 
-    const icons = {
+    const icons = computed(() => ({
       faVuejs,
       faTimes
-    }
+    }))
 
     const isThemeChanged = ref(false)
     const changeTheme = () => {
@@ -238,7 +231,6 @@ a {
     width: 100%;
     height: calc(100% - 2.3rem);
     background-color: #282a35;
-    overflow: auto;
     &--theme-changed {
       background-color: #1e1e1e;
     }

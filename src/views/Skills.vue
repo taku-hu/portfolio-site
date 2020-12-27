@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 
 import CommonLabel from '@/components/common/CommonLabel.vue'
 import CommonPageHeading from '@/components/common/CommonPageHeading.vue'
@@ -48,7 +48,7 @@ export default defineComponent({
     CommonPageHeading
   },
   setup () {
-    const skills = [
+    const skills = computed(() => [
       {
         name: 'HTML・CSS',
         details: '両方共に問題なく扱えます。\nBEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。'
@@ -97,7 +97,7 @@ export default defineComponent({
         name: 'webpack',
         details: '主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。'
       }
-    ]
+    ])
 
     return {
       skills

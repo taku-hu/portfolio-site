@@ -2,10 +2,8 @@
   <footer
     :class="[
       $style.footer,
-      {
-        [$style['footer--theme-changed']]: isThemeChanged,
-        [$style['footer--collapsed']]: isCollapsed
-      }
+      isThemeChanged ? $style['footer--theme-changed'] : '' ,
+      isCollapsed ? $style['footer--collapsed'] : ''
     ]"
   >
     <div class="footer__left">
@@ -56,7 +54,7 @@ export default defineComponent({
   setup (props) {
     const colorTheme = computed(() => props.isThemeChanged ? 'Dark(Visual Studio)' : 'Dracula')
 
-    const icons = {
+    const icons = computed(() => ({
       faCodeBranch,
       faCloudUploadAlt,
       faTimesCircle,
@@ -64,7 +62,7 @@ export default defineComponent({
       faTools,
       faChalkboardTeacher,
       faBell
-    }
+    }))
 
     return {
       colorTheme,

@@ -15,7 +15,6 @@
   margin-bottom: 1.5rem;
 }
 
-// メディアクエリ
 @include media-query($bp-tablet) {
   .common-page-heading {
     font-size: 2rem;

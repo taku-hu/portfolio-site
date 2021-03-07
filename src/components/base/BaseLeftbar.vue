@@ -2,17 +2,17 @@
   <div
     :class="[
       $style['left-bar'],
-      isThemeChanged ? $style['left-bar--theme-changed'] : '',
-      isCollapsed ? $style['left-bar--collapsed'] : '',
+      isThemeChanged && $style['left-bar--theme-changed'],
+      isCollapsed && $style['left-bar--collapsed']
     ]"
   >
     <div
       :class="[
         $style['left-bar__icons'],
-        isThemeChanged ? $style['left-bar__icons--theme-changed'] : '',
-        !isOpenExplorer ? $style['left-bar__icons--close-explorer'] : '',
-        (isThemeChanged && !isOpenExplorer) ? $style['left-bar__icons--close-and-theme-changed'] : '',
-        (icon === manuIcons.faSearch) ? $style['left-bar__icons--search']: ''
+        isThemeChanged && $style['left-bar__icons--theme-changed'],
+        !isOpenExplorer && $style['left-bar__icons--close-explorer'],
+        (isThemeChanged && !isOpenExplorer) && $style['left-bar__icons--close-and-theme-changed'],
+        (icon === manuIcons.faSearch) && $style['left-bar__icons--search']
       ]"
       v-for="icon in manuIcons"
       :key="icon"
@@ -177,7 +177,6 @@ export default defineComponent({
   }
 }
 
-// メディアクエリ
 @include media-query($bp-mobile) {
   .left-bar {
     display: none;

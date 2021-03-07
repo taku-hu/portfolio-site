@@ -4,7 +4,7 @@
       <div
         :class="[
           $style.wrapper,
-          isCollapsed ? $style['wrapper--collapsed'] : ''
+          isCollapsed && $style['wrapper--collapsed']
         ]
         ">
         <div :class="$style['innner-wrapper']">
@@ -100,9 +100,8 @@ export default defineComponent({
       }
     }
     const isCloseEditor = ref(false)
-    const closeEditor = () => {
-      isCloseEditor.value = true
-    }
+    const closeEditor = () => isCloseEditor.value = true
+
     const openEditor = () => {
       isCollapsed.value = false
       isCloseEditor.value = false
@@ -110,9 +109,7 @@ export default defineComponent({
     }
 
     const isOpenExplorer = ref(true)
-    const toggleExplorer = () => {
-      isOpenExplorer.value = !isOpenExplorer.value
-    }
+    const toggleExplorer = () => isOpenExplorer.value = !isOpenExplorer.value
 
     return {
       currentPage,
@@ -255,7 +252,6 @@ a {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
-// メディアクエリ
 @include media-query($bp-mobile) {
   .code {
     width: calc(100% - 9rem);

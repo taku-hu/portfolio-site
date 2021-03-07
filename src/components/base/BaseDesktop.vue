@@ -5,7 +5,7 @@
       :key="icon"
       :class="[
         $style.icon,
-        (icon.image === 'dustbox') ? $style['icon--trash'] : ''
+        (icon.image === 'dustbox') && $style['icon--trash']
       ]"
       @click="iconAction(icon)"
       ontouchstart=""

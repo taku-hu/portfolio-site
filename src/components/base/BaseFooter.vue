@@ -2,8 +2,8 @@
   <footer
     :class="[
       $style.footer,
-      isThemeChanged ? $style['footer--theme-changed'] : '' ,
-      isCollapsed ? $style['footer--collapsed'] : ''
+      isThemeChanged && $style['footer--theme-changed'],
+      isCollapsed && $style['footer--collapsed']
     ]"
   >
     <div class="footer__left">

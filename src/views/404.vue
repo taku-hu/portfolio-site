@@ -59,7 +59,6 @@ export default defineComponent({
   }
 } // .about
 
-// メディアクエリ
 @include media-query($bp-tablet) {
   .error {
     &__wrapper {

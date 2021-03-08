@@ -9,25 +9,17 @@
         ">
         <div :class="$style['innner-wrapper']">
           <BaseLeftbar
-            :isThemeChanged="isThemeChanged"
-            :isCollapsed="isCollapsed"
-            :isOpenExplorer="isOpenExplorer"
+            v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }"
             @change-theme="changeTheme"
             @toggle-explorer="toggleExplorer"
           />
 
           <template v-if="isOpenExplorer">
-            <BaseExplorer
-              :isThemeChanged="isThemeChanged"
-              :isCollapsed="isCollapsed"
-              :currentPage="currentPage"
-            />
+            <BaseExplorer v-bind="{ isThemeChanged, isCollapsed, currentPage }" />
           </template>
 
           <BaseMain
-            :isThemeChanged="isThemeChanged"
-            :isCollapsed="isCollapsed"
-            :isOpenExplorer="isOpenExplorer"
+            v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }"
             @collapse-parts="collapseParts"
             @close-editor="closeEditor"
           >
@@ -38,10 +30,7 @@
           </BaseMain>
         </div>
 
-        <BaseFooter
-          :isThemeChanged="isThemeChanged"
-          :isCollapsed="isCollapsed"
-        />
+        <BaseFooter v-bind="{ isThemeChanged, isCollapsed }" />
       </div>
     </template>
   </transition>

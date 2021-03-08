@@ -2,16 +2,16 @@
   <main
     :class="[
       $style.code,
-      isThemeChanged ? $style['code--theme-changed'] : '',
-      isCollapsed ? $style['code--collapsed']: '',
-      !isOpenExplorer ? $style['code--close-explorer']: ''
+      isThemeChanged && $style['code--theme-changed'],
+      isCollapsed && $style['code--collapsed'],
+      !isOpenExplorer && $style['code--close-explorer']
     ]"
     @animationend="closeEditor"
   >
     <div
       :class="[
         $style.code__tag,
-        isThemeChanged ? $style['code__tag--theme-changed']: ''
+        isThemeChanged && $style['code__tag--theme-changed']
       ]"
     >
       <fa
@@ -28,7 +28,7 @@
     <div
       :class="[
         $style.code__field,
-        isThemeChanged ? $style['code__field--theme-changed']: ''
+        isThemeChanged && $style['code__field--theme-changed']
       ]"
     >
       <slot />
@@ -134,7 +134,6 @@ export default defineComponent({
   }
 } // .code
 
-// メディアクエリ
 @include media-query($bp-mobile) {
   .code {
     width: calc(100% - 9rem);

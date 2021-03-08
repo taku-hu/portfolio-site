@@ -203,7 +203,6 @@ export default defineComponent({
   }
 } // .about
 
-// メディアクエリ
 @include media-query($bp-tablet) {
   .about {
     &__wrapper {

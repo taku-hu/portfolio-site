@@ -1,8 +1,8 @@
 <template>
   <div :class="[
       $style.explorer,
-      isThemeChanged ? $style['explorer--theme-changed'] : '',
-      isCollapsed ? $style['explorer--collapsed'] : ''
+      isThemeChanged && $style['explorer--theme-changed'],
+      isCollapsed && $style['explorer--collapsed']
     ]"
   >
     <div :class="$style.explorer__heading">EXPLORER</div>
@@ -15,8 +15,8 @@
       <div
         :class="[
           $style.accordion__label,
-          accordion.isOpen ? $style['accordion__label--opened'] : '',
-          isThemeChanged ? $style['accordion__label--theme-changed'] : ''
+          accordion.isOpen && $style['accordion__label--opened'],
+          isThemeChanged && $style['accordion__label--theme-changed']
         ]"
         @click="toggleAccordion(accordion)"
       >
@@ -24,7 +24,7 @@
           :icon="icons.faAngleDown"
           :class="[
             $style.accordion__icon,
-            !accordion.isOpen ? $style['accordion__icon--close'] : ''
+            !accordion.isOpen && $style['accordion__icon--close']
           ]"
         />
         {{ accordion.labelName }}
@@ -33,7 +33,8 @@
         <a
           :class="[
             $style.accordion__links,
-            (path.name === currentPage) ? $style['accordion__links--active'] : ''
+            (path.name === currentPage) && $style['accordion__links--active'],
+            (path.name === currentPage) && isThemeChanged && $style['accordion__links--active-changed']
           ]"
           v-for="path in accordion.paths"
           :key="path.name"
@@ -215,10 +216,15 @@ export default defineComponent({
         background-color: #313341;
       }
       &--active {
-        background-color: #44475a;
+        background-color: #313341;
+      }
+      &--changed {
         &:hover {
-          background-color: #44475a;
+          background-color: #37373D;
         }
+      }
+      &--active-changed {
+        background-color: #37373D;
       }
     } // __links
   } // .accordion

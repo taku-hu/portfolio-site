@@ -74,17 +74,17 @@ export default defineComponent({
         description: 'Vueの理解を深めるために作ったタイピングゲームです。\nJavaScript自体の理解も深めたいと思い、あえてフルスクラッチでより多くのコードを書きました。'
       }
     ])
-    type WorkType = typeof works.value[number]
+    type Work = typeof works.value[number]
 
     const modal = reactive({
-      data: {} as WorkType,
+      data: {} as Work,
       isActive: false
     })
-    const openModal = (work: WorkType) => {
+    const openModal = (work: Work) => {
       modal.data = work
       modal.isActive = true
     }
-    const closeModal = () => { modal.isActive = false }
+    const closeModal = () => modal.isActive = false
 
     return {
       works,
@@ -185,7 +185,6 @@ export default defineComponent({
   }
 } // .works
 
-// メディアクエリ
 @include media-query($bp-tablet) {
   .works {
     &__heading {

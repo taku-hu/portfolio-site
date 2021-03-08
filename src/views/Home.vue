@@ -2,7 +2,7 @@
   <section :class="$style.home">
     <div :class="[
       $style.home__lines,
-      isThemeChanged ? $style['home__lines--theme-changed'] : ''
+      isThemeChanged && $style['home__lines--theme-changed']
     ]">
       <p
         :class="$style.home__line"
@@ -60,13 +60,7 @@ me.getAge(1993);
 
 console.log('Nice to meet you!');
     `).value)
-    const typingCode = () => {
-      [...styledCode.value].forEach((character, index) => {
-        setTimeout(() => {
-          displayCode.value += character
-        }, ++index * 10)
-      })
-    }
+    const typingCode = () => [...styledCode.value].forEach((character, index) => setTimeout(() => displayCode.value += character, ++index * 10))
 
     nextTick(typingCode)
 

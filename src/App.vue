@@ -4,30 +4,22 @@
       <div
         :class="[
           $style.wrapper,
-          isCollapsed ? $style['wrapper--collapsed'] : ''
+          isCollapsed && $style['wrapper--collapsed']
         ]
         ">
         <div :class="$style['innner-wrapper']">
           <BaseLeftbar
-            :isThemeChanged="isThemeChanged"
-            :isCollapsed="isCollapsed"
-            :isOpenExplorer="isOpenExplorer"
+            v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }"
             @change-theme="changeTheme"
             @toggle-explorer="toggleExplorer"
           />
 
           <template v-if="isOpenExplorer">
-            <BaseExplorer
-              :isThemeChanged="isThemeChanged"
-              :isCollapsed="isCollapsed"
-              :currentPage="currentPage"
-            />
+            <BaseExplorer v-bind="{ isThemeChanged, isCollapsed, currentPage }" />
           </template>
 
           <BaseMain
-            :isThemeChanged="isThemeChanged"
-            :isCollapsed="isCollapsed"
-            :isOpenExplorer="isOpenExplorer"
+            v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }"
             @collapse-parts="collapseParts"
             @close-editor="closeEditor"
           >
@@ -38,10 +30,7 @@
           </BaseMain>
         </div>
 
-        <BaseFooter
-          :isThemeChanged="isThemeChanged"
-          :isCollapsed="isCollapsed"
-        />
+        <BaseFooter v-bind="{ isThemeChanged, isCollapsed }" />
       </div>
     </template>
   </transition>
@@ -100,9 +89,8 @@ export default defineComponent({
       }
     }
     const isCloseEditor = ref(false)
-    const closeEditor = () => {
-      isCloseEditor.value = true
-    }
+    const closeEditor = () => isCloseEditor.value = true
+
     const openEditor = () => {
       isCollapsed.value = false
       isCloseEditor.value = false
@@ -110,9 +98,7 @@ export default defineComponent({
     }
 
     const isOpenExplorer = ref(true)
-    const toggleExplorer = () => {
-      isOpenExplorer.value = !isOpenExplorer.value
-    }
+    const toggleExplorer = () => isOpenExplorer.value = !isOpenExplorer.value
 
     return {
       currentPage,
@@ -255,7 +241,6 @@ a {
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
-// メディアクエリ
 @include media-query($bp-mobile) {
   .code {
     width: calc(100% - 9rem);

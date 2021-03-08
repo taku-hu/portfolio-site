@@ -149,7 +149,6 @@ export default defineComponent({
   }
 } // .skills
 
-// メディアクエリ
 @include media-query($bp-tablet) {
   .skills {
     &__wrapper {

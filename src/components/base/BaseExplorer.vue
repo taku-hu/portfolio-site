@@ -9,7 +9,7 @@
 
     <div
       :class="$style.accordion"
-      v-for="accordion in accordions"
+      v-for="(accordion, index) in accordions"
       :key="accordion.labelName"
     >
       <div
@@ -18,7 +18,7 @@
           accordion.isOpen && $style['accordion__label--opened'],
           isThemeChanged && $style['accordion__label--theme-changed']
         ]"
-        @click="toggleAccordion(accordion)"
+        @click="toggleAccordion(index)"
       >
         <fa
           :icon="icons.faAngleDown"
@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue'
+import { defineComponent, reactive, toRefs, computed } from 'vue'
 import { faBlog, faHome, faAddressCard, faWrench, faBriefcase, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faVuejs, faQuora } from '@fortawesome/free-brands-svg-icons'
 import router from '@/router'
@@ -131,11 +131,9 @@ export default defineComponent({
 
     const icons = computed(() => ({ faAngleDown }))
 
-    const toggleAccordion = ({ labelName }: AccordionItem) => {
-      const selected = accordions.find(accordion => accordion.labelName === labelName)
-      if (selected) {
-        selected.isOpen = !selected.isOpen
-      }
+    const toggleAccordion = (targetIndex: number) => {
+      const { isOpen } = toRefs(accordions[targetIndex])
+      isOpen.value = !isOpen.value
     }
 
     const transitionPage = ({ labelName }: AccordionItem, { link }: AccordionItemPath) => {

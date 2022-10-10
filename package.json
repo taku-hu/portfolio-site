@@ -6,13 +6,25 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "start": "vite preview",
     "test": "yarn jest"
   },
   "dependencies": {
-    "vue": "^3.2.37"
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-brands-svg-icons": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
+    "add": "^2.0.6",
+    "reset-css": "^5.0.1",
+    "typeface-open-sans": "^1.1.13",
+    "typeface-orbitron": "^1.1.13",
+    "vue": "^3.2.37",
+    "vue-router": "4",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
+    "@types/highlight.js": "^10.1.0",
     "@types/jest": "^29.1.1",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
@@ -29,6 +41,7 @@
     "jest-environment-jsdom": "^29.1.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "sass": "^1.55.0",
     "ts-jest": "^29.0.3",
     "typescript": "^4.6.4",
     "vite": "^3.1.0",

@@ -1,85 +1,16 @@
-<div class="image">
-  <p align="center">
-    <a href="https://taku-hu.web.app">
-      <img src="https://user-images.githubusercontent.com/54551190/103175567-2b20a080-48ae-11eb-8a0d-6b185839e636.png" width="300">
-    </a>
-  </p>
-  <br>
-  <p align="center">
-    <a href="https://taku-hu.web.app" target="_blank">
-      https://taku-hu.web.app
-    </a>
-  </p>
-</div>
+# Vue 3 + TypeScript + Vite
 
-<br>
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-<!-- ---------- -->
+## Recommended IDE Setup
 
-<div class="detail">
-  <h1>My Portfolio Site</h1>
-  <div class="detail__logo">
-    <p align="center">
-      <img src="https://user-images.githubusercontent.com/54551190/72274679-f3eeba80-366f-11ea-8a30-c0f0515e4b51.png" height="30">
-      &nbsp;
-      <img src="https://user-images.githubusercontent.com/54551190/72273781-52b33480-366e-11ea-9de0-5019e1223755.png" height="30">
-    </p>
-  </div>
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-  <br>
+## Type Support For `.vue` Imports in TS
 
-  <div class="detail__description">
-  <p>
-    Vue.jsで作った私のポートフォリオサイトです。<br>
-    サイト内のものはほぼ全てフルスクラッチで実装しました。
-  </p>
-  <p>良ければWORKSページ内に載せている他のポートフォリオもご覧下さい。</p>
-  </div>
+Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
 
-  <br>
+1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
+2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
-  <div class="detail__device">
-    <h2 align="center">--Responsive Web Design--</h2>
-    <p align="center">タブレット・モバイル端末にも対応しています。</p>
-    <p align="center">
-      <img src="https://user-images.githubusercontent.com/54551190/103175569-2cea6400-48ae-11eb-8448-fc005b9f5848.png" height="300">
-      &nbsp;
-      <img src="https://user-images.githubusercontent.com/54551190/103175562-2956dd00-48ae-11eb-919b-e66f88be7c1c.png" height="300">
-    </p>
-  </div>
-</div>
-
-<br>
-
-<!-- ---------- -->
-
-<div class="url">
-  <h1>URL</h1>
-  <a href="https://taku-hu.web.app/" target="_blank">
-    https://taku-hu.web.app/  </a>
-</div>
-
-<br>
-
-<!-- ---------- -->
-
-<div class="author">
-  <h1>Author</h1> 
-  <ul>
-    <li>
-      <a href="https://taku-hu.web.app/" target="_blank">Website</a>
-    </li>
-    <li>
-      <a href="https://www.wantedly.com/users/124833407" target="_blank">Wantedly</a>
-    </li>
-    <li>
-      <a href="https://taku-hu.netlify.app/" target="_blank">Tech Blog</a>
-    </li>
-    <li>
-      <a href="https://github.com/taku-hu" target="_blank">GitHub</a>
-    </li>
-    <li>
-      <a href="https://qiita.com/taku-hu" target="_blank">Qiita</a>
-    </li>
-  </ul>
-</div>
+You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).

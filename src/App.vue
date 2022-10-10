@@ -1,120 +1,74 @@
 <template>
   <transition :enter-active-class="$style['animated-fadein']">
     <template v-if="!isCloseEditor">
-      <div
-        :class="[
-          $style.wrapper,
-          isCollapsed && $style['wrapper--collapsed']
-        ]
-        ">
+      <div :class="[$style.wrapper, isCollapsed && $style['wrapper--collapsed']]">
         <div :class="$style['innner-wrapper']">
-          <BaseLeftbar
-            v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }"
-            @change-theme="changeTheme"
-            @toggle-explorer="toggleExplorer"
-          />
+          <EditorLeftNav v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }" @handli-click-config-button="changeTheme" @handle-click-nav="toggleExplorer" />
 
           <template v-if="isOpenExplorer">
-            <BaseExplorer v-bind="{ isThemeChanged, isCollapsed, currentPage }" />
+            <EditorExplorer v-bind="{ isThemeChanged, isCollapsed, currentPage }" />
           </template>
 
-          <BaseMain
-            v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer }"
-            @collapse-parts="collapseParts"
-            @close-editor="closeEditor"
-          >
-            <router-view
-              :isThemeChanged="isThemeChanged"
-              @change-theme="changeTheme"
-            />
-          </BaseMain>
+          <EditorInputArea v-bind="{ isThemeChanged, isCollapsed, isOpenExplorer, currentPage }" @handle-click-close-tab="collapseParts" @handle-animation-end="closeEditor">
+            <router-view :is-theme-changed="isThemeChanged" @change-theme="changeTheme" />
+          </EditorInputArea>
         </div>
 
-        <BaseFooter v-bind="{ isThemeChanged, isCollapsed }" />
+        <EditorFooter v-bind="{ isThemeChanged, isCollapsed }" />
       </div>
     </template>
   </transition>
 
-  <BaseDesktop @open-editor="openEditor" />
+  <WindowsDesktop @open-editor="openEditor" />
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { faVuejs } from '@fortawesome/free-brands-svg-icons'
-import router from '@/router'
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-import BaseLeftbar from '@/components/base/BaseLeftbar.vue'
-import BaseExplorer from '@/components/base/BaseExplorer.vue'
-import BaseMain from '@/components/base/BaseMain.vue'
-import BaseFooter from '@/components/base/BaseFooter.vue'
-import BaseDesktop from '@/components/base/BaseDesktop.vue'
+import EditorExplorer from '@/components/organisms/EditorExplorer.vue'
+import EditorFooter from '@/components/organisms/EditorFooter.vue'
+import EditorInputArea from '@/components/organisms/EditorInputArea.vue'
+import EditorLeftNav from '@/components/organisms/EditorLeftNav.vue'
+import WindowsDesktop from '@/components/organisms/WindowsDesktop.vue'
 
-export default defineComponent({
-  components: {
-    BaseLeftbar,
-    BaseExplorer,
-    BaseMain,
-    BaseFooter,
-    BaseDesktop
-  },
-  setup () {
-    onMounted(() => {
-      const getInnerVh = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`)
+onMounted(() => {
+  const getInnerVh = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`)
 
-      getInnerVh()
-      document.addEventListener('resize', getInnerVh)
-    })
-
-    const currentPage = computed(() => router.currentRoute.value.name)
-
-    const icons = computed(() => ({
-      faVuejs,
-      faTimes
-    }))
-
-    const isThemeChanged = ref(false)
-    const changeTheme = () => {
-      const response = confirm('Change color theme?')
-      if (response) {
-        isThemeChanged.value = !isThemeChanged.value
-      }
-    }
-
-    const isCollapsed = ref(false)
-    const collapseParts = () => {
-      const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`)
-      if (response) {
-        isCollapsed.value = true
-      }
-    }
-    const isCloseEditor = ref(false)
-    const closeEditor = () => isCloseEditor.value = true
-
-    const openEditor = () => {
-      isCollapsed.value = false
-      isCloseEditor.value = false
-      router.push({ path: '/' })
-    }
-
-    const isOpenExplorer = ref(true)
-    const toggleExplorer = () => isOpenExplorer.value = !isOpenExplorer.value
-
-    return {
-      currentPage,
-      icons,
-      isCloseEditor,
-      isCollapsed,
-      collapseParts,
-      openEditor,
-      closeEditor,
-      isThemeChanged,
-      changeTheme,
-      isOpenExplorer,
-      toggleExplorer
-    }
-  }
+  getInnerVh()
+  document.addEventListener('resize', getInnerVh)
 })
+
+const router = useRouter()
+
+const currentPage = computed(() => [...String(router.currentRoute.value.name)].map((v, i) => (i === 0 ? v.toUpperCase() : v)).join(''))
+
+const isThemeChanged = ref(false)
+const changeTheme = () => {
+  const response = confirm('Change color theme?')
+  if (response) {
+    isThemeChanged.value = !isThemeChanged.value
+  }
+}
+
+const isCollapsed = ref(false)
+const collapseParts = () => {
+  const response = confirm(`Do you want to save the changes you made to ${String(currentPage.value)}.vue?`)
+  if (response) {
+    isCollapsed.value = true
+  }
+}
+
+const isCloseEditor = ref(false)
+const closeEditor = () => (isCloseEditor.value = true)
+const openEditor = () => {
+  isCollapsed.value = false
+  isCloseEditor.value = false
+  router.push({ path: '/' })
+}
+
+const isOpenExplorer = ref(true)
+const toggleExplorer = () => (isOpenExplorer.value = !isOpenExplorer.value)
 </script>
 
 <style>
@@ -122,8 +76,7 @@ html {
   font-size: calc(62.5% + 0.5vw);
 }
 body {
-  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ',
-    Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, sans-serif;
   color: #fff;
 }
 a {
@@ -140,8 +93,6 @@ a {
 </style>
 
 <style lang="scss" module>
-@import '@/assets/styles/_parts.scss';
-
 .wrapper {
   position: absolute;
   top: 0;

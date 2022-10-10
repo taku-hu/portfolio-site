@@ -1,30 +1,31 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
-import Skills from '@/views/Skills.vue'
-import Works from '@/views/Works.vue'
-import NotFound from '@/views/404.vue'
 
-const routes: Array<RouteRecordRaw> = [
+import NotFound from '@/components/pages/404Page.vue'
+import AboutPage from '@/components/pages/AboutPage.vue'
+import HomePage from '@/components/pages/HomePage.vue'
+import SkillPage from '@/components/pages/SkillPage.vue'
+import WorksPage from '@/components/pages/WorksPage.vue'
+
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'home',
+    component: HomePage
   },
   {
     path: '/about',
-    name: 'About',
-    component: About
+    name: 'about',
+    component: AboutPage
   },
   {
     path: '/skills',
-    name: 'Skills',
-    component: Skills
+    name: 'skills',
+    component: SkillPage
   },
   {
     path: '/works',
-    name: 'Works',
-    component: Works
+    name: 'works',
+    component: WorksPage
   },
   {
     path: '/:pathMatch(.*)*',
@@ -33,9 +34,7 @@ const routes: Array<RouteRecordRaw> = [
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+export const router = createRouter({
+  history: createWebHistory(),
   routes
 })
-
-export default router

@@ -39,7 +39,7 @@ import VsCodeLabel from '@/components/molecules/VsCodeLabel.vue'
     text-decoration: underline #fff;
     cursor: pointer;
   }
-} // .about
+}
 
 @include media-query($bp-tablet) {
   .error {

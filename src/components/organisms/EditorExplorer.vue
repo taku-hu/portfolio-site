@@ -14,7 +14,7 @@ type Props = {
 const props = defineProps<Props>()
 const { isThemeChanged, isCollapsed, currentPage } = toRefs(props)
 
-const accordions = reactive([
+const accordionItems = reactive([
   {
     labelName: 'OPEN EDITORS',
     isOpen: true,
@@ -77,13 +77,13 @@ const accordions = reactive([
   }
 ])
 
-type AccordionItem = typeof accordions[number]
+type AccordionItem = typeof accordionItems[number]
 type AccordionItemPath = AccordionItem['paths'][number]
 
 const icons = { faAngleDown }
 
 const handleClickAccordionPanel = ({ labelName }: AccordionItem) => {
-  const selected = accordions.find(accordion => accordion.labelName === labelName)
+  const selected = accordionItems.find(accordionItem => accordionItem.labelName === labelName)
   if (!selected) {
     return
   }
@@ -105,20 +105,20 @@ const handleClickAccordionLink = ({ labelName }: AccordionItem, { link }: Accord
   <div :class="[$style.explorer, isThemeChanged && $style['explorer--theme-changed'], isCollapsed && $style['explorer--collapsed']]">
     <div :class="$style.explorer__heading">EXPLORER</div>
 
-    <div v-for="accordion in accordions" :key="accordion.labelName" :class="$style.accordion">
+    <div v-for="accordionItem in accordionItems" :key="accordionItem.labelName" :class="$style.accordion">
       <div
-        :class="[$style.accordion__label, accordion.isOpen && $style['accordion__label--opened'], isThemeChanged && $style['accordion__label--theme-changed']]"
-        @click="handleClickAccordionPanel(accordion)"
+        :class="[$style.accordion__label, accordionItem.isOpen && $style['accordion__label--opened'], isThemeChanged && $style['accordion__label--theme-changed']]"
+        @click="handleClickAccordionPanel(accordionItem)"
       >
-        <FaIcon :icon="icons.faAngleDown" :class="[$style.accordion__icon, !accordion.isOpen && $style['accordion__icon--close']]" />
-        {{ accordion.labelName }}
+        <FaIcon :icon="icons.faAngleDown" :class="[$style.accordion__icon, !accordionItem.isOpen && $style['accordion__icon--close']]" />
+        {{ accordionItem.labelName }}
       </div>
-      <div v-show="accordion.isOpen" :class="$style.accordion__body">
+      <div v-show="accordionItem.isOpen" :class="$style.accordion__body">
         <a
-          v-for="path in accordion.paths"
+          v-for="path in accordionItem.paths"
           :key="path.name"
           :class="[$style.accordion__links, path.name === currentPage && $style['accordion__links--active'], path.name === currentPage && isThemeChanged && $style['accordion__links--active-changed']]"
-          @click="handleClickAccordionLink(accordion, path)"
+          @click="handleClickAccordionLink(accordionItem, path)"
         >
           <FaIcon :icon="path.icon" :style="{ color: path.color }" />
           {{ path.name }}
@@ -163,17 +163,17 @@ const handleClickAccordionLink = ({ labelName }: AccordionItem, { link }: Accord
       &--theme-changed {
         background-color: #383838;
       }
-    } // __label
+    }
     &__icon {
       transition: 0.2s;
       margin-right: 0.1rem;
       &--close {
         transform: rotate(-90deg);
       }
-    } // __icon
+    }
     &__body {
       font-size: 0.7rem;
-    } // __body
+    }
     &__links {
       @include button-sizing;
       display: block;
@@ -196,7 +196,7 @@ const handleClickAccordionLink = ({ labelName }: AccordionItem, { link }: Accord
       &--active-changed {
         background-color: #37373d;
       }
-    } // __links
-  } // .accordion
-} // .explorer
+    }
+  }
+}
 </style>

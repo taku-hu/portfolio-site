@@ -68,7 +68,9 @@ const openEditor = () => {
 }
 
 const isOpenExplorer = ref(true)
-const toggleExplorer = () => (isOpenExplorer.value = !isOpenExplorer.value)
+const toggleExplorer = () => {
+  isOpenExplorer.value = !isOpenExplorer.value
+}
 </script>
 
 <style>

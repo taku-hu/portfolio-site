@@ -24,12 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 import VsCodeHeader from '@/components/molecules/VsCodeHeader.vue'
 import VsCodeLabel from '@/components/molecules/VsCodeLabel.vue'
 
-const skills = computed(() => [
+const skills = [
   {
     name: 'HTML・CSS',
     details: '両方共に問題なく扱えます。\nBEM等のcss設計手法も理解しており、「flexbox」や「grid」を使いレスポンシブなコーディングをすることができます。'
@@ -80,7 +78,7 @@ const skills = computed(() => [
     name: 'webpack',
     details: '主要な機能を理解し、フロントエンドの開発環境の構築をする事が出来ます。'
   }
-])
+] as const
 </script>
 
 <style lang="scss" module>
@@ -122,7 +120,7 @@ const skills = computed(() => [
     padding-left: 1.8rem;
     margin-bottom: 0.8rem;
   }
-} // .skills
+}
 
 @include media-query($bp-tablet) {
   .skills {

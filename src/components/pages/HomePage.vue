@@ -1,53 +1,14 @@
 <script setup lang="ts">
-import hljs from 'highlight.js'
-import typescript from 'highlight.js/lib/languages/typescript'
-import { ref, computed, nextTick, toRefs } from 'vue'
-import 'highlight.js/scss/base16/dracula.scss'
-hljs.registerLanguage('typecript', typescript)
+import { toRefs } from 'vue'
 
-type Props = {
-  isThemeChanged: boolean
-}
+import { useTypingCode } from '@/hooks/useTypingCode'
 
-const props = defineProps<Props>()
+import { PageProps } from '@/types/props'
+const props = defineProps<PageProps>()
 
 const { isThemeChanged } = toRefs(props)
-const displayCode = ref('')
 
-const styledCode = computed(
-  () =>
-    hljs.highlightAuto(`// Thank you for visiting.
-// This is my portfolio site.
-
-console.log('Hello Hackers!');
-
-class Profile {
-  private age?: number;
-  constructor (readonly name: string, readonly gender: 'male' | 'female') {}
-
-  getAge (this: Profile, birthYear: number) {
-    const now = new Date();
-    const thisYear = now.getFullYear();
-
-    this.age = thisYear - birthYear;
-
-    console.log(\`I am \${this.age} years old.\`)
-  }
-}
-
-const me = new Profile(
-  'Takeuchi Takuto',
-  'male'
-);
-
-me.getAge(1993);
-
-console.log('Nice to meet you!');
-    `).value
-)
-const typingCode = () => [...styledCode.value].forEach((character, index) => setTimeout(() => (displayCode.value += character), ++index * 10))
-
-nextTick(typingCode)
+const { displayCode } = useTypingCode()
 </script>
 
 <template>
@@ -57,6 +18,7 @@ nextTick(typingCode)
         {{ n }}
       </p>
     </div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <code :class="$style.home__code" v-html="displayCode"></code>
   </section>
 </template>
@@ -83,5 +45,5 @@ nextTick(typingCode)
     overflow: auto;
     white-space: pre;
   }
-} // .home
+}
 </style>

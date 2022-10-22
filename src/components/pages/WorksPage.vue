@@ -37,11 +37,21 @@ const modal = reactive({
   data: {} as Work,
   isActive: false
 })
-const openModal = (work: Work) => {
-  modal.data = work
-  modal.isActive = true
+
+const toggleModal = (isOpen: boolean) => {
+  modal.isActive = isOpen
 }
-const closeModal = () => (modal.isActive = false)
+
+const handleClickPortfolioImage = (work: Work) => {
+  if (work) {
+    modal.data = work
+  }
+  toggleModal(true)
+}
+
+const handleClickOverlay = () => {
+  toggleModal(false)
+}
 </script>
 
 <template>
@@ -51,12 +61,12 @@ const closeModal = () => (modal.isActive = false)
     <div :class="$style.works__wrapper">
       <div v-for="work in works" :key="work.name" :class="$style.work">
         <h2 :class="$style.work__name">{{ work.name }}</h2>
-        <img :class="$style.work__image" :src="`/images/${work.image}.png`" @click="openModal(work)" />
+        <img :class="$style.work__image" :src="`/images/${work.image}.png`" @click="handleClickPortfolioImage(work)" />
       </div>
     </div>
 
     <div v-if="modal.isActive" :class="$style.modal">
-      <div :class="$style.modal__overlay" @click="closeModal">
+      <div :class="$style.modal__overlay" @click="handleClickOverlay">
         <div :class="$style.modal__contents" @click.stop>
           <h3 :class="$style.modal__title">{{ modal.data.name }}</h3>
           <div :class="$style['modal__inner-wrapper']">
@@ -158,7 +168,7 @@ const closeModal = () => (modal.isActive = false)
       margin: 0 auto;
     }
   }
-} // .works
+}
 
 @include media-query($bp-tablet) {
   .works {

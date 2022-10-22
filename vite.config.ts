@@ -1,8 +1,9 @@
 import path from 'path'
 
-import vue from '@vitejs/plugin-vue'
+import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import VueTypeImports from 'vite-plugin-vue-type-imports'
+import TsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   server: {
@@ -14,7 +15,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  plugins: [vue(), tsconfigPaths()],
+  plugins: [Vue(), VueTypeImports(), TsconfigPaths()],
   css: {
     preprocessorOptions: {
       scss: { additionalData: '@import "@/styles/_utils";' }

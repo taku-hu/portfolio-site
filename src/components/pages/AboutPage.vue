@@ -1,60 +1,14 @@
-<template>
-  <section :class="$style.about">
-    <div :class="$style.about__wrapper">
-      <VsCodeHeader> {{ now.month }} {{ now.day }}{{ suffix }} {{ now.year }} version </VsCodeHeader>
-      <p :class="$style.about__sentence">
-        Welcome to the {{ now.month }} {{ now.day }}{{ suffix }} {{ now.year }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key
-        highlights include:
-      </p>
-      <ul :class="$style.about__list">
-        <li v-for="data in profileData" :key="data.title">
-          <span :class="$style.about__marker">{{ data.title }}</span>
-          &nbsp;-&nbsp;
-          <template v-if="data.link">
-            <a :class="$style.about__link" :href="data.link" target="_blank">
-              <FaIcon :icon="icons.faMousePointer" />
-              {{ data.information }}
-            </a>
-          </template>
-          <template v-else>
-            {{ data.information }}
-          </template>
-        </li>
-      </ul>
-      <VsCodeLabel>
-        If you'd like to know more about me go to
-        <a :class="$style['about__clickable-marker']" href="https://www.wantedly.com/users/124833407" target="_blank"> Profile </a>
-        on
-        <a :class="$style['about__clickable-marker']" href="https://github.com/taku-hu" target="_blank"> GitHub </a>
-      </VsCodeLabel>
-      <h3 :class="$style.about__subheading">
-        New feature of {{ now.month }} {{ now.day }}{{ suffix }}
-        {{ now.year }}
-      </h3>
-      <ul :class="$style.about__list">
-        <li>
-          <span :class="$style['about__clickable-marker']" @click="changeTheme"> Change color theme </span>
-          &nbsp;-&nbsp; By clicking the gear icon in the lower left, you can change the color theme of the site.
-        </li>
-      </ul>
-    </div>
-  </section>
-</template>
-
 <script setup lang="ts">
 import { faMousePointer } from '@fortawesome/free-solid-svg-icons'
-import { computed } from 'vue'
 
 import VsCodeHeader from '@/components/molecules/VsCodeHeader.vue'
 import VsCodeLabel from '@/components/molecules/VsCodeLabel.vue'
 
-type Emits = {
-  (e: 'changeTheme'): void
-}
+import { PageEmits } from '@/types/props'
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<PageEmits>()
 
-const profileData = computed(() => [
+const profileData = [
   {
     title: 'Name',
     information: 'Takeuchi Takuto'
@@ -82,32 +36,75 @@ const profileData = computed(() => [
     title: 'Contact',
     information: 'hs.tm.ec.a.tt@gmail.com'
   }
-])
+]
 
-const icons = computed(() => ({ faMousePointer }))
+const icons = { faMousePointer } as const
 
 const monthNames = ['Janualy', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const date = new Date()
-const now = computed(() => ({
-  year: date.getFullYear(),
-  month: monthNames[date.getMonth()],
-  day: date.getDate()
-}))
-const suffix = computed(() => {
-  const date = now.value.day
-  if ([1, 21, 31].includes(date)) {
-    return 'st'
-  } else if ([2, 22].includes(date)) {
-    return 'nd'
-  } else if ([3, 23].includes(date)) {
-    return 'rd'
-  } else {
-    return 'th'
-  }
-})
+const nowDateString = (() => {
+  const now = {
+    year: date.getFullYear(),
+    month: monthNames[date.getMonth()],
+    day: date.getDate()
+  } as const
+  const isTargetsDate = (...targetDates: number[]) => targetDates.includes(now.day)
+  const suffix = (() => {
+    if (isTargetsDate(1, 21, 31)) {
+      return 'st'
+    } else if (isTargetsDate(2, 22)) {
+      return 'nd'
+    } else if (isTargetsDate(3, 23)) {
+      return 'rd'
+    } else {
+      return 'th'
+    }
+  })()
 
-const changeTheme = () => emit('changeTheme')
+  return `${now.month} ${now.day}${suffix} ${now.year}`
+})()
+
+const handleClickFeatureTitle = () => emit('changeTheme')
 </script>
+
+<template>
+  <section :class="$style.about">
+    <div :class="$style.about__wrapper">
+      <VsCodeHeader>{{ nowDateString }} version</VsCodeHeader>
+      <p :class="$style.about__sentence">
+        Welcome to the {{ nowDateString }} release of My Portfolio Site. There are a lot of information in this version that we hope you will like, some of the key highlights include:
+      </p>
+      <ul :class="$style.about__list">
+        <li v-for="{ title, link, information } in profileData" :key="title">
+          <span :class="$style.about__marker">{{ title }}</span>
+          &nbsp;-&nbsp;
+          <template v-if="link">
+            <a :class="$style.about__link" :href="link" target="_blank">
+              <FaIcon :icon="icons.faMousePointer" />
+              {{ information }}
+            </a>
+          </template>
+          <template v-else>
+            {{ information }}
+          </template>
+        </li>
+      </ul>
+      <VsCodeLabel>
+        If you'd like to know more about me go to
+        <a :class="$style['about__clickable-marker']" href="https://www.wantedly.com/users/124833407" target="_blank"> Profile </a>
+        on
+        <a :class="$style['about__clickable-marker']" href="https://github.com/taku-hu" target="_blank"> GitHub </a>
+      </VsCodeLabel>
+      <h3 :class="$style.about__subheading">New feature of {{ nowDateString }}</h3>
+      <ul :class="$style.about__list">
+        <li>
+          <span :class="$style['about__clickable-marker']" @click="handleClickFeatureTitle"> Change color theme </span>
+          &nbsp;-&nbsp; By clicking the gear icon in the lower left, you can change the color theme of the site.
+        </li>
+      </ul>
+    </div>
+  </section>
+</template>
 
 <style lang="scss" module>
 .about {
@@ -150,7 +147,7 @@ const changeTheme = () => emit('changeTheme')
     font-size: 2rem;
     margin-bottom: 1.5rem;
   }
-} // .about
+}
 
 @include media-query($bp-tablet) {
   .about {

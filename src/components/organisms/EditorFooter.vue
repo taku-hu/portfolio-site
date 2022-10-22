@@ -20,7 +20,7 @@ const icons = {
   faBell
 } as const
 
-const colorTheme = isThemeChanged.value ? 'Dark(Visual Studio)' : 'Dracula'
+const colorThemeName = isThemeChanged.value ? 'Dark(Visual Studio)' : 'Dracula'
 </script>
 
 <template>
@@ -46,7 +46,7 @@ const colorTheme = isThemeChanged.value ? 'Dark(Visual Studio)' : 'Dracula'
     </div>
 
     <div :class="$style.footer__right">
-      <span :class="$style.footer__items"> Theme: {{ colorTheme }} </span>
+      <span :class="$style.footer__items"> Theme: {{ colorThemeName }} </span>
       <span :class="$style.footer__items">UTF-8</span>
       <span :class="$style.footer__items">CRLF</span>
       <span :class="$style.footer__items">TypeScript</span>

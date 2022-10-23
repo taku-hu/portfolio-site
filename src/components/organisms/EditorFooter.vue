@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { faCodeBranch, faCloudUploadAlt, faTimesCircle, faExclamationTriangle, faTools, faChalkboardTeacher, faBell } from '@fortawesome/free-solid-svg-icons'
-import { toRefs } from 'vue'
+import { toRefs, computed } from 'vue'
 
 type Props = {
   isThemeChanged: boolean
@@ -20,7 +20,7 @@ const icons = {
   faBell
 } as const
 
-const colorThemeName = isThemeChanged.value ? 'Dark(Visual Studio)' : 'Dracula'
+const colorThemeName = computed(() => (isThemeChanged.value ? 'Dark(Visual Studio)' : 'Dracula'))
 </script>
 
 <template>

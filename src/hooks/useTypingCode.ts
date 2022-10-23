@@ -1,8 +1,6 @@
 import hljs from 'highlight.js'
-import typescript from 'highlight.js/lib/languages/typescript'
 import 'highlight.js/scss/base16/dracula.scss'
-import { nextTick, ref } from 'vue'
-hljs.registerLanguage('typecript', typescript)
+import { ref } from 'vue'
 
 const styledCode = hljs.highlightAuto(`// Thank you for visiting.
 // This is my portfolio site.
@@ -34,25 +32,22 @@ console.log('Nice to meet you!');
     `).value
 
 export const useTypingCode = () => {
-  const displayCode = ref('')
+  const typedCode = ref('')
 
-  const typingCode = async () =>
+  const startTyping = async () =>
     await Promise.all(
       [...styledCode].map((character, index) => {
         return new Promise(resolve => {
           setTimeout(() => {
-            displayCode.value += character
+            typedCode.value += character
             resolve(character)
           }, ++index * 10)
         })
       })
     )
 
-  nextTick(async () => {
-    await typingCode()
-  })
-
   return {
-    displayCode
+    typedCode,
+    startTyping
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
+import { nextTick, toRefs } from 'vue'
 
 import { useTypingCode } from '@/hooks/useTypingCode'
 
@@ -8,7 +8,9 @@ const props = defineProps<PageProps>()
 
 const { isThemeChanged } = toRefs(props)
 
-const { displayCode } = useTypingCode()
+const { typedCode, startTyping } = useTypingCode()
+
+nextTick(startTyping)
 </script>
 
 <template>
@@ -19,7 +21,7 @@ const { displayCode } = useTypingCode()
       </p>
     </div>
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <code :class="$style.home__code" v-html="displayCode"></code>
+    <code :class="$style.home__code" v-html="typedCode"></code>
   </section>
 </template>
 

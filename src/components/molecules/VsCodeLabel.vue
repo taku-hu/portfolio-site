@@ -1,11 +1,11 @@
 <template>
-  <div :class="$style['common-label']">
+  <div :class="$style['vscode-label']">
     <slot></slot>
   </div>
 </template>
 
 <style lang="scss" module>
-.common-label {
+.vscode-label {
   width: 100%;
   font-size: 1rem;
   background-color: #31333d;

@@ -4,6 +4,7 @@ import { nextTick, toRefs } from 'vue'
 import { useTypingCode } from '@/hooks/useTypingCode'
 
 import { PageProps } from '@/types/props'
+
 const props = defineProps<PageProps>()
 
 const { isThemeChanged } = toRefs(props)

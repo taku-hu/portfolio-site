@@ -15,13 +15,11 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
-    "add": "^2.0.6",
     "reset-css": "^5.0.1",
     "typeface-open-sans": "^1.1.13",
     "typeface-orbitron": "^1.1.13",
-    "vue": "^3.2.37",
-    "vue-router": "4",
-    "yarn": "^1.22.19"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@types/highlight.js": "^10.1.0",
@@ -44,9 +42,9 @@
     "sass": "^1.55.0",
     "ts-jest": "^29.0.3",
     "typescript": "^4.6.4",
-    "vite": "^3.1.0",
+    "vite": "^3.2.3",
     "vite-plugin-vue-type-imports": "^0.2.4",
-    "vite-tsconfig-paths": "^3.5.1",
-    "vue-tsc": "^0.40.4"
+    "vite-tsconfig-paths": "^3.5.2",
+    "vue-tsc": "^1.0.9"
   }
 }

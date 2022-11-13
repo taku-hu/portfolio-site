@@ -15,7 +15,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-  plugins: [Vue(), VueTypeImports(), TsconfigPaths()],
+  plugins: [Vue(), TsconfigPaths(), VueTypeImports()],
   css: {
     preprocessorOptions: {
       scss: { additionalData: '@import "@/styles/_utils";' }
